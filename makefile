@@ -6,13 +6,11 @@ all:
 	
 run:
 	cd logi-bone-setup && sudo ./setup.sh
-	cd node-app && sudo node app.js
-		
+	cd node-app && sudo node app.js	
 
 install: \
 	install-tools \
 	install-software \
-	install-node \
 	install-node-modules \
 	update-timezone
 
@@ -23,9 +21,6 @@ install-tools:
 	sudo apt-get install -y libmagick++-dev
 	sudo apt-get install -y curl
 	sudo apt-get install -y python-imaging
-
-install-node:
-	curl -sL https://deb.nodesource.com/setup | sudo bash -
 	sudo apt-get install -y nodejs
 
 install-node-modules:
@@ -34,10 +29,8 @@ install-node-modules:
 install-software:
 	$(MAKE) -C software
 
-
 update-kernel:
-	cd /opt/scripts/tools && sudo ./update_kernel.sh
-	sudo reboot
+	cd /opt/scripts/tools && sudo ./update_kernel.sh && sudo reboot
 
 update-timezone:
 	sudo timedatectl set-timezone Europe/Stockholm
