@@ -17,6 +17,7 @@ install-tools:
 	sudo apt-get install -y build-essential
 	sudo apt-get install -y libmagick++-dev
 	sudo apt-get install -y curl
+	sudo apt-get install -y python-imaging
 
 install-node:
 	curl -sL https://deb.nodesource.com/setup | sudo bash -
