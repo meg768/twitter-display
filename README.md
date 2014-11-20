@@ -4,6 +4,8 @@
 ????????????
 http://valentfx.com/vanilla/discussion/64/logi-loader-and-dd-throwing-inappropriate-ioctl-when-pushing-bitfile-to-dev-logibone
 
+????
+https://github.com/pvaret/rtl8192cu-fixes
 
 
 Set up wifi

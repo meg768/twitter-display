@@ -1,6 +1,6 @@
 BEAGLEBONE_IP   = 10.0.1.58
 BEAGLEBONE_USER = ubuntu
-BEAGLEBONE_PATH = TwitterBox
+BEAGLEBONE_PATH = twitter-box
 
 all: 
 	
@@ -16,12 +16,7 @@ install: \
 
 install-tools:
 	sudo apt-get update
-	sudo apt-get install -y git
-	sudo apt-get install -y build-essential
-	sudo apt-get install -y libmagick++-dev
-	sudo apt-get install -y curl
-	sudo apt-get install -y python-imaging
-	sudo apt-get install -y nodejs
+	sudo apt-get install -y git build-essential libmagick++-dev curl python-imaging nodejs
 
 install-node-modules:
 	$(MAKE) -C node-app
@@ -59,3 +54,4 @@ commit:
 	git add -A
 	git commit -m "..."
 	git push -u origin master
+	
