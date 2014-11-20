@@ -1,0 +1,11 @@
+http://embraceubuntu.com/2005/09/07/adding-a-startup-script-to-be-run-at-bootup/
+
+-create a led_startup.sh script and add:
+#! /bin/bash
+
+cd /home/ubuntu/led_demo
+./make_led_demo.sh
+- place a led_startup.sh script in the /etc/init.d directory that calls the led demo script.
+- make executable "chmod +x led_startup.sh"
+- run "update-rc.d led_startup.sh defaults"
+- restart

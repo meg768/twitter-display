@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:globals.h">
+   </FileRef>
+   <FileRef
+      location = "group:makefile">
+   </FileRef>
+   <FileRef
+      location = "group:run-animation.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:run-circle.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:run-clock.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:run-hue-block.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:run-image.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:run-life.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:run-perlin.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:run-rgb.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:run-static.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:run-test.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:run-text.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:run-text.py">
+   </FileRef>
+   <FileRef
+      location = "group:run-twinkle.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:run-wash.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:run-wipe.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:Workspace.xcworkspace">
+   </FileRef>
+</Workspace>
