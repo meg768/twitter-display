@@ -18,29 +18,35 @@ to DC power. Otherwise it will fail.
 Download the image 'logibone_r1_ubuntu_v4.img' and create an SD card with this image. 
 This is where I found it http://valentfx.com/doc/logi-image/logibone as of 2014-11-20.
 
+edit the uEnv.txt on the BOOT partition.
 
-
-Change this:
-	optargs=capemgr.disable_partno=BB-BONELT-HDMI,BB-BONE-EMMC-2G
-
-to this:
-	optargs=capemgr.disable_partno=BB-BONELT-HDMI,BB-BONE-EMMC-2G,BB-BONELT-HDMIN
+	Change this:
+		optargs=capemgr.disable_partno=BB-BONELT-HDMI,BB-BONE-EMMC-2G
 	
+	to this:
+		optargs=capemgr.disable_partno=BB-BONELT-HDMI,BB-BONE-EMMC-2G,BB-BONELT-HDMIN
+		
 
 Find the IP-address of the Beaglebone. Try out "LanScan" on the App-Store, it is free. In this README, it is 
 assumed to be 10.0.1.58.
 
 Start the Terminal on your Mac and type:
 
-$ ssh ubuntu@10.0.1.58
+	$ ssh ubuntu@10.0.1.58
 
 The password is "temppwd". Once logged in, type this:
 
-$ git clone https://github.com/meg768/twitter-display.git
-$ cd twitter-display
-$ make install
+	$ git clone https://github.com/meg768/twitter-display.git
+	$ cd twitter-display
+	$ make install
 
 This will take about 10 minutes. 
+
+If everything is OK, type
+
+	$ make run
+	
+Hopefully you will see something on the LED matrix... ;)
 
 
 
