@@ -24,7 +24,7 @@ install-node:
 	sudo apt-get install -y nodejs
 
 install-node-modules:
-	cd node-app && npm update
+	$(MAKE) -C node-app
 	
 install-software:
 	$(MAKE) -C software
