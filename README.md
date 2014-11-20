@@ -8,7 +8,7 @@
 
 
 Flash your Beaglebone Black with an image that boots from an SD-card if this is plugged in. This prevents
-you from holding the reset button down while booting. With the Beaglebone attached, this is quite difficult.
+you from holding the reset button down while booting. With the LOGI-Bone attached, this is quite difficult.
 
 See http://valentfx.com/vanilla/discussion/70/logi-image-sd-card-boot. I followed Ize's post
 from August 23, 2014 and it all worked.	Make sure to remove the LOGI-bone when doing this and connect
