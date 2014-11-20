@@ -34,6 +34,7 @@ update-kernel:
 	sudo reboot
 
 
+
 #
 #
 # Following commands are to be run from my Mac, not the Beaglebone
@@ -53,9 +54,6 @@ mount: /tmp/Beaglebone
 	sshfs $(BEAGLEBONE_USER)@$(BEAGLEBONE_IP):/ /tmp/Beaglebone
 
 commit:
-	git add --all
-	git commit -m "-"
+	git add -A
+	git commit -m "..."
 	git push
-
-kalle:
-	ls
