@@ -68,32 +68,11 @@ mount /dev/mmcblk0p1 /mnt/boot
 nano /mnt/boot/uEnv.txt
 
 <a href="http://valentfx.com/doc/logi-image/logibone/llogi-debian-jessie-console-armhf-140813-4G.zip">LOGI Bone Debian Image</a>
-TwitterBox
-==========
 
-As of 2014-11-20, this is under construction!!
-
-This is an attempt to connect a 32x32 LED display to twitter. Messages and images recieved on your 
-twitter account will be displayed on the 32x32 LED matrix display.
-
-This requires a Beaglebone Black connected to a LOGI-bone FPGA to assure the LED display will
-be flicker free.
-
-The display used is an AdaFruit 32x32 display.
 
 -----------
 Download Pi Filler here http://ivanx.com/raspberrypi
 
-
----------------
-Flash your Beaglebone Black with an image that boots from an SD-card if this is plugged in. 
-See http://valentfx.com/vanilla/discussion/70/logi-image-sd-card-boot. I followed Ize's post
-from August 23, 2014 and it all worked.	Make suere to remove the LOGI-bone when doing this and connect
-to DC power. Otherwise it will fail.
-
----------------
-
-Download the image 'LOGI-debian-jessie-console-armhf-140813.img' and create an SD card with this image.
 
 ----
 Edit the uEnv.txt file on the BOOT section of the SD card. 
