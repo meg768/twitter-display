@@ -1,5 +1,51 @@
-$ git clone https://github.com/meg768/twitter-display.git
+2014-11-20: Sorry for the mess! This is right now just my personal notes to get things working!
 
+/meg768
+
+
+----------------------------------------------------------------------------
+
+
+
+Flash your Beaglebone Black with an image that boots from an SD-card if this is plugged in. This prevents
+you from holding the reset button down while booting. With the Beaglebon attached, this is quite difficult.
+
+See http://valentfx.com/vanilla/discussion/70/logi-image-sd-card-boot. I followed Ize's post
+from August 23, 2014 and it all worked.	Make sure to remove the LOGI-bone when doing this and connect
+to DC power. Otherwise it will fail.
+
+
+Download the image 'logibone_r1_ubuntu_v4.img' and create an SD card with this image. 
+This is where I found it http://valentfx.com/doc/logi-image/logibone as of 2014-11-20.
+
+
+
+Change this:
+	optargs=capemgr.disable_partno=BB-BONELT-HDMI,BB-BONE-EMMC-2G
+
+to this:
+	optargs=capemgr.disable_partno=BB-BONELT-HDMI,BB-BONE-EMMC-2G,BB-BONELT-HDMIN
+	
+
+Find the IP-address of the Beaglebone. Try out "LanScan" on the App-Store, it is free. In this README, it is 
+assumed to be 10.0.1.58.
+
+Start the Terminal on your Mac and type:
+
+$ ssh ubuntu@10.0.1.58
+
+The password is "temppwd". Once logged in, type this:
+
+$ git clone https://github.com/meg768/twitter-display.git
+$ cd twitter-display
+$ make install
+
+This will take about 10 minutes. 
+
+
+
+--------------------------------------------------------
+The rest is scrabbled notes... :(
 
 
 ????????????

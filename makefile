@@ -16,7 +16,13 @@ install: \
 
 install-tools:
 	sudo apt-get update
-	sudo apt-get install -y git build-essential libmagick++-dev curl python-imaging nodejs
+	sudo apt-get install -y git
+	sudo apt-get install -y build-essential
+	sudo apt-get install -y libmagick++-dev
+	sudo apt-get install -y curl
+	sudo apt-get install -y python-imaging
+	curl -sL https://deb.nodesource.com/setup | sudo bash -
+	sudo apt-get install -y nodejs
 
 install-node-modules:
 	$(MAKE) -C node-app
