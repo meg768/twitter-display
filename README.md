@@ -18,13 +18,13 @@ to DC power. Otherwise it will fail.
 Download the image 'logibone_r1_ubuntu_v4.img' and create an SD card with this image. 
 This is where I found it http://valentfx.com/doc/logi-image/logibone as of 2014-11-20.
 
-edit the uEnv.txt on the BOOT partition.
+Edit the uEnv.txt on the BOOT partition.
 
 	Change this:
 		optargs=capemgr.disable_partno=BB-BONELT-HDMI,BB-BONE-EMMC-2G
 	
 	to this:
-		optargs=capemgr.disable_partno=BB-BONELT-HDMI,BB-BONE-EMMC-2G,BB-BONELT-HDMIN
+		optargs=capemgr.disable_partno=BB-BONELT-HDMI,BB-BONE-EMMC-2G,BB-BONELT-HDMIN,BB-BONE-LOGIBONE
 		
 
 Find the IP-address of the Beaglebone. Try out "LanScan" on the App-Store, it is free. In this README, it is 
