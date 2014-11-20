@@ -5,8 +5,12 @@
 http://valentfx.com/vanilla/discussion/64/logi-loader-and-dd-throwing-inappropriate-ioctl-when-pushing-bitfile-to-dev-logibone
 
 
+
 Set up wifi
 https://learn.adafruit.com/setting-up-wifi-with-beaglebone-black?view=all
+
+Set up wifi by changing drivers
+https://github.com/hephaestus9/Radio
 
 Edit uEnv
 

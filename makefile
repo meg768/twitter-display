@@ -9,7 +9,12 @@ run:
 	cd node-app && sudo node app.js
 		
 
-install: install-tools install-software install-node install-node-modules
+install: \
+	install-tools \
+	install-software \
+	install-node \
+	install-node-modules \
+	update-timezone
 
 install-tools:
 	sudo apt-get update
@@ -29,9 +34,13 @@ install-node-modules:
 install-software:
 	$(MAKE) -C software
 
+
 update-kernel:
 	cd /opt/scripts/tools && sudo ./update_kernel.sh
 	sudo reboot
+
+update-timezone:
+	sudo timedatectl set-timezone Europe/Stockholm
 
 
 
