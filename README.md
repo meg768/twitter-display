@@ -12,7 +12,7 @@ There is a tool "Pi Filler" that writes images to SD-cards. Download it http://i
 Download the image 'logi_ubuntu-14.04-console-armhf-2014-08-13.img' and create an SD card with this image. 
 This is where I found it http://valentfx.com/doc/logi-image/logibone as of 2014-11-20.
 
-The SD card now contains two partitions. On the BOOT partion there is a file named *bbb-uEnv.txt*. Rename this to uEnv.txt
+The SD card now contains two partitions. On the BOOT partion there is a file named **bbb-uEnv.txt**. Rename this to uEnv.txt
 and open it in a text editor and insert the following as the first line:
 
 	optargs=capemgr.disable_partno=BB-BONELT-HDMI,BB-BONE-EMMC-2G,BB-BONELT-HDMIN,BB-BONE-LOGIBONE
