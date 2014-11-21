@@ -14,16 +14,18 @@ See http://valentfx.com/vanilla/discussion/70/logi-image-sd-card-boot. I followe
 from August 23, 2014 and it all worked.	Make sure to remove the LOGI-bone when doing this and connect
 to DC power. Otherwise it will fail.
 
-Download the image 'logibone_r1_ubuntu_v4.img' and create an SD card with this image. 
+Download the image 'logi_ubuntu-14.04-console-armhf-2014-08-13.img' and create an SD card with this image. 
 This is where I found it http://valentfx.com/doc/logi-image/logibone as of 2014-11-20.
 
-Edit the uEnv.txt on the BOOT partition.
+The SD card now contains two partitions. On the BOOT partion there is a file named bbb-uEnv.txt. Rename this to uEnv.txt
+Edit the uEnv.txt on the BOOT partition. Also, edit the file and insert this as the first line.
+
+	optargs=capemgr.disable_partno=BB-BONELT-HDMI,BB-BONE-EMMC-2G,BB-BONELT-HDMIN,BB-BONE-LOGIBONE
 
 	Change this:
 		optargs=capemgr.disable_partno=BB-BONELT-HDMI,BB-BONE-EMMC-2G
 	
 	to this:
-		optargs=capemgr.disable_partno=BB-BONELT-HDMI,BB-BONE-EMMC-2G,BB-BONELT-HDMIN,BB-BONE-LOGIBONE
 		
 
 Find the IP-address of the Beaglebone. Try out "LanScan" on the App-Store, it is free. In this README, it is 
