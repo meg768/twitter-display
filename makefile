@@ -1,4 +1,5 @@
-X=00
+X=000
+Y = 0
 BEAGLEBONE_IP   = 10.0.1.61
 BEAGLEBONE_USER = ubuntu
 BEAGLEBONE_PATH = twitter-display
