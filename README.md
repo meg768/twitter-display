@@ -53,7 +53,6 @@ If everything is OK, type:
 	
 Hopefully you will see something on the LED matrix... ;)
 
-
 -----------------------------------------------------------------
 To make this run every time you boot the Beaglebone, edit the file **/etc/rc.local** 
 
@@ -61,12 +60,13 @@ To make this run every time you boot the Beaglebone, edit the file **/etc/rc.loc
 
 and type in
 
-	cd /home/ubuntu/twitter-display && make setup run
+	cd /home/ubuntu/twitter-display && sudo make setup run
 
 -----------------------------------------------------------------
 If you get tired of always logging in with a password with **ssh**, type this on your Mac:
 
-	$ ssh-keygen -t dsa && cat ~/.ssh/id_rsa.pub | ssh ubuntu@10.0.1.61 "mkdir ~/.ssh; cat >> ~/.ssh/authorized_keys"
+	$ cd
+	$ ssh-keygen -t dsa && cat ~/.ssh/id_rsa.pub | ssh ubuntu@10.0.1.58 "mkdir ~/.ssh; cat >> ~/.ssh/authorized_keys"
 
 Press enter untill you see the '$' prompt again. When asked for a password, type
 

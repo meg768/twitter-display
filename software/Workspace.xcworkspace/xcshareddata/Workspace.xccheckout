@@ -10,6 +10,8 @@
 	<string>Workspace</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>657EAA9A1638607838FDB517BABF04BB779D4750</key>
+		<string>https://github.com/meg768/twitter-display.git</string>
 		<key>75390E578CC4FA30D49BF698F3A28DF80408F5ED</key>
 		<string>https://github.com/meg768/TwitterBox.git</string>
 	</dict>
@@ -17,17 +19,27 @@
 	<string>software/Workspace.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>75390E578CC4FA30D49BF698F3A28DF80408F5ED</key>
+		<key>657EAA9A1638607838FDB517BABF04BB779D4750</key>
 		<string>../..</string>
+		<key>75390E578CC4FA30D49BF698F3A28DF80408F5ED</key>
+		<string>../../../TwitterBox</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/meg768/TwitterBox.git</string>
+	<string>https://github.com/meg768/twitter-display.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>75390E578CC4FA30D49BF698F3A28DF80408F5ED</string>
+	<string>657EAA9A1638607838FDB517BABF04BB779D4750</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>657EAA9A1638607838FDB517BABF04BB779D4750</string>
+			<key>IDESourceControlWCCName</key>
+			<string>twitter-display</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>

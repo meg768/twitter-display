@@ -59,16 +59,17 @@ static void *__matrix = 0;
 class LogiMatrix {
 	
 public:
-	LogiMatrix() {
+	LogiMatrix(int width = 32, int height = 32) {
 		__matrix = this;
 		
 		// Trap ctrl-c to call quit function
 		signal(SIGINT, LogiMatrix::quit);
 		signal(SIGKILL, LogiMatrix::quit);
 		
-		// Static for now
-		_width  = 32;
-		_height = 32;
+		_width  = width;
+		_height = height;
+		
+		_matrix new uint16_t[_width * _height];
 		
 		setGamma(0);
 		openDevice();
@@ -80,6 +81,8 @@ public:
 	
 	~LogiMatrix() {
 		closeDevice();
+		
+		delete [] _matrix;
 	}
 	
 	static void quit(int sig)
@@ -167,7 +170,7 @@ public:
 	inline void setPixel(int x, int y, uint16_t color) {
 		
 		if (x >= 0 && y >= 0 && x < _width && y < _height) {
-			_matrix[y][x] = color;
+			_matrix[y * _width + x] = color;
 		}
 	}
 	
@@ -179,7 +182,7 @@ public:
 			green = _gamma[green];
 			blue  = _gamma[blue];
 			
-			_matrix[y][x] = (red << 8) | (green << 4) | blue;
+			_matrix[y * _width + x] = (red << 8) | (green << 4) | blue;
 		}
 	}
 	
@@ -214,7 +217,7 @@ public:
 	}
 	
 	void fill(uint16_t *buffer) {
-		memcpy(_matrix, buffer, sizeof(_matrix));
+		memcpy(_matrix, buffer, sizeof(uint16_t) * _width * _height));
 	};
 	
 	void fill(uint8_t red, uint8_t green, uint8_t blue) {
@@ -229,7 +232,7 @@ public:
 	
 	void clear() {
 		// Clear display
-		memset(_matrix, 0, sizeof(_matrix));
+		fill(0);
 	}
 	
 	void refresh() {
@@ -242,10 +245,12 @@ public:
 		// Ping pong between buffers
 		writeToDevice(FPGA_PANEL_ADDR_REG, nBuffer == 0 ? 0x0000 : 0x0400);
 		
+		uint16_t *mp = _matrix;
+		
 		// Write entire screen buffer to device
 		for (int y = 0; y < _height; y++) {
 			for (int x = 0; x < _width; x++) {
-				writeToDevice(FPGA_PANEL_DATA_REG, _matrix[y][x]);
+				writeToDevice(FPGA_PANEL_DATA_REG, *mp++);
 			}
 		}
 		
@@ -273,7 +278,7 @@ private:
 	int _width;
 	int _height;
 	int _device;
-	uint16_t _matrix[32][32];
+	uint16_t *_matrix;
 	uint8_t _gamma[256];
 };
 

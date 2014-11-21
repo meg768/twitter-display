@@ -52,7 +52,4 @@
    <FileRef
       location = "group:run-wipe.cpp">
    </FileRef>
-   <FileRef
-      location = "group:Workspace.xcworkspace">
-   </FileRef>
 </Workspace>
