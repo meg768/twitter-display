@@ -69,7 +69,7 @@ public:
 		_width  = width;
 		_height = height;
 		
-		_matrix = new uint16_t[_width * _height];
+		_matrix = (uint16_t *)malloc(sizeof(uint16_t) * _width * _height);
 		
 		setGamma(0);
 		openDevice();
@@ -82,7 +82,7 @@ public:
 	~LogiMatrix() {
 		closeDevice();
 		
-		delete [] _matrix;
+		free(_matrix);
 	}
 	
 	static void quit(int sig)
@@ -232,7 +232,7 @@ public:
 	
 	void clear() {
 		// Clear display
-		fill(0);
+		memset(_matrix, 0, sizeof(uint16_t) * _width * _height);
 	}
 	
 	void refresh() {
