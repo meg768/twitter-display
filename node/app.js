@@ -171,8 +171,11 @@ function main() {
 	}
 	
 	stream.on('direct_message', function (message) {
-		console.log("Direct mesage:");
-		console.log(message);
+		console.log("****************************");
+		console.log(message.direct_message.entities.urls);
+		console.log("****************************");
+		console.log(message.direct_message.entities.media);
+		console.log("****************************");
 	});
 	stream.on('tweet', function (tweet) {
 
