@@ -5,14 +5,16 @@ BEAGLEBONE_PATH = twitter-box
 all: 
 	
 run:
-	cd logi-bone-setup && sudo ./setup.sh
 	cd node-app && sudo node app.js	
+
+setup:
+	cd logi-bone-setup && sudo ./setup.sh
 
 install: \
 	install-tools \
+	install-dtc \
 	install-software \
-	install-node-modules \
-	update-timezone
+	install-node-modules
 
 install-tools:
 	sudo apt-get update
@@ -29,6 +31,12 @@ install-node-modules:
 	
 install-software:
 	$(MAKE) -C software
+
+install-dtc:
+	sudo wget -c https://raw.githubusercontent.com/RobertCNelson/tools/master/pkgs/dtc.sh
+	sudo chmod +x dtc.sh
+	sudo ./dtc.sh
+	sudo rm ./dtc.sh
 
 update-kernel:
 	cd /opt/scripts/tools && sudo ./update_kernel.sh && sudo reboot
