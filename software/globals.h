@@ -235,32 +235,7 @@ public:
 		memset(_matrix, 0, sizeof(uint16_t) * _width * _height);
 	}
 	
-	void refresh() {
-		static int nBuffer = 0;
-		
-		const int FPGA_PANEL_ADDR_REG   = 0x0008;
-		const int FPGA_PANEL_DATA_REG   = 0x0009;
-		const int FPGA_PANEL_BUFFER_REG = 0x000A;
-		
-		int base = nBuffer == 0 ? : 0x2000;
-		
-		uint16_t *mp = _matrix;
-		
-		// Write entire screen buffer to device
-		for (int y = 0; y < _height; y++) {
-			writeToDevice(FPGA_PANEL_ADDR_REG, base + 0x80 * row);
-			for (int x = 0; x < _width; x++) {
-				writeToDevice(FPGA_PANEL_DATA_REG, *mp++);
-			}
-		}
-		
-		// Make that buffer active
-		writeToDevice(FPGA_PANEL_BUFFER_REG, nBuffer == 0 ? 0x0000 : 0x0001);
-		
-		// Switch buffer
-		nBuffer = !nBuffer;
-	}
-/*
+
 	void refresh() {
 		static int nBuffer = 0;
 		
@@ -286,7 +261,6 @@ public:
 		// Switch buffer
 		nBuffer = !nBuffer;
 	}
-*/
 	
 private:
 	inline void openDevice() {
