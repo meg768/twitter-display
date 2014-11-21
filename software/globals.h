@@ -217,7 +217,7 @@ public:
 	}
 	
 	void fill(uint16_t *buffer) {
-		memcpy(_matrix, buffer, sizeof(uint16_t) * _width * _height));
+		memcpy(_matrix, buffer, sizeof(uint16_t) * _width * _height);
 	};
 	
 	void fill(uint8_t red, uint8_t green, uint8_t blue) {
