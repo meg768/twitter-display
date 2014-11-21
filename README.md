@@ -105,7 +105,8 @@ To update the kernel, type this on the Beaglebone:
 
 	$ cd /opt/scripts/tools && sudo ./update_kernel.sh && sudo reboot
 
------------------------------------------------------------------
+Expanding the Root Partition
+----------------------------
 
 Here is a good tutorial on how to expand the **rootfs** partition on the SD card,  
 http://elinux.org/Beagleboard:Expanding_File_System_Partition_On_A_microSD
