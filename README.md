@@ -5,7 +5,9 @@ This project uses much code provided by Glen Akin's tutorial
 (http://bikerglen.com/blog/driving-a-32x32-rgb-led-matrix-with-a-beaglebone-black-and-an-fpga)
 on how to display images on an AdaFruit 32 x 32 matrix LED display.
 
-I have updated som code make it listen to Twitter, so all tweets are displayed as scrolling text on the display.
+I have added some code make it listen to Twitter, so all tweets are displayed as scrolling text on the display.
+It also uses a later version of the kernel, since I wanted to connect a wi-fi dongle to the Beaglebone.
+
 
 Flashing the Beaglebone
 -----------------------
@@ -20,13 +22,13 @@ to DC power. Otherwise it will fail.
 Creating the SD Card Image
 --------------------------
 
-There is a tool "Pi Filler" that writes images to SD-cards. Download it http://ivanx.com/raspberrypi.
+There is a tool **Pi Filler** that writes images to SD-cards. Download it http://ivanx.com/raspberrypi.
 
 Download the image 'logi_ubuntu-14.04-console-armhf-2014-08-13.img' and create an SD card with this image. 
 This is where I found it http://valentfx.com/doc/logi-image/logibone as of 2014-11-20.
 
-The SD card now contains two partitions. On the BOOT partion there is a file named **bbb-uEnv.txt**. Rename this to **uEnv.txt**
-and open it in a text editor and insert the following:
+After running **Pi Filler**, the SD card now contains two partitions. On the BOOT partion there is a file 
+named **bbb-uEnv.txt**. Rename this to **uEnv.txt** and open it in a text editor and insert the following:
 
 	optargs=capemgr.disable_partno=BB-BONELT-HDMI,BB-BONE-EMMC-2G,BB-BONELT-HDMIN,BB-BONE-LOGIBONE
 
