@@ -53,6 +53,16 @@ If everything is OK, type:
 	
 Hopefully you will see something on the LED matrix... ;)
 
+
+-----------------------------------------------------------------
+To make this run every time you boot the Beaglebone, edit the file **/etc/rc.local** 
+
+	sudo nano /etc/rc.local
+
+and type in
+
+	cd /home/ubuntu/twitter-display && make setup run
+
 -----------------------------------------------------------------
 If you get tired of always logging in with a password with **ssh**, type this on your Mac:
 
