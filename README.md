@@ -54,6 +54,7 @@ If everything is OK, type
 	
 Hopefully you will see something on the LED matrix... ;)
 
+-----------------------------------------------------------------
 If you get tired of always logging in with a password with **ssh**, type this on your Mac:
 
 	$ ssh-keygen -t dsa && cat ~/.ssh/id_rsa.pub | ssh ubuntu@10.0.1.61 "mkdir ~/.ssh; cat >> ~/.ssh/authorized_keys"
@@ -64,100 +65,17 @@ Press enter untill you see the '$' prompt again. When asked for a password, type
 	
 Now, the next time you connect to the Beaglebone you will not have to type in the password.
 
-----------------
 
-Connect to it and make sure all is OK.
+-----------------------------------------------------------------
+To update the kernel, type this on the Beaglebone:
 
-$ ssh debian@10.0.1.58
+	$ cd /opt/scripts/tools && sudo ./update_kernel.sh && sudo reboot
 
-Logout
+-----------------------------------------------------------------
 
---------------
-Make sure /dev/logibone and /dev/logibone_mem exists (and spi-dev1??)
-
--------
-
-On your mac, type:
-
-$ ssh-keygen -t dsa && cat ~/.ssh/id_rsa.pub | ssh ubuntu@10.0.1.61 "mkdir ~/.ssh; cat >> ~/.ssh/authorized_keys"
-
-------------------
-Expand partition on the Beaglebone
-
+Here is a good tutorial on how to expand the **rootfs** partition on the SD card,  
 http://elinux.org/Beagleboard:Expanding_File_System_Partition_On_A_microSD
 
-------------
-Upgrade kernel
-
-$ cd /opt/scripts/tools/
-$ sudo ./update_kernel.sh
-
--------------
-
-Install git, compilers, Magick++ and curl
-$ sudo apt-get update && sudo apt-get install -y git && sudo apt-get install -y build-essential && sudo apt-get install -y libmagick++-dev && sudo apt-get install -y curl
 
 
 
-	---------
-	Install logi tools
-	
-	git clone https://github.com/fpga-logi/logi-tools.git
-	cd logi-tools
-	sudo ./install_logibone.sh
-	sudo shutdown -r now
-	
-	--------------
-	Install logi-apps
-	
-	Test the blink app
-	
-
---------------
-Install DTC?
-wget -c https://raw.githubusercontent.com/RobertCNelson/tools/master/pkgs/dtc.sh
-chmod +x dtc.sh
-./dtc.sh
-
-----------------
-Disable the BB-BONE-LOGIBONE device at startup
-
-optargs=capemgr.disable_partno=BB-BONELT-HDMI,BB-BONE-EMMC-2G,BB-BONELT-HDMIN,BB-BONE-LOGIBONE
-
-	
-	$ sudo nano /boot/uboot/uEnv.txt
-	$ sudo reboot
-	
--------------------
-
----------------
-Compile the software
-
-	cd
-	cd software
-	make
-	
-------------
-
-
-Install node:
-To use nodejs, check out https://github.com/joyent/node/wiki/installing-node.js-via-package-manage. 
-For Ubuntu use the following:
-
-  * curl -sL https://deb.nodesource.com/setup | sudo bash -
-  * sudo apt-get install -y nodejs
-
-
--------
-Update the node modules
-
-	$ cd node-app
-	$ npm update  
-
-----------
-Load the bit file
-$ cd logi-bone
-$ sudo ./setup.sh
-  
-  
-  
