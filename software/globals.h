@@ -215,7 +215,7 @@ public:
 	inline int height() {
 		return _height;
 	}
-	
+
 	void fill(uint16_t *buffer) {
 		memcpy(_matrix, buffer, sizeof(uint16_t) * _width * _height);
 	};
