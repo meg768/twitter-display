@@ -108,8 +108,7 @@ Make sure /dev/logibone and /dev/logibone_mem exists (and spi-dev1??)
 
 On your mac, type:
 
-$ ssh-keygen -t dsa
-$ cat ~/.ssh/id_rsa.pub | ssh debian@10.0.1.58 "mkdir ~/.ssh; cat >> ~/.ssh/authorized_keys"
+$ ssh-keygen -t dsa && cat ~/.ssh/id_rsa.pub | ssh ubuntu@10.0.1.61 "mkdir ~/.ssh; cat >> ~/.ssh/authorized_keys"
 
 ------------------
 Expand partition on the Beaglebone
@@ -152,9 +151,9 @@ chmod +x dtc.sh
 ----------------
 Disable the BB-BONE-LOGIBONE device at startup
 
+optargs=capemgr.disable_partno=BB-BONELT-HDMI,BB-BONE-EMMC-2G,BB-BONELT-HDMIN,BB-BONE-LOGIBONE
 
-	optargs=capemgr.disable_partno=BB-BONELT-HDMI,BB-BONE-EMMC-2G,BB-BONELT-HDMIN,BB-BONE-LOGIBONE
-
+	
 	$ sudo nano /boot/uboot/uEnv.txt
 	$ sudo reboot
 	
