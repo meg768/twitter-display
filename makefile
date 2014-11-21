@@ -27,7 +27,7 @@ install-tools:
 	sudo apt-get install -y nodejs
 
 install-node-modules:
-	$(MAKE) -C nodeapp
+	$(MAKE) -C node
 	
 install-software:
 	$(MAKE) -C software
