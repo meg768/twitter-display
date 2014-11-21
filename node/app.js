@@ -21,7 +21,6 @@ function main() {
 	var twitter = new twit(twitterOptions);
 	
 	var stream = twitter.stream('user', { include_entities : true });
-	//var stream = twitter.stream('statuses/filter', { track: 'mango' })
 
 	// The animation to be used
 	var animation = null;
@@ -171,6 +170,10 @@ function main() {
 		});
 	}
 	
+	stream.on('direct_message', function (message) {
+		console.log("Direct mesage:");
+		console.log(message);
+	});
 	stream.on('tweet', function (tweet) {
 
 
