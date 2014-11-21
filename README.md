@@ -12,10 +12,23 @@ There is a tool "Pi Filler" that writes images to SD-cards. Download it http://i
 Download the image 'logi_ubuntu-14.04-console-armhf-2014-08-13.img' and create an SD card with this image. 
 This is where I found it http://valentfx.com/doc/logi-image/logibone as of 2014-11-20.
 
-The SD card now contains two partitions. On the BOOT partion there is a file named **bbb-uEnv.txt**. Rename this to uEnv.txt
+The SD card now contains two partitions. On the BOOT partion there is a file named **bbb-uEnv.txt**. Rename this to **uEnv.txt**
 and open it in a text editor and insert the following as the first line:
 
-	optargs=capemgr.disable_partno=BB-BONELT-HDMI,BB-BONE-EMMC-2G,BB-BONELT-HDMIN,BB-BONE-LOGIBONE
+	##These are needed to be compliant with Debian 2014-05-14 u-boot.
+	**optargs=capemgr.disable_partno=BB-BONELT-HDMI,BB-BONE-EMMC-2G,BB-BONELT-HDMIN,BB-BONE-LOGIBONE**
+	
+	loadximage=load mmc 0:2 ${loadaddr} /boot/vmlinuz-${uname_r}
+	loadxfdt=load mmc 0:2 ${fdtaddr} /boot/dtbs/${uname_r}/${fdtfile}
+	loadxrd=load mmc 0:2 ${rdaddr} /boot/initrd.img-${uname_r}; setenv rdsize ${filesize}
+	loaduEnvtxt=load mmc 0:2 ${loadaddr} /boot/uEnv.txt ; env import -t ${loadaddr} ${filesize};
+	loadall=run loaduEnvtxt; run loadximage; run loadxrd; run loadxfdt;
+	
+	mmcargs=setenv bootargs console=tty0 console=${console} ${optargs} ${cape_disable} ${cape_enable} root=${mmcroot} rootfstype=${mmcrootfstype} ${cmdline}
+	
+	uenvcmd=run loadall; run mmcargs; bootz ${loadaddr} ${rdaddr}:${rdsize} ${fdtaddr};
+	
+
 
 Find the IP-address of the Beaglebone. Try out "LanScan" on the App-Store, it is free. In this README, it is 
 assumed to be 10.0.1.58.
@@ -38,6 +51,7 @@ If everything is OK, type
 	
 Hopefully you will see something on the LED matrix... ;)
 
+I finally got wi-fi to work
 
 -----------
 
