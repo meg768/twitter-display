@@ -5,10 +5,10 @@ BEAGLEBONE_PATH = twitter-display
 all: 
 	
 run:
-	cd node-app && sudo node app.js	
+	cd node && sudo node app.js	
 
 setup:
-	cd logi-bone-setup && sudo ./setup.sh
+	cd logibone && sudo ./setup.sh
 
 install: \
 	install-tools \
@@ -27,7 +27,7 @@ install-tools:
 	sudo apt-get install -y nodejs
 
 install-node-modules:
-	$(MAKE) -C node-app
+	$(MAKE) -C nodeapp
 	
 install-software:
 	$(MAKE) -C software
@@ -41,10 +41,11 @@ install-dtc:
 update-kernel:
 	cd /opt/scripts/tools && sudo ./update_kernel.sh && sudo reboot
 
-update-timezone:
-	sudo timedatectl set-timezone Europe/Stockholm
-
-
+commit:
+	git add -A
+	git commit -m "..."
+	git push -u origin master
+	
 
 #
 #
@@ -64,8 +65,3 @@ upload:
 mount: /tmp/Beaglebone
 	sshfs $(BEAGLEBONE_USER)@$(BEAGLEBONE_IP):/ /tmp/Beaglebone
 
-commit:
-	git add -A
-	git commit -m "..."
-	git push -u origin master
-	
