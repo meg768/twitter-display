@@ -65,7 +65,6 @@ and type in
 -----------------------------------------------------------------
 If you get tired of always logging in with a password with **ssh**, type this on your Mac:
 
-	$ cd
 	$ ssh-keygen -t dsa && cat ~/.ssh/id_rsa.pub | ssh ubuntu@10.0.1.58 "mkdir ~/.ssh; cat >> ~/.ssh/authorized_keys"
 
 Press enter untill you see the '$' prompt again. When asked for a password, type
