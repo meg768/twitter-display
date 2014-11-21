@@ -8,7 +8,7 @@ int main (int argc, char *argv[])
 {
 	Magick::InitializeMagick(*argv);
 
-	LogiMatrix matrix;
+	LogiMatrix matrix(32*3, 32*2);
 	
 	int red = 0;
 	int green = 0;
@@ -30,11 +30,11 @@ int main (int argc, char *argv[])
 		}
 	}
 
-		for (int y = 0; y < 32; y++) {
+		for (int y = 0; y < 64; y++) {
 			
-			red = (15 * y	) / 32;
+			red = (15 * y	) / 64;
 			
-			for (int x = 0; x < 32; x++) {
+			for (int x = 0; x < 96; x++) {
 				matrix.setPixel(x, y, COLOR(red, green, blue));
 			}
 		}
