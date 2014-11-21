@@ -51,7 +51,7 @@ Insert the SD card into the Beaglebone, and power up.
 Installing the Software
 -----------------------
 
-Find the IP-address of the Beaglebone. Try out "LanScan" on the App-Store, it is free. In this README, it is 
+Find the IP-address of the Beaglebone. Try out **LanScan** on the App-Store, it is free. In this README, it is 
 assumed to be 10.0.1.58.
 
 Start a Terminal window on your Mac and type:
@@ -101,14 +101,15 @@ Now, the next time you connect to the Beaglebone you will not have to type in th
 Updating the Kernel
 -------------------
 
-To update the kernel, type this on the Beaglebone:
+If you want use wifi, you probably will have to update the kernel.
+To do so, type this on the Beaglebone:
 
 	$ cd /opt/scripts/tools && sudo ./update_kernel.sh && sudo reboot
 
 Expanding the Root Partition
 ----------------------------
 
-Here is a good tutorial on how to expand the **rootfs** partition on the SD card,  
+Here is a easy tutorial on how to expand the **rootfs** partition on the SD card,  
 http://elinux.org/Beagleboard:Expanding_File_System_Partition_On_A_microSD
 
 
