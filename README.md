@@ -1,6 +1,17 @@
+Twitter Display
+=============
+
+This project uses much code provided by Glen Akin's tutorial 
+(http://bikerglen.com/blog/driving-a-32x32-rgb-led-matrix-with-a-beaglebone-black-and-an-fpga)
+on how to display images on an AdaFruit 32 x 32 matrix LED display.
+
+I have updated som code make it listen to Twitter, so all tweets are displayed as scrolling text on the display.
+
+Creating the Image
+------------------ 
+
 Flash your Beaglebone Black with an image that boots from an SD-card if this is plugged in. This prevents
 you from holding the reset button down while booting. With the LOGI-Bone attached, this is quite difficult.
-
 
 See http://valentfx.com/vanilla/discussion/70/logi-image-sd-card-boot. I followed Ize's post
 from August 23, 2014 and it all worked.	Make sure to remove the LOGI-bone when doing this and connect
