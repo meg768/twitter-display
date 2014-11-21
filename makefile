@@ -1,6 +1,6 @@
-BEAGLEBONE_IP   = 10.0.1.58
+BEAGLEBONE_IP   = 10.0.1.61
 BEAGLEBONE_USER = ubuntu
-BEAGLEBONE_PATH = twitter-box
+BEAGLEBONE_PATH = twitter-display
 
 all: 
 	
