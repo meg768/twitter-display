@@ -69,7 +69,7 @@ public:
 		_width  = width;
 		_height = height;
 		
-		_matrix new uint16_t[_width * _height];
+		_matrix = new uint16_t[_width * _height];
 		
 		setGamma(0);
 		openDevice();
