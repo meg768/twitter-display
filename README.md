@@ -1,4 +1,3 @@
-
 Flash your Beaglebone Black with an image that boots from an SD-card if this is plugged in. This prevents
 you from holding the reset button down while booting. With the LOGI-Bone attached, this is quite difficult.
 
@@ -46,11 +45,11 @@ The password is "temppwd". Once logged in, type this:
 	$ cd twitter-display
 	$ make install
 
-This will take about 10 minutes. 
+This will take about 20 minutes. 
 
-If everything is OK, type
+If everything is OK, type:
 
-	$ make run
+	$ make setup run
 	
 Hopefully you will see something on the LED matrix... ;)
 
