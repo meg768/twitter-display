@@ -22,7 +22,9 @@ to DC power. Otherwise it will fail.
 Creating the SD Card Image
 --------------------------
 
-There is a tool **Pi Filler** that writes images to SD-cards. Download it http://ivanx.com/raspberrypi.
+There is a tool called **Pi Filler** that writes images to SD-cards. You can download it here http://ivanx.com/raspberrypi.
+It is easy to use and you don't have to worry about specifying the wrong disk to format. 
+It was written to create Raspberry PI SD cards but it is all the same.
 
 Download the image 'logi_ubuntu-14.04-console-armhf-2014-08-13.img' and create an SD card with this image. 
 This is where I found it http://valentfx.com/doc/logi-image/logibone as of 2014-11-20.
