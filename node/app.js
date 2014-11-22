@@ -103,11 +103,33 @@ function main() {
 		rule.minute = rand(0, 59);
 		
 		schedule.scheduleJob(rule, function() {
+			addCmd(sprintf('./run-animation images/fireplace.gif -d 30'));
+		});		
+
+		rule = new schedule.RecurrenceRule();
+		rule.minute = rand(0, 59);
+		
+		schedule.scheduleJob(rule, function() {
+			addCmd(sprintf('./run-animation images/bubbles.gif -d 30'));
+		});		
+
+		rule = new schedule.RecurrenceRule();
+		rule.minute = rand(0, 59);
+		
+		schedule.scheduleJob(rule, function() {
+			addCmd(sprintf('./run-animation images/tree.gif'));
+		});		
+
+
+		rule = new schedule.RecurrenceRule();
+		rule.minute = rand(0, 59);
+		
+		schedule.scheduleJob(rule, function() {
 			addCmd(sprintf('./run-twinkle -d 30'));
 		});		
 
 		rule = new schedule.RecurrenceRule();
-		rule.minute = [15, 30, 45, 19];
+		rule.minute = [15, 30, 45];
 		rule.hour = [0, 1, 2, 3, 4, 5, 6, 7, 23];
 		
 		schedule.scheduleJob(rule, function() {
