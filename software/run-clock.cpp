@@ -154,16 +154,17 @@ public:
 			
 			if (now->tm_hour >= 23 || now->tm_hour <= 5) {
 				_hourColor       = RGB(255, 0, 0);
-				_hourBackColor   = RGB(80, 0, 0);
+				_hourBackColor   = RGB(70, 0, 0);
 				_minuteColor     = RGB(255, 0, 0);
 				_minuteBackColor = RGB(80, 0, 0);
+				_blipColor       = RGB(0, 0, 255);
 			}
 			else {
 				_hourColor       = RGB(255, 0, 0);
-				_hourBackColor   = RGB(80, 0, 0);
+				_hourBackColor   = RGB(70, 0, 0);
 				_minuteColor     = RGB(0, 0, 255);
 				_minuteBackColor = RGB(0, 0, 80);
-				
+				_blipColor       = RGB(255, 255, 255);
 			}
 			
 			now->tm_hour = now->tm_hour % 12;
