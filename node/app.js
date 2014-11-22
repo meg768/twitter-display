@@ -220,23 +220,79 @@ function main() {
 
 	stream.on('direct_message', function (message) {
 		
-		var text = message.direct_message.text;
+		console.log("Direct message:", message.direct_message.text);
+		
+		var texts = message.direct_message.text.split('\n');
+		
+		for (var index in texts) {
+			var text = texts[index];
+			var match = null;
+			
+			match = text.match(/\s*@perlin\s*(.*)/);
+			
+			if (match != null) {
+				addCmd(sprintf('./run-perlin %s', match[1]));
+				continue;
+			}
 
-		console.log("Direct message:", text);
+			match = text.match(/\s*@circle\s*(.*)/);
+			
+			if (match != null) {
+				addCmd(sprintf('./run-circle %s', match[1]));
+				continue;
+			}
+			
+			match = text.match(/\s*@life\s*(.*)/);
+			
+			if (match != null) {
+				addCmd(sprintf('./run-life %s', match[1]));
+				continue;
+			}
 
-		if (text.match('^[ ]*\./run-.+') != null) {
-			addCmd(text);					
-		}
-		else {
+			match = text.match(/\s*@wipe\s*(.*)/);
+			
+			if (match != null) {
+				addCmd(sprintf('./run-wipe %s', match[1]));
+				continue;
+			}
+
+			match = text.match(/\s*@clock\s*(.*)/);
+			
+			if (match != null) {
+				addCmd(sprintf('./run-clock %s', match[1]));
+				continue;
+			}
+			
+			match = text.match(/\s*@animation\s+([^-]\S+)(.*)/);
+			
+			if (match != null) {
+				addCmd(sprintf('./run-animation images/%s.gif %s', match[1], match[2]));
+				continue;
+			}
+			
+			match = text.match(/\s*@image\s+([^-]\S+)(.*)/);
+			
+			if (match != null) {
+				addCmd(sprintf('./run-image images/%s.png %s', match[1], match[2]));
+				continue;
+			}
+
+			match = text.match('^[ ]*\./run-.+');
+
+			if (match != null) {
+				addCmd(text);			
+				continue;		
+			}
+			
 			addCmd(sprintf('./run-text "%s" -c blue', text));
-		}
+		} 
 
 	});
 
 
 	stream.on('tweet', function (tweet) {
 
-
+return;
 		var text = tweet.text;		
 		var strip = text.indexOf('http://');
 		

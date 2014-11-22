@@ -222,7 +222,7 @@ int main (int argc, char *argv[])
 	Timer timer;
 	
 	int option = 0;
-	int duration = -1;
+	int duration = 60;
 	
 	while ((option = getopt(argc, argv, "g:d:")) != -1) {
 		switch (option) {

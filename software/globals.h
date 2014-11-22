@@ -27,7 +27,7 @@
 class Timer {
 	
 public:
-	Timer(int duration = -1) {
+	Timer(int duration = 60) {
 		_duration  = duration;
 		_startTime = time(NULL);
 	}
