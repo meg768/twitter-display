@@ -5,9 +5,11 @@ This project uses much code provided by Glen Akin's tutorial
 (http://bikerglen.com/blog/driving-a-32x32-rgb-led-matrix-with-a-beaglebone-black-and-an-fpga)
 on how to display images on an AdaFruit 32 x 32 matrix LED display.
 
-I have added some code make it listen to Twitter, so all tweets are displayed as scrolling text on the display.
+I have added some code to make it listen to Twitter, so all tweets are displayed as scrolling text on the display.
 It also uses a later version of the kernel, since I wanted to connect a wi-fi dongle to the Beaglebone.
 
+Since it listens to Twitter it is campatible with IFTTT. In other words, the display can display a message at sunrise
+telling you to wake up.
 
 Flashing the Beaglebone
 -----------------------
