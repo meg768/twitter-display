@@ -3,7 +3,8 @@ Twitter Display
 
 This project uses much code provided by Glen Akin's tutorial 
 (http://bikerglen.com/blog/driving-a-32x32-rgb-led-matrix-with-a-beaglebone-black-and-an-fpga)
-on how to display images on an AdaFruit 32 x 32 matrix LED display.
+on how to display images on an AdaFruit 32 x 32 matrix LED display. To follow this
+you need all the hardware and wireing described in his tutorial.
 
 I have added some code to make it listen to Twitter, so all tweets are displayed as scrolling text on the display.
 It also uses a later version of the kernel, since I wanted to connect a wi-fi dongle to the Beaglebone.
