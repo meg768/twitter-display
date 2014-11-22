@@ -216,12 +216,21 @@ function main() {
 		
 	}
 
+	
 
 	stream.on('direct_message', function (message) {
-		console.log(message.direct_message.text);
-		var cmd = message.direct_message.text;
+		
+		var text = message.direct_message.text;
 
-		addCmd(cmd);		
+		console.log("Direct message:", text);
+
+		if (text.match('^[ ]*\./run-.+') != null) {
+			addCmd(text);					
+		}
+		else {
+			addCmd(sprintf('./run-text "%s" -c blue', text));
+		}
+
 	});
 
 
@@ -231,17 +240,24 @@ function main() {
 		var text = tweet.text;		
 		var strip = text.indexOf('http://');
 		
-		// Strip off the trailing #http://...
-		text = text.substr(0, strip < 0 ? undefined : strip).trim();
-			
-		if (tweet.user != undefined && tweet.user != null) {
-			var profileImageUrl = tweet.user.profile_image_url;
-			var profileName = tweet.user.name;
-			var profileScreenName = tweet.user.screen_name;
+		console.log("tweet:", tweet.text);
 
-			addCmd(sprintf('./run-text "%s" -c blue', profileName));
-			addCmd(sprintf('./run-text "%s" -c red', text));
-		}
+		var retweet = text.match(/^RT\s+@.*?:\s*(.+)/);
+
+		if (retweet == null) {
+			// Strip off the trailing #http://...
+			text = text.substr(0, strip < 0 ? undefined : strip).trim();
+				
+			if (tweet.user != undefined && tweet.user != null) {
+				var profileImageUrl = tweet.user.profile_image_url;
+				var profileName = tweet.user.name;
+				var profileScreenName = tweet.user.screen_name;
+	
+				addCmd(sprintf('./run-text "%s" -c blue', profileName));
+				addCmd(sprintf('./run-text "%s" -c red', text));
+			}
+			
+		}		
 		
 	});
 	
