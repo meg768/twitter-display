@@ -292,7 +292,7 @@ function main() {
 
 	stream.on('tweet', function (tweet) {
 
-return;
+
 		var text = tweet.text;		
 		var strip = text.indexOf('http://');
 		
