@@ -176,7 +176,7 @@ function main() {
 				console.log('Animation finished. Restarting...');
 
 				animation = null;
-				startAnimation(choose(animations));
+				startAnimation();
 			}
 			else {
 				console.log('Animation killed.');
