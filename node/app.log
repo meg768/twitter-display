@@ -1,0 +1,14 @@
+Node app is running at localhost:5000
+Starting animation: "./run-clock" [] { cwd: '../software' }
+Direct message: Jhkhgggh
+Stopping animation...
+Executing command: "./run-text "Jhkhgggh" -c blue"...
+Animation killed.
+Command completed. ./run-text "Jhkhgggh" -c blue
+Starting animation: "./run-clock" [] { cwd: '../software' }
+Direct message: Gucko
+Stopping animation...
+Executing command: "./run-text "Gucko" -c blue"...
+Animation killed.
+Command completed. ./run-text "Gucko" -c blue
+Starting animation: "./run-clock" [] { cwd: '../software' }

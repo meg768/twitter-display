@@ -6,7 +6,6 @@ var fs    = require('fs');
 var path  = require('path');
 
 var sprintf = require('./sprintf.js').sprintf;
-var JobQueue = require('./jobqueue.js');
 
 
 function main() {
@@ -318,7 +317,7 @@ function main() {
 	});
 	
 	app.set('port', (process.env.PORT || 5000))
-	app.use(express.static(__dirname + '/public'))
+	//app.use(express.static(__dirname + '/public'))
 	
 	app.get('/', function(request, response) {
 	  response.send('Hello World!')
@@ -326,10 +325,10 @@ function main() {
 	
 	app.listen(app.get('port'), function() {
 	  console.log("Node app is running at localhost:" + app.get('port'))
+	  scheduleAnimations();
 	  startAnimation();
 	});	
 	
-	scheduleAnimations();
 }
 
 main();
