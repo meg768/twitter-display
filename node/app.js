@@ -1,24 +1,16 @@
-var express = require('express')
-var app   = express();
+//var express = require('express')
+//var app   = express();
 var twit  = require('twit');
 var http  = require('http');
 var fs    = require('fs');
 var path  = require('path');
+var exec  = require('child_process').exec;
 
 var sprintf = require('./sprintf.js').sprintf;
 
 
 function main() {
 
-	var twitterOptions = {};	
-	twitterOptions.consumer_key = 'RMvVK1wDXgftuFqVwMZA1OmEG';
-	twitterOptions.consumer_secret = 'OlS3UoAMA48ZEWT8Ia2cYYTpZZRWNexBVzfhK84i93BXM1wDpK';
-	twitterOptions.access_token = '1241291215-fKIUjhl3LVRO9KHukvb23Srcc4rsD9y4J22ErsL';
-	twitterOptions.access_token_secret = 'lECypLbF3bTOd9r09uydHKUffuSS1zF8DgtTMfaGAHtWP';
-
-	// The Twitter API
-	var twitter = new twit(twitterOptions);
-	var stream  = twitter.stream('user', { include_entities : true });
 
 	// The animation to be used
 	var animation = null;
@@ -215,107 +207,167 @@ function main() {
 		
 	}
 
+	function runText(text) {
+		addCmd(sprintf('./run-text "%s" -c blue', text));
+		
+	}
 	
-
-	stream.on('direct_message', function (message) {
+	function enableTwitter() {
+		var twitterOptions = {};	
+		twitterOptions.consumer_key = 'RMvVK1wDXgftuFqVwMZA1OmEG';
+		twitterOptions.consumer_secret = 'OlS3UoAMA48ZEWT8Ia2cYYTpZZRWNexBVzfhK84i93BXM1wDpK';
+		twitterOptions.access_token = '1241291215-fKIUjhl3LVRO9KHukvb23Srcc4rsD9y4J22ErsL';
+		twitterOptions.access_token_secret = 'lECypLbF3bTOd9r09uydHKUffuSS1zF8DgtTMfaGAHtWP';
+	
+		// The Twitter API
+		var twitter = new twit(twitterOptions);
+		var stream  = twitter.stream('user', { include_entities : true });
 		
-		console.log("Direct message:", message.direct_message.text);
-		
-		var texts = message.direct_message.text.split('\n');
-		
-		for (var index in texts) {
-			var text = texts[index];
-			var match = null;
+	
+		stream.on('direct_message', function (message) {
 			
-			match = text.match(/\s*@perlin\s*(.*)/);
+			console.log("Direct message:", message.direct_message.text);
 			
-			if (match != null) {
-				addCmd(sprintf('./run-perlin %s', match[1]));
-				continue;
-			}
-
-			match = text.match(/\s*@circle\s*(.*)/);
+			var texts = message.direct_message.text.split('\n');
 			
-			if (match != null) {
-				addCmd(sprintf('./run-circle %s', match[1]));
-				continue;
-			}
-			
-			match = text.match(/\s*@life\s*(.*)/);
-			
-			if (match != null) {
-				addCmd(sprintf('./run-life %s', match[1]));
-				continue;
-			}
-
-			match = text.match(/\s*@wipe\s*(.*)/);
-			
-			if (match != null) {
-				addCmd(sprintf('./run-wipe %s', match[1]));
-				continue;
-			}
-
-			match = text.match(/\s*@clock\s*(.*)/);
-			
-			if (match != null) {
-				addCmd(sprintf('./run-clock %s', match[1]));
-				continue;
-			}
-			
-			match = text.match(/\s*@animation\s+([^-]\S+)(.*)/);
-			
-			if (match != null) {
-				addCmd(sprintf('./run-animation images/%s.gif %s', match[1], match[2]));
-				continue;
-			}
-			
-			match = text.match(/\s*@image\s+([^-]\S+)(.*)/);
-			
-			if (match != null) {
-				addCmd(sprintf('./run-image images/%s.png %s', match[1], match[2]));
-				continue;
-			}
-
-			match = text.match('^[ ]*\./run-.+');
-
-			if (match != null) {
-				addCmd(text);			
-				continue;		
-			}
-			
-			addCmd(sprintf('./run-text "%s" -c blue', text));
-		} 
-
-	});
-
-
-	stream.on('tweet', function (tweet) {
-
-
-		var text = tweet.text;		
-		var strip = text.indexOf('http://');
-		
-		console.log("tweet:", tweet.text);
-
-		var retweet = text.match(/^RT\s+@.*?:\s*(.+)/);
-
-		if (retweet == null) {
-			// Strip off the trailing #http://...
-			text = text.substr(0, strip < 0 ? undefined : strip).trim();
+			for (var index in texts) {
+				var text = texts[index];
+				var match = null;
 				
-			if (tweet.user != undefined && tweet.user != null) {
-				var profileImageUrl = tweet.user.profile_image_url;
-				var profileName = tweet.user.name;
-				var profileScreenName = tweet.user.screen_name;
+				match = text.match(/\s*@perlin\s*(.*)/);
+				
+				if (match != null) {
+					addCmd(sprintf('./run-perlin %s', match[1]));
+					continue;
+				}
 	
-				addCmd(sprintf('./run-text "%s" -c blue', profileName));
-				addCmd(sprintf('./run-text "%s" -c red', text));
-			}
+				match = text.match(/\s*@circle\s*(.*)/);
+				
+				if (match != null) {
+					addCmd(sprintf('./run-circle %s', match[1]));
+					continue;
+				}
+				
+				match = text.match(/\s*@life\s*(.*)/);
+				
+				if (match != null) {
+					addCmd(sprintf('./run-life %s', match[1]));
+					continue;
+				}
+	
+				match = text.match(/\s*@wipe\s*(.*)/);
+				
+				if (match != null) {
+					addCmd(sprintf('./run-wipe %s', match[1]));
+					continue;
+				}
+	
+				match = text.match(/\s*@clock\s*(.*)/);
+				
+				if (match != null) {
+					addCmd(sprintf('./run-clock %s', match[1]));
+					continue;
+				}
+				
+				match = text.match(/\s*@animation\s+([^-]\S+)(.*)/);
+				
+				if (match != null) {
+					addCmd(sprintf('./run-animation images/%s.gif %s', match[1], match[2]));
+					continue;
+				}
+				
+				match = text.match(/\s*@image\s+([^-]\S+)(.*)/);
+				
+				if (match != null) {
+					addCmd(sprintf('./run-image images/%s.png %s', match[1], match[2]));
+					continue;
+				}
+	
+				match = text.match('^[ ]*\./run-.+');
+	
+				if (match != null) {
+					addCmd(text);			
+					continue;		
+				}
+				
+				addCmd(sprintf('./run-text "%s" -c blue', text));
+			} 
+	
+		});
+	
+	
+		stream.on('tweet', function (tweet) {
+	
+	
+			var text = tweet.text;		
+			var strip = text.indexOf('http://');
 			
-		}		
-		
-	});
+			console.log("tweet:", tweet.text);
 	
+			var retweet = text.match(/^RT\s+@.*?:\s*(.+)/);
+	
+			if (retweet == null) {
+				// Strip off the trailing #http://...
+				text = text.substr(0, strip < 0 ? undefined : strip).trim();
+					
+				if (tweet.user != undefined && tweet.user != null) {
+					var profileImageUrl = tweet.user.profile_image_url;
+					var profileName = tweet.user.name;
+					var profileScreenName = tweet.user.screen_name;
+		
+					addCmd(sprintf('./run-text "%s" -c blue', profileName));
+					addCmd(sprintf('./run-text "%s" -c red', text));
+				}
+				
+			}		
+			
+		});
+		
+	};
+
+
+	function waitForIP() {
+	
+		function getIP(device) {
+			var os = require('os');
+			var ifaces = os.networkInterfaces();
+		
+			var iface = ifaces[device];
+			
+			if (iface != undefined) {
+				for (var i in iface) {
+					var item = iface[i];
+					
+					if (item.family == 'IPv4')
+						return item.address;
+				}
+			}
+		
+			return '';
+		}
+	
+		var ip = getIP("wlan0");
+
+		if (ip == '')
+			ip = getIP("eth0");
+					
+		if (ip == '') {
+			runText("Waiting for Internet connection...");
+			console.log("Waiting for IP address...");
+			setTimeout(waitForIP, 5000);
+		}	
+		else {
+			console.log("IP: is '%s', starting up...", ip);
+			scheduleAnimations();
+			startAnimation();
+			enableTwitter();
+			
+		}
+	}
+	
+	waitForIP();
+
+/*
 	app.set('port', (process.env.PORT || 5000))
 	//app.use(express.static(__dirname + '/public'))
 	
@@ -325,15 +377,13 @@ function main() {
 	
 	app.listen(app.get('port'), function() {
 	  console.log("Node app is running at localhost:" + app.get('port'))
-	  scheduleAnimations();
-	  startAnimation();
 	});	
-	
+*/
 }
 
+
+
 main();
-
-
 
 
 

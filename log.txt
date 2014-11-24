@@ -1,5 +1,0 @@
-cd logibone && sudo ./setup.sh
-bit file size : 340714 
-config success ! 
-cd node && sudo node app.js	
-Starting animation: "./run-clock" [] { cwd: '../software' }
