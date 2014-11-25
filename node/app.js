@@ -1,5 +1,5 @@
-//var express = require('express')
-//var app   = express();
+var express = require('express')
+var app   = express();
 var twit  = require('twit');
 var http  = require('http');
 var fs    = require('fs');
@@ -358,6 +358,7 @@ function main() {
 		}	
 		else {
 			console.log("IP: is '%s', starting up...", ip);
+			//runText(ip);
 			scheduleAnimations();
 			startAnimation();
 			enableTwitter();
@@ -367,7 +368,7 @@ function main() {
 	
 	waitForIP();
 
-/*
+
 	app.set('port', (process.env.PORT || 5000))
 	//app.use(express.static(__dirname + '/public'))
 	
@@ -378,7 +379,7 @@ function main() {
 	app.listen(app.get('port'), function() {
 	  console.log("Node app is running at localhost:" + app.get('port'))
 	});	
-*/
+
 }
 
 
