@@ -366,12 +366,12 @@ function main() {
 		}
 	}
 	
-	runText("Starting up in 30 seconds...");
-	
-	setTimeout(function() {
+	shell('./run-text "%s" -i 2', "Starting up in 30 seconds...", function() {
+		enableTwitter();
 		scheduleAnimations();
 		startAnimation();
-	}, 30000);
+		
+	});
 
 
 	app.set('port', (process.env.PORT || 5000))
