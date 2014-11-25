@@ -366,7 +366,12 @@ function main() {
 		}
 	}
 	
-	waitForIP();
+	runText("Starting up in 30 seconds...");
+	
+	setTimeout(function() {
+		scheduleAnimations();
+		startAnimation();
+	}, 30000);
 
 
 	app.set('port', (process.env.PORT || 5000))
