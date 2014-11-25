@@ -366,7 +366,7 @@ function main() {
 		}
 	}
 	
-	shell('./run-text "%s" -i 2', "Starting up in 30 seconds...", function() {
+	shell(sprintf('./run-text "%s" -i 3', "Starting up in 30 seconds..."), function() {
 		enableTwitter();
 		scheduleAnimations();
 		startAnimation();
