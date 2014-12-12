@@ -283,6 +283,13 @@ function main() {
 					continue;
 				}
 	
+				match = text.match(/\s*@reboot/);
+				
+				if (match != null) {
+					addCmd('reboot');
+					continue;
+				}
+
 				match = text.match('^[ ]*\./run-.+');
 	
 				if (match != null) {
