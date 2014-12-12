@@ -83,12 +83,13 @@ int main (int argc, char *argv[])
 			// Get the animation delay factor
 			size_t delay = image.animationDelay();
 			
+			iterator++;
+			matrix.refresh();
+
 			// Wait for next frame to display
 			// (Seems like we have to reduce the delay by some factor)
 			usleep(int(double((delay * 10 * 1000)) * 0.5));
 			
-			iterator++;
-			matrix.refresh();
 		}
 		
 		matrix.clear();
