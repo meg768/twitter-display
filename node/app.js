@@ -365,7 +365,14 @@ function main() {
 			
 		}
 	}
-	
+ 
+	shell('./run-animation images/countdown.gif'), function() {
+		enableTwitter();
+		scheduleAnimations();
+		startAnimation();
+		
+	});
+/*	
 	shell(sprintf('./run-text "%s" -i 3', "Starting up in 30 seconds..."), function() {
 		enableTwitter();
 		scheduleAnimations();
@@ -373,7 +380,7 @@ function main() {
 		
 	});
 
-
+*/
 	app.set('port', (process.env.PORT || 5000))
 	//app.use(express.static(__dirname + '/public'))
 	
