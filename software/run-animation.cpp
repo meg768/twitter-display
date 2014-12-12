@@ -88,7 +88,7 @@ int main (int argc, char *argv[])
 
 			// Wait for next frame to display
 			// (Seems like we have to reduce the delay by some factor)
-			usleep(int(double((delay * 10 * 1000)) * 0.5));
+			usleep(int(double((delay * 10 * 1000)) * 1.0));
 			
 		}
 		
