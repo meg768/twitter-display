@@ -366,7 +366,7 @@ function main() {
 		}
 	}
  
-	shell('./run-animation images/countdown.gif'), function() {
+	shell('./run-animation images/countdown.gif', function() {
 		enableTwitter();
 		scheduleAnimations();
 		startAnimation();
