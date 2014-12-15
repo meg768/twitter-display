@@ -60,6 +60,8 @@ int main (int argc, char *argv[])
 			image.sample(Magick::Geometry(matrix.width(), matrix.height()));
 		}
 		
+		image.type(Magick::GrayscaleType);
+	//	Magick::Image img("32x32", "black");
 		
 		matrix.drawImage(image);
 		matrix.refresh();
