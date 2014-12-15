@@ -60,10 +60,13 @@ int main (int argc, char *argv[])
 			image.sample(Magick::Geometry(matrix.width(), matrix.height()));
 		}
 		
-		image.type(Magick::GrayscaleType);
-	//	Magick::Image img("32x32", "black");
-		
-		matrix.drawImage(image);
+		//image.type(Magick::GrayscaleType);
+		Magick::Image img("32x32", "black");
+		/*const Magick::PixelPacket *pixels =*/
+		image.getPixels(0, 0, 32, 32);
+		img.setPixels(0, 0, 32, 32);
+		img.syncPixels();
+		matrix.drawImage(img);
 		matrix.refresh();
 		
 		
