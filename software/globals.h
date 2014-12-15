@@ -194,7 +194,7 @@ public:
 		int width        = screenWidth - x;
 		int height       = screenHeight - y;
 		
-		Magick::SetImageColorspace(&image, Magick::RGBColorspace);
+		image.colorSpace(Magick::RGBColorspace);
 		const Magick::PixelPacket *pixels = image.getConstPixels(offsetX, offsetY, width, height);
 		
 		for (int row = y; row < height; row++) {
