@@ -59,13 +59,21 @@ int main (int argc, char *argv[])
 		if (imageWidth != matrix.width()) {
 			image.sample(Magick::Geometry(matrix.width(), matrix.height()));
 		}
+
+		const Magick::PixelPacket *pixels = image.getConstPixels(0, 0, 32, 32);
 		
 		//image.type(Magick::GrayscaleType);
 		Magick::Image img("32x32", "red");
-		/*const Magick::PixelPacket *pixels =*/
-		image.getPixels(0, 0, 32, 32);
-		img.setPixels(0, 0, 32, 32);
-		image.syncPixels();
+		Magick::Pixels view(img);
+		Magick::PixelPackets *packs = view.get(0, 0, 32, 32);
+		for (int y = 0; y < 32; y++) {
+			for (int x = 0; x < 32; x++) {
+				*packs++ = *pixels++;
+				
+			}
+		}
+		view.sync();
+		
 		matrix.drawImage(img);
 		matrix.refresh();
 		
