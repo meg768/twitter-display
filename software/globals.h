@@ -194,15 +194,22 @@ public:
 		int width        = screenWidth - x;
 		int height       = screenHeight - y;
 		
-		image.colorSpace(Magick::RGBColorspace);
+
 		const Magick::PixelPacket *pixels = image.getConstPixels(offsetX, offsetY, width, height);
 		
 		for (int row = y; row < height; row++) {
 			for (int col = x; col < width; col++) {
-//				if (pixels->opacity == 0)
-					setPixel(col, row, pixels->red, pixels->green, pixels->blue);
-//				else
-//					setPixel(col, row, 0, 0, 0);
+				uint8_t red   = pixels->red;
+				uint8_t green = pixels->green;
+				uint8_t blue  = pixels->blue;
+				
+				if (pixels->opacity > 0) {
+					red = ((255 - pixels->opacity) * red) / 255;
+					green = ((255 - pixels->opacity) * green) / 255;
+					blue = ((255 - pixels->opacity) * blue) / 255;
+				}
+
+				setPixel(col, row, red, green, blue);
 				pixels++;
 			}
 		}
