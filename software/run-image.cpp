@@ -63,7 +63,7 @@ int main (int argc, char *argv[])
 		const Magick::PixelPacket *pixels = image.getConstPixels(0, 0, 32, 32);
 		
 		//image.type(Magick::GrayscaleType);
-		Magick::Image img("32x32", "red");
+		Magick::Image img("32x32", "black");
 		img.composite(image, 0, 0);
 /*
  Magick::Pixels view(img);
