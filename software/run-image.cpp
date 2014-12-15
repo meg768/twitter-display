@@ -65,7 +65,7 @@ int main (int argc, char *argv[])
 		/*const Magick::PixelPacket *pixels =*/
 		image.getPixels(0, 0, 32, 32);
 		img.setPixels(0, 0, 32, 32);
-		img.syncPixels();
+		image.syncPixels();
 		matrix.drawImage(img);
 		matrix.refresh();
 		
