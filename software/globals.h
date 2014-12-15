@@ -202,12 +202,13 @@ public:
 				uint8_t red   = pixels->red;
 				uint8_t green = pixels->green;
 				uint8_t blue  = pixels->blue;
-				
+				/*
 				if (pixels->opacity > 0) {
 					red = ((255 - pixels->opacity) * red) / 255;
 					green = ((255 - pixels->opacity) * green) / 255;
 					blue = ((255 - pixels->opacity) * blue) / 255;
 				}
+				 */
 
 				setPixel(col, row, red, green, blue);
 				pixels++;
