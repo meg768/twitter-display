@@ -64,7 +64,9 @@ int main (int argc, char *argv[])
 		
 		//image.type(Magick::GrayscaleType);
 		Magick::Image img("32x32", "red");
-		Magick::Pixels view(img);
+		img.composite(image, 0, 0);
+/*
+ Magick::Pixels view(img);
 		Magick::PixelPacket *packs = view.get(0, 0, 32, 32);
 		for (int y = 0; y < 32; y++) {
 			for (int x = 0; x < 32; x++) {
@@ -73,7 +75,7 @@ int main (int argc, char *argv[])
 			}
 		}
 		view.sync();
-		
+*/
 		matrix.drawImage(img);
 		matrix.refresh();
 		
