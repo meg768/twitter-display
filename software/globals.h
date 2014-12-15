@@ -198,7 +198,10 @@ public:
 		
 		for (int row = y; row < height; row++) {
 			for (int col = x; col < width; col++) {
-				setPixel(col, row, pixels->red, pixels->green, pixels->blue);
+				if (pixels->opacity == 0)
+					setPixel(col, row, pixels->red, pixels->green, pixels->blue);
+				else
+					setPixel(col, row, 0, 0, 0);
 				pixels++;
 			}
 		}
