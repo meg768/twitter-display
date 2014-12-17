@@ -255,14 +255,14 @@ public:
 			char minuteFile[200];
 			sprintf(minuteFile, "clock/M%02d.png", minutes);
 
-			Magick::Image backgroundImage("clock/background.png");
-			Magick::Image foregroundImage("clock/foreground.png");
+			Magick::Image backgroundImage("clock/bg.png");
+			Magick::Image foregroundImage("clock/fg.png");
 			Magick::Image hourImage(hourFile);
 			Magick::Image minuteImage(minuteFile);
 			
-			//backgroundImage.composite(hourImage, 0, 0, Magick::CompositeOperator(34));
-			//backgroundImage.composite(minuteImage, 0, 0, Magick::CompositeOperator(34));
-			//backgroundImage.composite(foregroundImage, 0, 0, Magick::CompositeOperator(34));
+			backgroundImage.composite(hourImage, 0, 0, Magick::CompositeOperator(34));
+			backgroundImage.composite(minuteImage, 0, 0, Magick::CompositeOperator(34));
+			backgroundImage.composite(foregroundImage, 0, 0, Magick::CompositeOperator(34));
 
 			
 			_canvas->drawImage(backgroundImage);
