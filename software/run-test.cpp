@@ -18,6 +18,7 @@ int main (int argc, char *argv[])
 	imageB.read("images/B.png");
 	
 	Magick::Image imageC("32x32", "black");
+	imageC.type(Magick::TrueColorType);
 //	imageC.read("images/C.png");
 
 	//imageA.getConstPixels(0, 0, 32, 32);
