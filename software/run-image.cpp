@@ -68,7 +68,7 @@ int main (int argc, char *argv[])
 		
 		//image.type(Magick::GrayscaleType);
 		Magick::Image img("32x32", "black");
-		img.composite(image, 0, 0, Magick::CompositeOperator(30));
+		img.composite(image, 0, 0); //, Magick::CompositeOperator(30));
 		
 		if (rotate != 0)
 			img.rotate((rotate / 360.0) * 2.0 * 3.14);
