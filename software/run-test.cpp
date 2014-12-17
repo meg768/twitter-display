@@ -8,7 +8,7 @@ int main (int argc, char *argv[])
 {
 	Magick::InitializeMagick(*argv);
 
-	LogiMatrix matrix();
+	LogiMatrix matrix;
 	
 
 	Magick::Image imageA;
