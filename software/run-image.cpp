@@ -11,6 +11,7 @@ int main (int argc, char *argv[])
 	int duration = 0;
 	int scroll = 0;
 	int iterations = 1;
+	double rotate = 0;
 	
 	while ((option = getopt(argc, argv, "i:g:d:s")) != -1) {
 		switch (option) {
@@ -25,6 +26,9 @@ int main (int argc, char *argv[])
 				break;
 			case 's':
 				scroll = true;
+				break;
+			case 'r':
+				rotate = atof(optarg);
 				break;
 		}
 	}
@@ -64,7 +68,10 @@ int main (int argc, char *argv[])
 		
 		//image.type(Magick::GrayscaleType);
 		Magick::Image img("32x32", "black");
-		img.composite(image, 0, 0);
+		img.composite(image, 0, 0, Magick::CompositeOperator(30));
+		
+		if (rotate != 0)
+			img.rotate((rotate / 360.0) * 2.0 * 3.14);
 /*
  Magick::Pixels view(img);
 		Magick::PixelPacket *packs = view.get(0, 0, 32, 32);
