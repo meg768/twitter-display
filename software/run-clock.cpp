@@ -218,7 +218,7 @@ class ClockAnimationEx  {
 	
 public:
 	
-	ClockAnimation(LogiMatrix *canvas)
+	ClockAnimationEx(LogiMatrix *canvas)
 	{
 		_canvas          = canvas;
 	}
@@ -264,8 +264,8 @@ public:
 			backgroundImage.composite(minuteImage, 0, 0, Magick::CompositeOperator(34));
 			backgroundImage.composite(foregroundImage, 0, 0, Magick::CompositeOperator(34));
 
-			matrix.drawImage(backgroundImage);
-			matrix.refresh();
+			canvas->drawImage(backgroundImage);
+			canvas->refresh();
 		
 		}
 	}
