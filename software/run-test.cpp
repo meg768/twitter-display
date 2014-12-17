@@ -23,9 +23,9 @@ int main (int argc, char *argv[])
 	//imageA.getConstPixels(0, 0, 32, 32);
 
 	imageC.composite(imageA, 0, 0, Magick::CopyOpacityCompositeOp);
-	//imageC.syncPixels();
+	imageC.syncPixels();
 	imageC.composite(imageB, 0, 0, Magick::CopyOpacityCompositeOp);
-	//imageC.syncPixels();
+	imageC.syncPixels();
 	
 	matrix.drawImage(imageC);
 	matrix.refresh();
