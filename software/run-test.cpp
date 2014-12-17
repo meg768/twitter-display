@@ -19,15 +19,17 @@ int main (int argc, char *argv[])
 	
 	Magick::Image imageC("32x32", "black");
 	imageC.type(Magick::TrueColorType);
+	
 //	imageC.read("images/C.png");
 
+	imageC.draw(DrawableCompositeImage(0, 0, imageA));
 	//imageA.getConstPixels(0, 0, 32, 32);
 
-	imageC.composite(imageA, 0, 0, Magick::OverCompositeOp);
+	/*imageC.composite(imageA, 0, 0, Magick::OverCompositeOp);
 	imageC.syncPixels();
 	imageC.composite(imageB, 0, 0, Magick::OverCompositeOp);
 	imageC.syncPixels();
-	
+	*/
 	matrix.drawImage(imageC);
 	matrix.refresh();
 		
