@@ -264,8 +264,8 @@ public:
 			backgroundImage.composite(minuteImage, 0, 0, Magick::CompositeOperator(34));
 			backgroundImage.composite(foregroundImage, 0, 0, Magick::CompositeOperator(34));
 
-			canvas->drawImage(backgroundImage);
-			canvas->refresh();
+			_canvas->drawImage(backgroundImage);
+			_canvas->refresh();
 		
 		}
 	}
