@@ -24,6 +24,7 @@ int main (int argc, char *argv[])
 	imageC.composite(imageA, 0, 0);
 	imageC.syncPixels();
 	imageC.composite(imageB, 0, 0);
+	imageC.syncPixels();
 	
 	
 	matrix.drawImage(imageC);
