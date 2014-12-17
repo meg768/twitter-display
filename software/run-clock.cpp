@@ -250,10 +250,10 @@ public:
 			int minutes = (int)((time + 2.5) / 5.0) * 5;;
 
 			char hourFile[200];
-			sprintf(hourImage, "clock/H%02d.png", hours);
+			sprintf(hourFile, "clock/H%02d.png", hours);
 			
 			char minuteFile[200];
-			sprintf(minuteImage, "clock/M%02d.png", minutes);
+			sprintf(minuteFile, "clock/M%02d.png", minutes);
 
 			Magick::Image backgroundImage("clock/background.png");
 			Magick::Image foregroundImage("clock/foreground.png");
