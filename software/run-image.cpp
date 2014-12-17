@@ -13,7 +13,7 @@ int main (int argc, char *argv[])
 	int iterations = 1;
 	double rotate = 0;
 	
-	while ((option = getopt(argc, argv, "i:g:d:s")) != -1) {
+	while ((option = getopt(argc, argv, "r:i:g:d:s")) != -1) {
 		switch (option) {
 			case 'g':
 				matrix.setGamma(atof(optarg));
