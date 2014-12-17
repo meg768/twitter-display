@@ -13,14 +13,15 @@ int main (int argc, char *argv[])
 
 	Magick::Image imageA;
 	imageA.read("images/A.png");
+	imageA.matte(true);
 	
 	Magick::Image imageB;
 	imageB.read("images/B.png");
 	
-	Magick::Image imageC("32x32", "black");
+	Magick::Image imageC;
 	imageC.type(Magick::TrueColorType);
-	
-//	imageC.read("images/C.png");
+	imageC.matte(true);
+	imageC.read("images/C.png");
 
 	imageC.draw(Magick::DrawableCompositeImage(0, 0, imageA));
 	//imageA.getConstPixels(0, 0, 32, 32);
