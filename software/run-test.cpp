@@ -21,14 +21,13 @@ int main (int argc, char *argv[])
 	imageC.read("images/C.png");
 
 	//imageA.getConstPixels(0, 0, 32, 32);
-/*
-	imageC.composite(imageA, 0, 0);
-	imageC.syncPixels();
-	imageC.composite(imageB, 0, 0);
-	imageC.syncPixels();
-*/
+
+	imageC.composite(imageA, 0, 0, Magick::CopyOpacityCompositeOp);
+	//imageC.syncPixels();
+	imageC.composite(imageB, 0, 0, Magick::CopyOpacityCompositeOp);
+	//imageC.syncPixels();
 	
-	matrix.drawImage(imageA);
+	matrix.drawImage(imageC);
 	matrix.refresh();
 		
 	
