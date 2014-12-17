@@ -11,6 +11,7 @@ int main (int argc, char *argv[])
 	LogiMatrix matrix;
 	
 	int op = 0;
+	int option = 0;
 	
 	while ((option = getopt(argc, argv, "o:")) != -1) {
 		switch (option) {
