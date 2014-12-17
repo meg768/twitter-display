@@ -19,9 +19,9 @@ int main (int argc, char *argv[])
 	imageB.read("images/B.png");
 	
 	Magick::Image imageC;
-	imageC.type(Magick::TrueColorType);
-	//imageC.matte(true);
 	imageC.read("images/C.png");
+	imageC.type(Magick::TrueColorType);
+	imageC.matte(true);
 
 	imageC.draw(Magick::DrawableCompositeImage(0, 0, imageA));
 	//imageA.getConstPixels(0, 0, 32, 32);
