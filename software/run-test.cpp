@@ -20,7 +20,7 @@ int main (int argc, char *argv[])
 	Magick::Image imageC;
 	imageC.read("images/C.png");
 
-	imageA.getConstPixels(0, 0, 32, 32);
+	//imageA.getConstPixels(0, 0, 32, 32);
 	imageC.composite(imageA, 0, 0);
 	imageC.syncPixels();
 	
