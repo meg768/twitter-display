@@ -10,7 +10,16 @@ int main (int argc, char *argv[])
 
 	LogiMatrix matrix;
 	
-
+	int op = 0;
+	
+	while ((option = getopt(argc, argv, "o:")) != -1) {
+		switch (option) {
+			case 'o':
+				op = atoi(optarg);
+				break;
+		}
+	}
+	
 	Magick::Image imageA;
 	imageA.read("images/A.png");
 	//imageA.matte(true);
@@ -22,7 +31,7 @@ int main (int argc, char *argv[])
 	imageC.read("images/C.png");
 	//imageC.matte(true);
 
-	imageC.composite(imageA, 0, 0, Magick::OverCompositeOp);
+	imageC.composite(imageA, 0, 0, Magick::CompositeOperator(op));
 	//imageA.getConstPixels(0, 0, 32, 32);
 
 	/*imageC.composite(imageA, 0, 0, Magick::OverCompositeOp);
