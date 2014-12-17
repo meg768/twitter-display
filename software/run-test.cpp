@@ -20,7 +20,6 @@ int main (int argc, char *argv[])
 	
 	Magick::Image imageC;
 	imageC.read("images/C.png");
-	imageC.type(Magick::TrueColorType);
 	//imageC.matte(true);
 
 	imageC.composite(imageA, 0, 0, Magick::MultiplyCompositeOp);
