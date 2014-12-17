@@ -21,7 +21,7 @@ int main (int argc, char *argv[])
 	Magick::Image imageC;
 	imageC.read("images/C.png");
 	imageC.type(Magick::TrueColorType);
-	imageC.matte(true);
+	//imageC.matte(true);
 
 	imageC.draw(Magick::DrawableCompositeImage(0, 0, imageA));
 	//imageA.getConstPixels(0, 0, 32, 32);
