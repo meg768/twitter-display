@@ -213,6 +213,70 @@ private:
 
 
 
+class ClockAnimationEx  {
+	
+	
+public:
+	
+	ClockAnimation(LogiMatrix *canvas)
+	{
+		_canvas          = canvas;
+	}
+	
+	
+	
+	
+	virtual void run(Timer &timer) {
+		
+		
+		int hours   = 0;
+		int minutes = 0;
+		int seconds = 0;
+		
+		unsigned int ticks = 0;
+		
+		time_t t = time(0);
+		struct tm *now = localtime(&t);
+		
+		while (!timer.expired()) {
+			
+			
+			time_t t = time(0);
+			now = localtime(&t);
+			
+			int hours = now->tm_hour % 12;
+			
+			double time = (double)now->tm_min + (double)now->tm_sec / 60.0;
+			int minutes = (int)((time + 2.5) / 5.0) * 5;;
+
+			char hourFile[200];
+			sprintf(hourImage, "clock/H%02d.png", hours);
+			
+			char minuteFile[200];
+			sprintf(minuteImage, "clock/M%02d.png", minutes);
+
+			Magick::Image backgroundImage("clock/background.png");
+			Magick::Image foregroundImage("clock/foreground.png");
+			Magick::Image hourImage(hourFile);
+			Magick::Image minuteImage(minuteFile);
+			
+			backgroundImage.composite(hourImage, 0, 0, Magick::CompositeOperator(34));
+			backgroundImage.composite(minuteImage, 0, 0, Magick::CompositeOperator(34));
+			backgroundImage.composite(foregroundImage, 0, 0, Magick::CompositeOperator(34));
+
+			matrix.drawImage(backgroundImage);
+			matrix.refresh();
+		
+		}
+	}
+	
+private:
+	LogiMatrix *_canvas;
+	
+};
+
+
+
 
 int main (int argc, char *argv[])
 {
@@ -237,7 +301,7 @@ int main (int argc, char *argv[])
 		}
 	}
 	
-	ClockAnimation animation(&matrix);
+	ClockAnimationEx animation(&matrix);
 	animation.run(timer);
 
 	matrix.clear();
