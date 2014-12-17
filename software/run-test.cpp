@@ -22,7 +22,7 @@ int main (int argc, char *argv[])
 	
 //	imageC.read("images/C.png");
 
-	imageC.draw(DrawableCompositeImage(0, 0, imageA));
+	imageC.draw(Magick::DrawableCompositeImage(0, 0, imageA));
 	//imageA.getConstPixels(0, 0, 32, 32);
 
 	/*imageC.composite(imageA, 0, 0, Magick::OverCompositeOp);
