@@ -32,7 +32,7 @@ int main (int argc, char *argv[])
 	imageC.read("images/C.png");
 	//imageC.matte(true);
 
-	imageC.composite(imageA, 0, 0, Magick::CompositeOperator(op));
+	imageC.composite(imageA, 0, 0, Magick::BlendCompositeOp);
 	//imageA.getConstPixels(0, 0, 32, 32);
 
 	/*imageC.composite(imageA, 0, 0, Magick::OverCompositeOp);
