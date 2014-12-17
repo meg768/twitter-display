@@ -23,6 +23,7 @@ int main (int argc, char *argv[])
 	//imageA.getConstPixels(0, 0, 32, 32);
 	imageC.composite(imageA, 0, 0);
 	imageC.syncPixels();
+	imageC.composite(imageB, 0, 0);
 	
 	
 	matrix.drawImage(imageC);
