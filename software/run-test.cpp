@@ -17,8 +17,8 @@ int main (int argc, char *argv[])
 	Magick::Image imageB;
 	imageB.read("images/B.png");
 	
-	Magick::Image imageC;
-	imageC.read("images/C.png");
+	Magick::Image imageC("32x32", "black");
+//	imageC.read("images/C.png");
 
 	//imageA.getConstPixels(0, 0, 32, 32);
 
