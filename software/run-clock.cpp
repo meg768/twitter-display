@@ -254,19 +254,35 @@ public:
 			Magick::Image clockImage(Magick::Geometry(32, 32), Magick::Color("black"));
 
 			clockImage.strokeColor("blue");
-			clockImage.strokeWidth(1);
+			clockImage.strokeWidth(2);
 			clockImage.fillColor("blue");
 			clockImage.strokeLineCap(Magick::RoundCap);
 			
-			double alfa = (double)now->tm_min / 60.0 * 2 * M_PI;
-			
-			double x = 15.5;
-			double y = 15.5;
-			double dx = cos(M_PI / 4.0 - alfa) * 10.0;
-			double dy = sin(M_PI / 4.0 - alfa) * 10.0;
-			
-			clockImage.draw(Magick::DrawableLine(x, y, x + dx, y - dy));
-			
+			{
+				double alfa = (double)now->tm_min / 60.0 * 2 * M_PI;
+				
+				double x = 15.5;
+				double y = 15.5;
+				double dx = cos(M_PI / 4.0 - alfa) * 13.0;
+				double dy = sin(M_PI / 4.0 - alfa) * 13.0;
+				
+				clockImage.draw(Magick::DrawableLine(x, y, x + dx, y - dy));
+				
+			}
+
+			{
+				clockImage.strokeColor("red");
+				double alfa = (double)now->tm_sec / 60.0 * 2 * M_PI;
+				
+				double x = 15.5;
+				double y = 15.5;
+				double dx = cos(M_PI / 4.0 - alfa) * 15.0;
+				double dy = sin(M_PI / 4.0 - alfa) * 15.0;
+				
+				clockImage.draw(Magick::DrawableLine(x, y, x + dx, y - dy));
+				
+			}
+
 			backgroundImage.composite(clockImage, 0, 0, Magick::CompositeOperator(34));
 			backgroundImage.composite(foregroundImage, 0, 0, Magick::CompositeOperator(34));
 
