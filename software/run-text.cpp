@@ -98,10 +98,11 @@ int main (int argc, char *argv[])
 		
 		int count = 0;
 		
+		const Magick::PixelPacket *pixels = image.getConstPixels(offsetX, offsetY, screenWidth, screenHeight);
+
 		while (count < iterations) {
 			matrix.clear();
 
-			const Magick::PixelPacket *pixels = image.getConstPixels(offsetX, offsetY, screenWidth, screenHeight);
 			
 			for (int row = 0; row < screenHeight; row++) {
 				for (int col = 0; col < screenWidth; col++) {
