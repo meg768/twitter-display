@@ -264,7 +264,8 @@ public:
 			clockImage.fillColor("blue");
 			clockImage.strokeAntiAlias(true);
 			clockImage.strokeLineCap(Magick::RoundCap);
-			clockImage.fontPointsize(10);
+			clockImage.fontPointsize(11);
+			clockImage.font("Arial");
 			//clockImage.draw(Magick::DrawableLine(15.5, 15.5, 18.5, 3.5));
 			clockImage.draw(Magick::DrawableText(2, 20, "22:32"));
 			
