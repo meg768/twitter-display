@@ -93,7 +93,7 @@ int main (int argc, char *argv[])
 		
 		int count = 0;
 		
-		Magick::Image screen(Magick::Geometry(32, 32), "black");
+		Magick::Image screen(Magick::Geometry(screenWidth, screenHeight), "black");
 		
 		while (count < iterations) {
 			screen.erase();
@@ -103,7 +103,7 @@ int main (int argc, char *argv[])
 			matrix.drawImage(screen);
 			matrix.refresh();
 			
-			if (--offsetX < -screenWidth) {
+			if (--offsetX < -(imageWidth + screenWidth)) {
 				offsetX = screenWidth;
 				count++;
 			}
