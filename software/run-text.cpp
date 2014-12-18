@@ -49,7 +49,7 @@ int main (int argc, char *argv[])
 			return -1;
 		}
 		
-		
+		/*
 		const char *fileName = "run-text.png";
 
 
@@ -58,8 +58,9 @@ int main (int argc, char *argv[])
 			
 		printf("Executing command: %s\n", cmd);
 		system(cmd);
-			
-		{
+			*/
+		
+		
 			Magick::Image image("32x32", "black");
 			
 			char fontFile[200];
@@ -75,14 +76,12 @@ int main (int argc, char *argv[])
 			
 			image.resize(Magick::Geometry(metric.textWidth() + 2, metric.textHeight() + 2));
 			image.draw(Magick::DrawableText(1, metric.textHeight() - 1, text));
-			image.magick("PNG");
-			image.write("run-text2.png");
-			
-			
-		}
 
-		Magick::Image image;
-		image.read(fileName);
+		
+			
+		
+		//Magick::Image image;
+		//image.read(fileName);
 		
 		int screenHeight = matrix.height();
 		int screenWidth  = matrix.height();
