@@ -88,23 +88,23 @@ int main (int argc, char *argv[])
 		int screenWidth  = matrix.height();
 		int imageWidth   = image.columns();
 		int imageHeight  = image.rows();
-		int offsetX      = -screenWidth;
+		int offsetX      = screenWidth;
 		int offsetY      = -(screenHeight - imageHeight) / 2;
 		
 		int count = 0;
 		
+		Magick::Image screen(Magick::Geometry(32, 32), "black");
 		
 		while (count < iterations) {
-			Magick::Image screen(Magick::Geometry(32, 32), "black");
-			
+			screen.erase();
 			screen.composite(image, offsetX, 0, Magick::CopyCompositeOp);
+
 			matrix.clear();
 			matrix.drawImage(screen);
 			matrix.refresh();
 			
-			
-			if (++offsetX >= (imageWidth + screenWidth)) {
-				offsetX = -screenWidth;
+			if (--offsetX < 0) {
+				offsetX = screenWidth;
 				count++;
 			}
 			
