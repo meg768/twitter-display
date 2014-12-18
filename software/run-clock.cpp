@@ -293,8 +293,8 @@ public:
 				clockImage.fillColor("red");
 				double alfa = (double)now->tm_sec / 60.0 * 2.0 * M_PI;
 				
-				double x = 15.5;
-				double y = 15.5;
+				double x = 16;
+				double y = 16;
 				double dx =  cos(M_PI / 2.0 - alfa) * 15.0;
 				double dy =  sin(M_PI / 2.0 - alfa) * 15.0;
 				
