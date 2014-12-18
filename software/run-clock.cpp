@@ -295,12 +295,12 @@ public:
 				
 				double x = 15.5;
 				double y = 15.5;
-				double dx = 0.5 + cos(M_PI / 2.0 - alfa) * 15.0;
-				double dy = 0.5 + sin(M_PI / 2.0 - alfa) * 15.0;
+				double dx =  cos(M_PI / 2.0 - alfa) * 15.0;
+				double dy =  sin(M_PI / 2.0 - alfa) * 15.0;
 				
 				//clockImage.draw(Magick::DrawableLine(x, y, x + dx, y - dy));
 				//clockImage.draw(Magick::DrawableCircle(x + dx, y - dy, x + dx + 2, y - dy + 2));
-				clockImage.composite(red, x + dx, y - dy, Magick::CompositeOperator(34));
+				clockImage.composite(red, x + dx - 2.5, y - dy - 2.5, Magick::CompositeOperator(34));
 				clockImage.pixelColor(x + dx, y - dy, "blue");
 			}
 
