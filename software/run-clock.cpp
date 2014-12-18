@@ -259,7 +259,7 @@ public:
 
 			{
 				clockImage.strokeColor("green");
-				double alfa = ((double)(now->tm_hour % 12) * 60.0 + (double)now->tm_min) / 720.0 * 2 * M_PI;
+				double alfa = (double)((now->tm_hour % 12) * 60 + now->tm_min) / 720.0 * 2 * M_PI;
 				
 				double x = 15.5;
 				double y = 15.5;
@@ -268,7 +268,7 @@ public:
 				
 				clockImage.draw(Magick::DrawableLine(x, y, x + dx, y - dy));
 				
-			}
+			}/*
 
 			{
 				clockImage.strokeColor("blue");
@@ -296,6 +296,7 @@ public:
 				clockImage.draw(Magick::DrawableLine(x, y, x + dx, y - dy));
 				
 			}
+			  */
 
 
 			backgroundImage.composite(clockImage, 0, 0, Magick::CompositeOperator(34));
