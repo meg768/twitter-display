@@ -310,7 +310,7 @@ int main (int argc, char *argv[])
 		}
 	}
 	
-	ClockAnimationEx animation(&matrix);
+	ClockAnimation animation(&matrix);
 	animation.run(timer);
 
 	matrix.clear();

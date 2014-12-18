@@ -4,9 +4,6 @@ int main (int argc, char *argv[])
 {
 	Magick::InitializeMagick(*argv);
 	
-	char szPath[100];
-	readlink("/proc/self/exe", szPath, sizeof(szPath));
-	
 
 	int option       = 0;
 	int iterations   = 1;
@@ -14,17 +11,21 @@ int main (int argc, char *argv[])
 	int delay        = 5;
 	const char *textColor  = "red";
 	const char *fontName   = "Arial";
+	int ruby = 0;
 	
 	try {
 		LogiMatrix matrix;
 		
-		while ((option = getopt(argc, argv, "g:i:p:c:f:")) != -1) {
+		while ((option = getopt(argc, argv, "r:g:i:p:c:f:")) != -1) {
 			switch (option) {
 				case 'i':
 					iterations = atoi(optarg);
 					break;
 				case 'p':
 					pointSize = atoi(optarg);
+					break;
+				case 'r':
+					ruby = atoi(optarg);
 					break;
 				case 'c':
 					textColor = optarg;
@@ -51,11 +52,33 @@ int main (int argc, char *argv[])
 		
 		const char *fileName = "run-text.png";
 
+
 		char cmd[1000];
 		sprintf(cmd, "python run-text.py -o \"%s\" -c \"%s\" -p %d -f \"%s\" -t \"%s\" ", fileName, textColor, pointSize, fontName, text);
-		
+			
 		printf("Executing command: %s\n", cmd);
 		system(cmd);
+			
+		{
+			Magick::Image image("32x32", "black");
+			
+			char fontFile[200];
+			sprintf(fontFile, "./fonts/%s.ttf", fontName);
+			
+			image.font(fontFile);
+			image.strokeColor("transparent");
+			image.fillColor(textColor);
+			image.fontPointsize(pointSize);
+			
+			Magick::TypeMetric metric;
+			image.fontTypeMetrics(text, &metric);
+			
+			image.resize(Magick::Geometry(metric.textWidth() + 2, metric.textHeight() + 2));
+			image.draw(Magick::DrawableText(1, metric.textHeight() - 1, text));
+			image.write("run-text2.png");
+			
+			
+		}
 
 		Magick::Image image;
 		image.read(fileName);
