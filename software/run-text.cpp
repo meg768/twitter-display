@@ -15,7 +15,7 @@ int main (int argc, char *argv[])
 	try {
 		LogiMatrix matrix;
 		
-		while ((option = getopt(argc, argv, "r:g:i:p:c:f:s:")) != -1) {
+		while ((option = getopt(argc, argv, "g:i:p:c:f:s:")) != -1) {
 			switch (option) {
 				case 's':
 					speed = atoi(optarg);
@@ -25,9 +25,6 @@ int main (int argc, char *argv[])
 					break;
 				case 'p':
 					pointSize = atoi(optarg);
-					break;
-				case 'r':
-					ruby = atoi(optarg);
 					break;
 				case 'c':
 					textColor = optarg;
