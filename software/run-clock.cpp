@@ -260,9 +260,9 @@ public:
 			Magick::Image hourImage(hourFile);
 			Magick::Image minuteImage(minuteFile);
 			
-			backgroundImage.composite(hourImage, 0, 0, Magick::CompositeOperator(34));
-			backgroundImage.composite(minuteImage, 0, 0, Magick::CompositeOperator(34));
-			backgroundImage.composite(foregroundImage, 0, 0, Magick::CompositeOperator(34));
+			//backgroundImage.composite(hourImage, 0, 0, Magick::CompositeOperator(34));
+			//backgroundImage.composite(minuteImage, 0, 0, Magick::CompositeOperator(34));
+			//backgroundImage.composite(foregroundImage, 0, 0, Magick::CompositeOperator(34));
 
 			
 			_canvas->drawImage(backgroundImage);

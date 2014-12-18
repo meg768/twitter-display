@@ -8,7 +8,7 @@ startup:
 	cd wifi-reset && sudo ./wifi-reset.sh
 	cd logibone && sudo ./setup.sh
 #	cd software && ./run-perlin
-	cd node && sudo node app.js > app.log	
+#	cd node && sudo node app.js > app.log	
 
 run:
 	cd node && sudo node app.js	
