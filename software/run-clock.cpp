@@ -260,10 +260,13 @@ public:
 			Magick::Image clockImage(Magick::Geometry(32, 32), Magick::Color("black"));
 			//Magick::Image minuteImage(minuteFile);
 			clockImage.strokeColor("blue");
-			clockImage.strokeWidth(2);
+			clockImage.strokeWidth(0);
+			clockImage.fillColor("blue");
 			clockImage.strokeAntiAlias(true);
 			clockImage.strokeLineCap(Magick::RoundCap);
-			clockImage.draw(Magick::DrawableLine(15.5, 15.5, 18.5, 3.5));
+			clockImage.fontPointsize(10);
+			//clockImage.draw(Magick::DrawableLine(15.5, 15.5, 18.5, 3.5));
+			clockImage.draw(Magick::DrawableText(2, 20, "22:32"));
 			
 			//backgroundImage.composite(hourImage, 0, 0, Magick::CompositeOperator(34));
 			backgroundImage.composite(clockImage, 0, 0, Magick::CompositeOperator(34));
