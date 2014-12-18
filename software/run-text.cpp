@@ -111,7 +111,7 @@ int main (int argc, char *argv[])
 			
 			matrix.refresh();
 			
-			if (++offsetX >= (imageWidth + screenWidth)) {
+			if (++offsetX > imageWidth) {
 				offsetX = -screenWidth;
 				count++;
 			}
