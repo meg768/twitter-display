@@ -261,6 +261,7 @@ public:
 			//Magick::Image minuteImage(minuteFile);
 			clockImage.strokeColor("blue");
 			clockImage.strokeWidth(2);
+			clockImage.strokeAntiAlias(true);
 			clockImage.strokeLineCap(Magick::RoundCap);
 			clockImage.draw(Magick::DrawableLine(15.5, 15.5, 18.5, 3.5));
 			
