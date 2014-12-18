@@ -290,6 +290,7 @@ public:
 				clockImage.pixelColor(x + dx, y - dy, "blue");
 				
 			}
+			/*
 			{
 				Magick::Image red("./clock/blue.png");
 				double alfa = (double)now->tm_sec / 60.0 * 2.0 * M_PI;
@@ -304,7 +305,7 @@ public:
 				clockImage.composite(red, x + dx - 2.5, y - dy - 2.5, Magick::CompositeOperator(34));
 				clockImage.pixelColor(x + dx, y - dy, "blue");
 			}
-
+*/
 
 			backgroundImage.composite(clockImage, 0, 0, Magick::CompositeOperator(34));
 			//backgroundImage.composite(foregroundImage, 0, 0, Magick::CompositeOperator(34));
