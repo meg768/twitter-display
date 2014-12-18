@@ -257,37 +257,41 @@ public:
 			//clockImage.strokeWidth(2.5);
 			//clockImage.strokeLineCap(Magick::RoundCap);
 
-			/*
 			{
-				clockImage.fillColor("yellow");
-				
 				double alfa = (double)(now->tm_hour * 60 + now->tm_min) / 720.0 * 2.0 * M_PI;
 				
-				double x = 15.5;
-				double y = 15.5;
-				double dx = cos(M_PI / 2.0 - alfa) * 9.0;
-				double dy = sin(M_PI / 2.0 - alfa) * 9.0;
+				Magick::Image red("./clock/red.png");
+				clockImage.fillColor("red");
+				
+				double x = 16;
+				double y = 16;
+				double dx =  cos(M_PI / 2.0 - alfa) * 12.0;
+				double dy =  sin(M_PI / 2.0 - alfa) * 12.0;
 				
 				//clockImage.draw(Magick::DrawableLine(x, y, x + dx, y - dy));
-				clockImage.draw(Magick::DrawableCircle(x + dx, y - dy, 1, 1));
-				
+				//clockImage.draw(Magick::DrawableCircle(x + dx, y - dy, x + dx + 2, y - dy + 2));
+				clockImage.composite(red, x + dx - 2.5, y - dy - 2.5, Magick::CompositeOperator(34));
+				clockImage.pixelColor(x + dx, y - dy, "blue");
 			}
 
+			 
 			{
-				clockImage.fillColor("blue");
-
 				double alfa = (double)now->tm_min / 60.0 * 2.0 * M_PI;
+
+				Magick::Image red("./clock/red.png");
+				clockImage.fillColor("red");
 				
-				double x = 15.5;
-				double y = 15.5;
-				double dx = cos(M_PI / 2.0 - alfa) * 12.0;
-				double dy = sin(M_PI / 2.0 - alfa) * 12.0;
+				double x = 16;
+				double y = 16;
+				double dx =  cos(M_PI / 2.0 - alfa) * 12.0;
+				double dy =  sin(M_PI / 2.0 - alfa) * 12.0;
 				
 				//clockImage.draw(Magick::DrawableLine(x, y, x + dx, y - dy));
-				clockImage.draw(Magick::DrawableCircle(x + dx, y - dy, 2, 2));
+				//clockImage.draw(Magick::DrawableCircle(x + dx, y - dy, x + dx + 2, y - dy + 2));
+				clockImage.composite(red, x + dx - 2.5, y - dy - 2.5, Magick::CompositeOperator(34));
+				clockImage.pixelColor(x + dx, y - dy, "blue");
 				
 			}
-*/
 			{
 				Magick::Image red("./clock/red.png");
 				clockImage.fillColor("red");
