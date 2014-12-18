@@ -74,14 +74,14 @@ int main (int argc, char *argv[])
 			Magick::TypeMetric metric;
 			tmp.fontTypeMetrics(text, &metric);
 
-			Magick::Image image(Magick::Geometry(metric.textWidth() + 2, metric.textHeight() + 2), "black");
+			Magick::Image image(Magick::Geometry(metric.textWidth() + 2, 32), "black");
 			image.font(fontFile);
 			image.strokeColor("transparent");
 			image.fillColor(textColor);
 			image.fontPointsize(pointSize);
 		
-			//image.resize(Magick::Geometry(metric.textWidth() + 2, metric.textHeight() + 2));
-			image.draw(Magick::DrawableText(1, metric.textHeight() - 1, text));
+			//image.resize(Magick::Geometry(metric.textWidth() + 2, 32));
+			image.draw(Magick::DrawableText(1, 32 + (32 - metric.textHeight()) / 2, text));
 
 		
 			
@@ -98,12 +98,13 @@ int main (int argc, char *argv[])
 		
 		int count = 0;
 		
-		const Magick::PixelPacket *pixels = image.getConstPixels(offsetX, offsetY, screenWidth, screenHeight);
 
 		while (count < iterations) {
 			matrix.clear();
 
-			
+			Magick::
+			const Magick::PixelPacket *pixels = image.getConstPixels(offsetX, offsetY, screenWidth, screenHeight);
+
 			for (int row = 0; row < screenHeight; row++) {
 				for (int col = 0; col < screenWidth; col++) {
 					if (offsetX + col < 0 || offsetX + col >= imageWidth)
