@@ -4,20 +4,22 @@ int main (int argc, char *argv[])
 {
 	Magick::InitializeMagick(*argv);
 	
+	const char *textColor  = "red";
+	const char *fontName   = "Arial";
 
 	int option       = 0;
 	int iterations   = 1;
 	int pointSize    = 16;
-	int delay        = 5;
-	const char *textColor  = "red";
-	const char *fontName   = "Arial";
-	int ruby = 0;
+	int speed        = 3;
 	
 	try {
 		LogiMatrix matrix;
 		
-		while ((option = getopt(argc, argv, "r:g:i:p:c:f:")) != -1) {
+		while ((option = getopt(argc, argv, "r:g:i:p:c:f:s:")) != -1) {
 			switch (option) {
+				case 's':
+					speed = atoi(optarg);
+					break;
 				case 'i':
 					iterations = atoi(optarg);
 					break;
@@ -39,6 +41,12 @@ int main (int argc, char *argv[])
 			}
 		}
 		
+		if (speed < 0)
+			speed = 0;
+		
+		if (speed > 10)
+			speed = 10;
+		
 		if (iterations == 0)
 			iterations = 1;
 		
@@ -48,18 +56,6 @@ int main (int argc, char *argv[])
 			fprintf(stderr, "No text specified.\n");
 			return -1;
 		}
-		
-		/*
-		const char *fileName = "run-text.png";
-
-
-		char cmd[1000];
-		sprintf(cmd, "python run-text.py -o \"%s\" -c \"%s\" -p %d -f \"%s\" -t \"%s\" ", fileName, textColor, pointSize, fontName, text);
-			
-		printf("Executing command: %s\n", cmd);
-		system(cmd);
-			*/
-		
 		
 		Magick::Image tmp("32x32", "black");
 		
@@ -116,7 +112,7 @@ int main (int argc, char *argv[])
 				count++;
 			}
 
-			usleep(delay * 1000);
+			usleep(speed * 1000);
 		}
 
 	}
