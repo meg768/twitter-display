@@ -259,7 +259,7 @@ public:
 
 			{
 				clockImage.strokeColor("green");
-				double alfa = (double)((now->tm_hour % 12) * 60 + now->tm_min) / 720.0 * 2 * M_PI;
+				double alfa = M_PI / 2.0; //(double)((now->tm_hour % 12) * 60 + now->tm_min) / 720.0 * 2 * M_PI;
 				
 				double x = 15.5;
 				double y = 15.5;
