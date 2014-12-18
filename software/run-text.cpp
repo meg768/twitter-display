@@ -75,6 +75,7 @@ int main (int argc, char *argv[])
 			
 			image.resize(Magick::Geometry(metric.textWidth() + 2, metric.textHeight() + 2));
 			image.draw(Magick::DrawableText(1, metric.textHeight() - 1, text));
+			image.magick("PNG");
 			image.write("run-text2.png");
 			
 			
