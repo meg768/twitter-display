@@ -61,20 +61,26 @@ int main (int argc, char *argv[])
 			*/
 		
 		
-			Magick::Image image("32x32", "black");
+			Magick::Image tmp("32x32", "black");
 			
 			char fontFile[200];
 			sprintf(fontFile, "./fonts/%s.ttf", fontName);
 			
+			tmp.font(fontFile);
+			tmp.strokeColor("transparent");
+			tmp.fillColor(textColor);
+			tmp.fontPointsize(pointSize);
+			
+			Magick::TypeMetric metric;
+			tmp.fontTypeMetrics(text, &metric);
+
+			Magick::Image image(Magick::Geometry(metric.textWidth() + 2, metric.textHeight() + 2), "black");
 			image.font(fontFile);
 			image.strokeColor("transparent");
 			image.fillColor(textColor);
 			image.fontPointsize(pointSize);
-			
-			Magick::TypeMetric metric;
-			image.fontTypeMetrics(text, &metric);
-			
-			image.resize(Magick::Geometry(metric.textWidth() + 2, metric.textHeight() + 2));
+		
+			//image.resize(Magick::Geometry(metric.textWidth() + 2, metric.textHeight() + 2));
 			image.draw(Magick::DrawableText(1, metric.textHeight() - 1, text));
 
 		
