@@ -261,7 +261,6 @@ public:
 				double alfa = (double)(now->tm_hour * 60 + now->tm_min) / 720.0 * 2.0 * M_PI;
 				
 				Magick::Image red("./clock/red.png");
-				clockImage.fillColor("red");
 				
 				double x = 16;
 				double y = 16;
@@ -279,7 +278,6 @@ public:
 				double alfa = (double)now->tm_min / 60.0 * 2.0 * M_PI;
 
 				Magick::Image red("./clock/blue.png");
-				clockImage.fillColor("red");
 				
 				double x = 16;
 				double y = 16;
@@ -293,8 +291,7 @@ public:
 				
 			}
 			{
-				Magick::Image red("./clock/green.png");
-				clockImage.fillColor("red");
+				Magick::Image red("./clock/blue.png");
 				double alfa = (double)now->tm_sec / 60.0 * 2.0 * M_PI;
 				
 				double x = 16;
