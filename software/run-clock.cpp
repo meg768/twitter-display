@@ -257,6 +257,7 @@ public:
 			//clockImage.strokeWidth(2.5);
 			//clockImage.strokeLineCap(Magick::RoundCap);
 
+			/*
 			{
 				clockImage.fillColor("yellow");
 				
@@ -268,7 +269,7 @@ public:
 				double dy = sin(M_PI / 2.0 - alfa) * 9.0;
 				
 				//clockImage.draw(Magick::DrawableLine(x, y, x + dx, y - dy));
-				clockImage.draw(Magick::DrawableCircle(x + dx, y - dy, 2, 2));
+				clockImage.draw(Magick::DrawableCircle(x + dx, y - dy, 1, 1));
 				
 			}
 
@@ -286,7 +287,7 @@ public:
 				clockImage.draw(Magick::DrawableCircle(x + dx, y - dy, 2, 2));
 				
 			}
-
+*/
 			{
 				clockImage.fillColor("red");
 				double alfa = (double)now->tm_sec / 60.0 * 2.0 * M_PI;
@@ -297,7 +298,7 @@ public:
 				double dy = 0.5 + sin(M_PI / 2.0 - alfa) * 15.0;
 				
 				//clockImage.draw(Magick::DrawableLine(x, y, x + dx, y - dy));
-				clockImage.draw(Magick::DrawableCircle(x + dx, y - dy, 2, 2));
+				clockImage.draw(Magick::DrawableCircle(x + dx, y - dy, 1, 1));
 				
 			}
 
