@@ -265,7 +265,7 @@ public:
 				
 				double x = 16;
 				double y = 16;
-				double dx =  cos(M_PI / 2.0 - alfa) * 12.0;
+				double dx =  cos(M_PI / 2.0 - alfa) * 6.0;
 				double dy =  sin(M_PI / 2.0 - alfa) * 12.0;
 				
 				//clockImage.draw(Magick::DrawableLine(x, y, x + dx, y - dy));
@@ -278,7 +278,7 @@ public:
 			{
 				double alfa = (double)now->tm_min / 60.0 * 2.0 * M_PI;
 
-				Magick::Image red("./clock/red.png");
+				Magick::Image red("./clock/blue.png");
 				clockImage.fillColor("red");
 				
 				double x = 16;
@@ -293,14 +293,14 @@ public:
 				
 			}
 			{
-				Magick::Image red("./clock/red.png");
+				Magick::Image red("./clock/green.png");
 				clockImage.fillColor("red");
 				double alfa = (double)now->tm_sec / 60.0 * 2.0 * M_PI;
 				
 				double x = 16;
 				double y = 16;
-				double dx =  cos(M_PI / 2.0 - alfa) * 12.0;
-				double dy =  sin(M_PI / 2.0 - alfa) * 12.0;
+				double dx =  cos(M_PI / 2.0 - alfa) * 18.0;
+				double dy =  sin(M_PI / 2.0 - alfa) * 18.0;
 				
 				//clockImage.draw(Magick::DrawableLine(x, y, x + dx, y - dy));
 				//clockImage.draw(Magick::DrawableCircle(x + dx, y - dy, x + dx + 2, y - dy + 2));
