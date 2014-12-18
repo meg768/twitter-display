@@ -99,7 +99,7 @@ int main (int argc, char *argv[])
 			
 			screen.composite(image, offsetX, 0, Magick::CopyCompositeOp);
 			matrix.clear();
-			matrix.drawImage(image);
+			matrix.drawImage(screen);
 			matrix.refresh();
 			
 			
