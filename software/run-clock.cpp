@@ -262,7 +262,7 @@ public:
 			
 			backgroundImage.composite(hourImage, 0, 0, Magick::CompositeOperator(34));
 			backgroundImage.composite(minuteImage, 0, 0, Magick::CompositeOperator(34));
-			//backgroundImage.composite(foregroundImage, 0, 0, Magick::CompositeOperator(34));
+			backgroundImage.composite(foregroundImage, 0, 0, Magick::CompositeOperator(34));
 
 			
 			_canvas->drawImage(backgroundImage);
