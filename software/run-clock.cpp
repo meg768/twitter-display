@@ -298,7 +298,7 @@ public:
 				double dy = 0.5 + sin(M_PI / 2.0 - alfa) * 15.0;
 				
 				//clockImage.draw(Magick::DrawableLine(x, y, x + dx, y - dy));
-				clockImage.draw(Magick::DrawableCircle(x + dx, y - dy, 2, 0));
+				clockImage.draw(Magick::DrawableCircle(x + dx, y - dy, x + dx + 2, y - dy + 2));
 				clockImage.pixelColor(x + dx, y - dy, "blue");
 				
 			}
