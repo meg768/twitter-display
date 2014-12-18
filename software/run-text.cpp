@@ -82,36 +82,6 @@ int main (int argc, char *argv[])
 		
 		image.draw(Magick::DrawableText(1, 16.0 + metric.textHeight() / 2.0 + metric.descent(), text));
 
-		
-		
-		int screenHeight = matrix.height();
-		int screenWidth  = matrix.height();
-		int imageWidth   = image.columns();
-		int imageHeight  = image.rows();
-		int offsetX      = screenWidth;
-		int offsetY      = -(screenHeight - imageHeight) / 2;
-		
-		int count = 0;
-		
-		Magick::Image screen(Magick::Geometry(screenWidth, screenHeight), "black");
-		
-		while (count < iterations) {
-			screen.erase();
-			screen.composite(image, offsetX, 0, Magick::CopyCompositeOp);
-
-			matrix.clear();
-			matrix.drawImage(screen);
-			matrix.refresh();
-			
-			if (--offsetX < -(imageWidth + screenWidth)) {
-				offsetX = screenWidth;
-				count++;
-			}
-			
-			usleep(delay * 1000);
-		}
-/*
-		
 		int screenHeight = matrix.height();
 		int screenWidth  = matrix.height();
 		int imageWidth   = image.columns();
@@ -148,7 +118,7 @@ int main (int argc, char *argv[])
 
 			usleep(delay * 1000);
 		}
- */
+
 	}
 	catch (std::exception &error) {
 		fprintf(stderr, "%s\n", error.what());
