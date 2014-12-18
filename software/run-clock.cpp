@@ -257,11 +257,14 @@ public:
 
 			Magick::Image backgroundImage("clock/bg.png");
 			Magick::Image foregroundImage("clock/fg.png");
-			Magick::Image hourImage(hourFile);
-			Magick::Image minuteImage(minuteFile);
+			Magick::Image clockImage(Magick::Geometry(32, 32), Magick::Color("black"));
+			//Magick::Image minuteImage(minuteFile);
+			clockImage.strokeColor("blue");
+			clockImage.strokeWidth(3);
+			clockImage.draw(Magick::DrawableLine(15.5, 15.5, 18.5, 3.5));
 			
-			backgroundImage.composite(hourImage, 0, 0, Magick::CompositeOperator(34));
-			backgroundImage.composite(minuteImage, 0, 0, Magick::CompositeOperator(34));
+			//backgroundImage.composite(hourImage, 0, 0, Magick::CompositeOperator(34));
+			backgroundImage.composite(clockImage, 0, 0, Magick::CompositeOperator(34));
 			backgroundImage.composite(foregroundImage, 0, 0, Magick::CompositeOperator(34));
 
 			
