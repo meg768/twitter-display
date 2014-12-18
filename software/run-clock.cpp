@@ -266,7 +266,7 @@ public:
 			clockImage.fontPointsize(16);
 			clockImage.font("./fonts/Arial.ttf");
 			//clockImage.draw(Magick::DrawableLine(15.5, 15.5, 18.5, 3.5));
-			clockImage.draw(Magick::DrawableText(2, 24, "22:32"));
+			clockImage.draw(Magick::DrawableText(2.5, 24.5, "22:32"));
 			
 			//backgroundImage.composite(hourImage, 0, 0, Magick::CompositeOperator(34));
 			backgroundImage.composite(clockImage, 0, 0, Magick::CompositeOperator(34));
