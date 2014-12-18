@@ -249,26 +249,24 @@ public:
 			double time = (double)now->tm_min + (double)now->tm_sec / 60.0;
 			int minutes = (int)((time + 2.5) / 5.0) * 5;;
 
-			char hourFile[200];
-			sprintf(hourFile, "clock/H%02d.png", hours);
-			
-			char minuteFile[200];
-			sprintf(minuteFile, "clock/M%02d.png", minutes);
-
 			Magick::Image backgroundImage("clock/bg.png");
 			Magick::Image foregroundImage("clock/fg.png");
 			Magick::Image clockImage(Magick::Geometry(32, 32), Magick::Color("black"));
-			//Magick::Image minuteImage(minuteFile);
-			clockImage.strokeColor("transparent");
-		//	clockImage.strokeWidth(1);
+
+			clockImage.strokeColor("blue");
+			clockImage.strokeWidth(1);
 			clockImage.fillColor("blue");
-			//clockImage.strokeLineCap(Magick::RoundCap);
-			clockImage.fontPointsize(16);
-			clockImage.font("./fonts/Arial.ttf");
-			//clockImage.draw(Magick::DrawableLine(15.5, 15.5, 18.5, 3.5));
-			clockImage.draw(Magick::DrawableText(2.5, 24.5, "22:32"));
+			clockImage.strokeLineCap(Magick::RoundCap);
 			
-			//backgroundImage.composite(hourImage, 0, 0, Magick::CompositeOperator(34));
+			double alfa = (double)now->tm_min / 60.0 * 2 * M_PI;
+			
+			double x = 15.5;
+			double y = 15.5;
+			double dx = cos(M_PI / 4.0 - alfa) * 10.0;
+			double dy = sin(M_PI / 4.0 - alfa) * 10.0;
+			
+			clockImage.draw(Magick::DrawableLine(x, y, x + dx, y - dy));
+			
 			backgroundImage.composite(clockImage, 0, 0, Magick::CompositeOperator(34));
 			backgroundImage.composite(foregroundImage, 0, 0, Magick::CompositeOperator(34));
 
@@ -310,7 +308,7 @@ int main (int argc, char *argv[])
 		}
 	}
 	
-	ClockAnimation animation(&matrix);
+	ClockAnimationEx animation(&matrix);
 	animation.run(timer);
 
 	matrix.clear();
