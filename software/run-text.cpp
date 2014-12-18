@@ -74,14 +74,14 @@ int main (int argc, char *argv[])
 			Magick::TypeMetric metric;
 			tmp.fontTypeMetrics(text, &metric);
 
-			Magick::Image image(Magick::Geometry(metric.textWidth() + 2, 32), "black");
+			Magick::Image image(Magick::Geometry(metric.textWidth() + 2.0, 32.0), "black");
 			image.font(fontFile);
 			image.strokeColor("transparent");
 			image.fillColor(textColor);
 			image.fontPointsize(pointSize);
 		
 			//image.resize(Magick::Geometry(metric.textWidth() + 2, 32));
-			image.draw(Magick::DrawableText(1, 16.0 - metric.textHeight() / 2.0, text));
+			image.draw(Magick::DrawableText(1, 0, text));
 
 		
 			
