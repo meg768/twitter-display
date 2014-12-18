@@ -272,7 +272,7 @@ public:
 					
 				}
 				
-			}/*
+			}
 
 			{
 				clockImage.strokeColor("blue");
@@ -287,7 +287,7 @@ public:
 				clockImage.draw(Magick::DrawableLine(x, y, x + dx, y - dy));
 				
 			}
-
+/*
 			{
 				clockImage.strokeColor("red");
 				double alfa = (double)now->tm_sec / 60.0 * 2 * M_PI;
@@ -304,7 +304,7 @@ public:
 
 
 			backgroundImage.composite(clockImage, 0, 0, Magick::CompositeOperator(34));
-			backgroundImage.composite(foregroundImage, 0, 0, Magick::CompositeOperator(34));
+			//backgroundImage.composite(foregroundImage, 0, 0, Magick::CompositeOperator(34));
 
 			
 			_canvas->drawImage(backgroundImage);
