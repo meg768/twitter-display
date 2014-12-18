@@ -299,7 +299,7 @@ public:
 				
 				//clockImage.draw(Magick::DrawableLine(x, y, x + dx, y - dy));
 	//			clockImage.draw(Magick::DrawableCircle(x + dx, y - dy, 1, 1));
-				clockImage.pixelColor(x + dx, y - dy, Magick::Color(255, 0, 0));
+				clockImage.pixelColor(x + dx, y - dy, "red");
 				
 			}
 
