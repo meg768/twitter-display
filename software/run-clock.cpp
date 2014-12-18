@@ -295,8 +295,8 @@ public:
 				
 				double x = 16;
 				double y = 16;
-				double dx =  cos(M_PI / 2.0 - alfa) * 15.0;
-				double dy =  sin(M_PI / 2.0 - alfa) * 15.0;
+				double dx =  cos(M_PI / 2.0 - alfa) * 12.0;
+				double dy =  sin(M_PI / 2.0 - alfa) * 12.0;
 				
 				//clockImage.draw(Magick::DrawableLine(x, y, x + dx, y - dy));
 				//clockImage.draw(Magick::DrawableCircle(x + dx, y - dy, x + dx + 2, y - dy + 2));
