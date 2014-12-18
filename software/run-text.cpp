@@ -103,7 +103,7 @@ int main (int argc, char *argv[])
 			matrix.drawImage(screen);
 			matrix.refresh();
 			
-			if (--offsetX < 0) {
+			if (--offsetX < -screenWidth) {
 				offsetX = screenWidth;
 				count++;
 			}
