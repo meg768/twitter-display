@@ -258,15 +258,19 @@ public:
 			clockImage.strokeLineCap(Magick::RoundCap);
 
 			{
-				clockImage.strokeColor("green");
-				double alfa = M_PI / 2.0; //(double)((now->tm_hour % 12) * 60 + now->tm_min) / 720.0 * 2 * M_PI;
-				
-				double x = 15.5;
-				double y = 15.5;
-				double dx = cos(M_PI / 4.0 - alfa) * 10.0;
-				double dy = sin(M_PI / 4.0 - alfa) * 10.0;
-				
-				clockImage.draw(Magick::DrawableLine(x, y, x + dx, y - dy));
+				{
+					clockImage.strokeColor("green");
+					
+					double alfa = (double)now->tm_min / 60.0 * 2 * M_PI;
+					
+					double x = 15.5;
+					double y = 15.5;
+					double dx = cos(M_PI / 4.0 - alfa) * 13.0;
+					double dy = sin(M_PI / 4.0 - alfa) * 13.0;
+					
+					clockImage.draw(Magick::DrawableLine(x, y, x + dx, y - dy));
+					
+				}
 				
 			}/*
 
