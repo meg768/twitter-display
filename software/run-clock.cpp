@@ -263,15 +263,15 @@ public:
 				
 				double x = 15.5;
 				double y = 15.5;
-				double dx = cos(M_PI / 4.0 - alfa) * 15.0;
-				double dy = sin(M_PI / 4.0 - alfa) * 15.0;
+				double dx = cos(M_PI / 4.0 - alfa) * 10.0;
+				double dy = sin(M_PI / 4.0 - alfa) * 10.0;
 				
 				clockImage.draw(Magick::DrawableLine(x, y, x + dx, y - dy));
 				
 			}
 
 			{
-				clockImage.fillColor("blue");
+				clockImage.strokeColor("blue");
 
 				double alfa = (double)now->tm_min / 60.0 * 2 * M_PI;
 				
