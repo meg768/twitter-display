@@ -259,7 +259,7 @@ public:
 			Magick::Image foregroundImage("clock/fg.png");
 			Magick::Image clockImage(Magick::Geometry(32, 32), Magick::Color("black"));
 			//Magick::Image minuteImage(minuteFile);
-			clockImage.strokeColor("blue");
+			clockImage.strokeColor("transparent");
 		//	clockImage.strokeWidth(1);
 			clockImage.fillColor("blue");
 			clockImage.strokeAntiAlias(true);
