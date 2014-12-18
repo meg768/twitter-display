@@ -259,7 +259,7 @@ public:
 
 			{
 				{
-					clockImage.strokeColor(Magick::Color(255, 0, 0));
+					clockImage.strokeColor("yellow");
 					
 					double alfa = (double)now->tm_min / 60.0 * 2 * M_PI;
 					
