@@ -262,10 +262,9 @@ public:
 			clockImage.strokeColor("transparent");
 		//	clockImage.strokeWidth(1);
 			clockImage.fillColor("blue");
-			clockImage.strokeAntiAlias(true);
 			//clockImage.strokeLineCap(Magick::RoundCap);
 			clockImage.fontPointsize(16);
-			clockImage.font("./fonts/Verdana.ttf");
+			clockImage.font("./fonts/Arial.ttf");
 			//clockImage.draw(Magick::DrawableLine(15.5, 15.5, 18.5, 3.5));
 			clockImage.draw(Magick::DrawableText(2, 24, "22:32"));
 			
