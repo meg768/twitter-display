@@ -81,7 +81,7 @@ int main (int argc, char *argv[])
 			image.fontPointsize(pointSize);
 		
 			//image.resize(Magick::Geometry(metric.textWidth() + 2, 32));
-			image.draw(Magick::DrawableText(1, 16 - metric.textHeight() / 2, text));
+			image.draw(Magick::DrawableText(1, 32 - metric.textHeight() / 2, text));
 
 		
 			
