@@ -324,6 +324,71 @@ private:
 
 
 
+class ClockAnimationEx2  {
+	
+	
+public:
+	
+	ClockAnimationEx2(LogiMatrix *canvas)
+	{
+		_canvas          = canvas;
+	}
+	
+	
+	
+	
+	virtual void run(Timer &timer) {
+		
+		
+		int hours   = 0;
+		int minutes = 0;
+		int seconds = 0;
+		
+		unsigned int ticks = 0;
+		
+		time_t t = time(0);
+		struct tm *now = localtime(&t);
+		
+		while (!timer.expired()) {
+			
+			
+			time_t t = time(0);
+			now = localtime(&t);
+			
+			char text[100];
+			sprintf(text, "%02d:%02d", now->tm_hour, now->tm_min);
+
+			
+			Magick::Image bg("clock/bg.png");
+			Magick::Image fg("clock/fg.png");
+			Magick::Image clock(Magick::Geometry(32, 32), Magick::Color("black"));
+			
+			clock.font("./fonts/Arial.ttf");
+			clock.strokeColor("transparent");
+			clock.fillColor("red");
+			clock.fontPointsize(13);
+
+			Magick::TypeMetric metric;
+			clock.fontTypeMetrics(text, &metric);
+
+			clock.draw(Magick::DrawableText(16 - metric.textWidth() / 2, 16.0 + metric.textHeight() / 2.0 + metric.descent(), text));
+
+			bg.composite(clockImage, 0, 0, Magick::CompositeOperator(34));
+			
+			
+			_canvas->drawImage(bg);
+			_canvas->refresh();
+			
+		}
+	}
+	
+private:
+	LogiMatrix *_canvas;
+	
+};
+
+
+
 
 int main (int argc, char *argv[])
 {
@@ -348,7 +413,7 @@ int main (int argc, char *argv[])
 		}
 	}
 	
-	ClockAnimationEx animation(&matrix);
+	ClockAnimationEx2 animation(&matrix);
 	animation.run(timer);
 
 	matrix.clear();
