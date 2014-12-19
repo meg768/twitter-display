@@ -336,7 +336,7 @@ public:
 	
 	
 	void drawText(Magick::Image &image, double offsetX, double offsetY, char *text, int size, char *color) {
-		image.font("./fonts/OxygenMono.ttf");
+		image.font("./fonts/Verdana.ttf");
 		image.strokeColor("transparent");
 		image.fillColor(color);
 		image.fontPointsize(size);
@@ -372,16 +372,9 @@ public:
 			Magick::Image clock(Magick::Geometry(32, 32), Magick::Color("black"));
 
 			char text1[100];
-			sprintf(text1, "%02d", now->tm_hour);
-			drawText(clock, 0.5, 0.3, text1, 15, "red");
+			sprintf(text1, "%02d:%02d", now->tm_hour, now->tm_min);
+			drawText(clock, 0.5, 0.5, text1, 13, "red");
 
-			char text2[100];
-			sprintf(text2, "%02d", now->tm_min);
-			drawText(clock, 0.5, 0.75, text2, 12, "blue");
-
-			char text3[100];
-			sprintf(text3, "%02d", now->tm_sec);
-			//drawText(clock, 0.75, 0.75, text3, 12);
 
 			bg.composite(clock, 0, 0, Magick::CompositeOperator(34));
 			
