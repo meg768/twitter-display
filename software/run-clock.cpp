@@ -336,7 +336,7 @@ public:
 	
 	
 	void drawText(Magick::Image &image, double offsetX, double offsetY, char *text, int size, char *color) {
-		image.font("./fonts/Verdana.ttf");
+		image.font("./fonts/Arial Black.ttf");
 		image.strokeColor("transparent");
 		image.fillColor(color);
 		image.fontPointsize(size);
