@@ -373,7 +373,7 @@ public:
 
 			clock.draw(Magick::DrawableText(16 - metric.textWidth() / 2, 16.0 + metric.textHeight() / 2.0 + metric.descent(), text));
 
-			bg.composite(clockImage, 0, 0, Magick::CompositeOperator(34));
+			bg.composite(clock, 0, 0, Magick::CompositeOperator(34));
 			
 			
 			_canvas->drawImage(bg);
