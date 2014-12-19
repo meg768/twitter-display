@@ -156,13 +156,13 @@ public:
 			215,218,220,223,225,228,231,233,236,239,241,244,247,249,252,255 };
 		
 		for (int i = 0; i < 256; i++) {
-			if (gamma == 0)
+			if (gamma == 0.0)
 				_gamma[i] = gamma_org[i];
-			else if (gamma == 0.1)
+			else if (gamma == -1.0)
 				_gamma[i] = gamma_org2[i];
-			else if (gamma == 0.2)
+			else if (gamma == -2.0)
 				_gamma[i] = luminance_cie1931(i);
-			else if (gamma == 0.3) {
+			else if (gamma == -3.0) {
 				float factor = (float)i / 256.0;
 				float value = 0;
 				if (i > 0.008856) {
