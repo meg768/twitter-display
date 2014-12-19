@@ -366,7 +366,7 @@ public:
 			clock.font("./fonts/OCRAStd.otf");
 			clock.strokeColor("transparent");
 			clock.fillColor("red");
-			clock.fontPointsize(13);
+			clock.fontPointsize(10);
 
 			Magick::TypeMetric metric;
 			clock.fontTypeMetrics(text, &metric);
