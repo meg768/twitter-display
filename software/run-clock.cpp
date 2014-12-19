@@ -376,7 +376,7 @@ public:
 
 			char text2[100];
 			sprintf(text2, "%02d.%02d", now->tm_min, now->tm_sec);
-			drawText(clock, text2, 12, 1.3);
+			drawText(clock, text2, 12, 2);
 
 			bg.composite(clock, 0, 0, Magick::CompositeOperator(34));
 			
