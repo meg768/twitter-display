@@ -335,7 +335,7 @@ public:
 	}
 	
 	
-	void drawText(Magick::Image &image, char *text, int size, double offset) {
+	void drawText(Magick::Image &image, double offsetX, double offsetY, char *text, int size) {
 		image.font("./fonts/Arial.ttf");
 		image.strokeColor("transparent");
 		image.fillColor("red");
@@ -344,7 +344,8 @@ public:
 		Magick::TypeMetric metric;
 		image.fontTypeMetrics(text, &metric);
 		
-		image.draw(Magick::DrawableText(16 - metric.textWidth() / 2, 16.0 * offset + metric.textHeight() / 2.0 + metric.descent(), text));
+
+		image.draw(Magick::DrawableText(16.0 * offsetX * 2.0 - metric.textWidth() / 2, 16.0 * offsetY * 2.0 + metric.textHeight() / 2.0 + metric.descent(), text));
 		
 	}
 	
@@ -372,11 +373,15 @@ public:
 
 			char text1[100];
 			sprintf(text1, "%02d", now->tm_hour);
-			drawText(clock, text1, 15, 0.7);
+			drawText(clock, 0.5, 0.25, text1, 15);
 
 			char text2[100];
-			sprintf(text2, "%02d.%02d", now->tm_min, now->tm_sec);
-			drawText(clock, text2, 12, 2);
+			sprintf(text2, "%02d", now->tm_min);
+			drawText(clock, 0.25, 0.75, text2, 12);
+
+			char text3[100];
+			sprintf(text3, "%02d", now->tm_sec);
+			drawText(clock, 0.75, 0.75, text3, 12);
 
 			bg.composite(clock, 0, 0, Magick::CompositeOperator(34));
 			
