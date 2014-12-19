@@ -363,7 +363,7 @@ public:
 			Magick::Image fg("clock/fg.png");
 			Magick::Image clock(Magick::Geometry(32, 32), Magick::Color("black"));
 			
-			clock.font("./fonts/Arial.ttf");
+			clock.font("./fonts/OxygenMono.ttf");
 			clock.strokeColor("transparent");
 			clock.fillColor("red");
 			clock.fontPointsize(13);
