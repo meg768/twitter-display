@@ -335,7 +335,18 @@ public:
 	}
 	
 	
-	
+	void drawText(Magick::Image &image, char *text, int size, double offset) {
+		image.font("./fonts/Arial.ttf");
+		image.strokeColor("transparent");
+		image.fillColor("red");
+		image.fontPointsize(size);
+		
+		Magick::TypeMetric metric;
+		image.fontTypeMetrics(text, &metric);
+		
+		image.draw(Magick::DrawableText(16 - metric.textWidth() / 2, 16.0 * offset + metric.textHeight() / 2.0 + metric.descent(), text));
+		
+	}
 	
 	virtual void run(Timer &timer) {
 		
@@ -355,23 +366,17 @@ public:
 			time_t t = time(0);
 			now = localtime(&t);
 			
-			char text[100];
-			sprintf(text, "%02d:%02d", now->tm_hour, now->tm_min);
-
-			
 			Magick::Image bg("clock/bg.png");
 			Magick::Image fg("clock/fg.png");
 			Magick::Image clock(Magick::Geometry(32, 32), Magick::Color("black"));
-			
-			clock.font("./fonts/OCRAStd.otf");
-			clock.strokeColor("transparent");
-			clock.fillColor("red");
-			clock.fontPointsize(10);
 
-			Magick::TypeMetric metric;
-			clock.fontTypeMetrics(text, &metric);
+			char text1[100];
+			sprintf(text1, "%02d", now->tm_hour);
+			drawText(clock, text1, 15, 0.7);
 
-			clock.draw(Magick::DrawableText(16 - metric.textWidth() / 2, 16.0 + metric.textHeight() / 2.0 + metric.descent(), text));
+			char text2[100];
+			sprintf(text2, "%02d.%02d", now->tm_min, now->tm_sec);
+			drawText(clock, text1, 12, 1.3);
 
 			bg.composite(clock, 0, 0, Magick::CompositeOperator(34));
 			
