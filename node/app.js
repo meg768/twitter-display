@@ -236,8 +236,11 @@ function main() {
 		console.log("Binding to event 'message'...");		
 		socket.bind("message", function(message) {
 			console.log(message);
-			if (message.cmd)
+			if (message.cmd) {
+				console.log("Adding command '%s'", message.cmd);
 				addCmd(message.cmd);
+				
+			}
 			
 		});
 		
