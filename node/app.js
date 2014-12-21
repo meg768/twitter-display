@@ -57,95 +57,6 @@ function main() {
 		}
 	}	
 
-	function scheduleAnimations() {
-		var rule, schedule = require('node-schedule');
-
-		rule = new schedule.RecurrenceRule();
-		rule.minute = rand(0, 59);
-		rule.hour = [8, 9, 10, 17, 18, 19, 20, 21, 22, 23];
-		
-		schedule.scheduleJob(rule, function() {
-			addCmd(sprintf('./run-perlin -d 60'));
-		});	
-
-		rule = new schedule.RecurrenceRule();
-		rule.hour = [8, 9, 10, 17, 18, 19, 20, 21, 22, 23];
-		rule.minute = rand(0, 59);
-		
-		schedule.scheduleJob(rule, function() {
-			addCmd(sprintf('./run-circle -d 30'));
-		});		
-
-		rule = new schedule.RecurrenceRule();
-		rule.minute = rand(0, 59);
-		
-		schedule.scheduleJob(rule, function() {
-			addCmd(sprintf('./run-life -d 30'));
-		});		
-
-		rule = new schedule.RecurrenceRule();
-		rule.minute = rand(0, 59);
-		
-		schedule.scheduleJob(rule, function() {
-			addCmd(sprintf('./run-animation images/pacman.gif'));
-		});		
-
-		rule = new schedule.RecurrenceRule();
-		rule.minute = rand(0, 59);
-		
-		schedule.scheduleJob(rule, function() {
-			addCmd(sprintf('./run-animation images/fireplace.gif -d 30'));
-		});		
-
-		rule = new schedule.RecurrenceRule();
-		rule.minute = rand(0, 59);
-		
-		schedule.scheduleJob(rule, function() {
-			addCmd(sprintf('./run-animation images/bubbles.gif -d 30'));
-		});		
-
-		rule = new schedule.RecurrenceRule();
-		rule.minute = rand(0, 59);
-		
-		schedule.scheduleJob(rule, function() {
-			addCmd(sprintf('./run-animation images/tree.gif'));
-		});		
-
-
-		rule = new schedule.RecurrenceRule();
-		rule.minute = rand(0, 59);
-		
-		schedule.scheduleJob(rule, function() {
-			addCmd(sprintf('./run-twinkle -d 30'));
-		});		
-
-		rule = new schedule.RecurrenceRule();
-		rule.minute = [15, 30, 45];
-		rule.hour = [0, 1, 2, 3, 4, 5, 6, 7, 23];
-		
-		schedule.scheduleJob(rule, function() {
-			var now = new Date();		
-			addCmd(sprintf('./run-text "%02d:%02d" -i 2 -c red', now.getHours(), now.getMinutes()));
-		});		
-
-		rule = new schedule.RecurrenceRule();
-		rule.minute = [15, 30, 45];
-		rule.hour = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
-		
-		schedule.scheduleJob(rule, function() {
-			var now = new Date();		
-			addCmd(sprintf('./run-text "%02d:%02d" -i 2 -c blue', now.getHours(), now.getMinutes()));
-		});		
-
-		rule = new schedule.RecurrenceRule();
-		rule.minute = 10;
-		
-		schedule.scheduleJob(rule, function() {
-			var now = new Date();		
-			addCmd(sprintf('./run-image images/smiley.png -s '));
-		});		
-
-	}
 
 	function startAnimation() {
 
@@ -237,40 +148,31 @@ function main() {
 
 		socket.bind("command", function(data) {
 		
-			try {
-				
-				console.log("Got command: ", data);
-
-				if (typeof data == "string")
-					addCmd(data);					
-				
-			}
-			catch (error) {
-			}
-		
+			console.log("Got command: ", data);
 			
+			if (typeof data == "string")
+				addCmd(data);					
+
 		});
 
+		socket.bind("text", function(json) {
 		
-		socket.bind("message", function(data) {
-		
+			console.log("Got text: ", json);
+			
 			try {
-				console.log(data);
+				var cmd = "./run-text ";
 				
-				var message = data; //JSON.parse(data);
-						
-				if (message.cmd) {
-					console.log("Adding command '%s'", message.cmd);
-					addCmd(message.cmd);					
-				}
+				if (typeof json.textcolor == "string")
+					cmd += sprintf("-c %s ", json.textcolor);
+									
+				if (typeof json.message == "string")
+					cmd += sprintf('"%s"', json.message);
+
+				addCmd(cmd);
 				
 			}
 			catch (error) {
-				console.log("Failed to parse JSON");
-				
 			}
-		
-			
 		});
 		
 	}
