@@ -1,17 +1,4 @@
 
-
-exports.choose = function(items) {
-	return items[Math.floor((Math.random() * items.length))];
-}
-
-exports.random = function(min, max) {
-	return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-	
-			
-	
-
 exports.sprintf = function() {
 	
 	function str_repeat(i, m) {
