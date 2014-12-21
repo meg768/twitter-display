@@ -137,7 +137,7 @@ function main() {
 
 		});
 
-		function addMessage(messages, type) {
+		function addMessages(messages, type) {
 		
 			try {
 				// Make sure it is an array
@@ -169,7 +169,7 @@ function main() {
 						cmd += sprintf('"images/%s" ', message.name);
 
 					if (typeof message.options == "string")
-						cmd += sprintf('%s ', item.options);
+						cmd += sprintf('%s ', message.options);
 	
 					addCmd(cmd);
 				}
