@@ -234,13 +234,24 @@ function main() {
 		
 		
 		console.log("Binding to event 'message'...");		
-		socket.bind("message", function(message) {
-			console.log(message);
-			if (message.cmd) {
-				console.log("Adding command '%s'", message.cmd);
-				addCmd(message.cmd);
+		socket.bind("message", function(data) {
+		
+			try {
+				console.log(data);
+				
+				var message = JSON.parse(data);
+						
+				if (message.cmd) {
+					console.log("Adding command '%s'", message.cmd);
+					addCmd(message.cmd);					
+				}
 				
 			}
+			catch (error) {
+				console.log("Failed to parse JSON");
+				
+			}
+		
 			
 		});
 		
