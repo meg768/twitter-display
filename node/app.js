@@ -191,7 +191,7 @@ function main() {
 			catch (error) {
 				console.log("Upps!");
 			}
-		}
+		});
 		
 		socket.bind("text", function(json) {
 		
