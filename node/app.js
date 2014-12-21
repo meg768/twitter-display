@@ -153,7 +153,10 @@ function main() {
 						cmd += sprintf("-c %s ", item.textcolor);
 										
 					if (typeof item.message == "string")
-						cmd += sprintf('"%s"', item.message);
+						cmd += sprintf('"%s" ', item.message);
+
+					if (typeof item.options == "string")
+						cmd += sprintf('%s ', item.options);
 	
 					addCmd(cmd);
 				}
@@ -162,7 +165,10 @@ function main() {
 					var cmd = "./run-image ";
 					
 					if (typeof item.name == "string")
-						cmd += sprintf('"images/%s"', item.name);
+						cmd += sprintf('"images/%s" ', item.name);
+
+					if (typeof item.options == "string")
+						cmd += sprintf('%s ', item.options);
 	
 					addCmd(cmd);
 				}
