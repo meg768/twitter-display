@@ -137,6 +137,62 @@ function main() {
 
 		});
 
+		
+		socket.bind("message", function(data) {
+			console.log("Got text: ", data);
+			
+			try {
+
+				// Set up the dispatch table
+				var messageType = {};
+				
+				messageType.text = function(item) {
+					var cmd = "./run-text ";
+					
+					if (typeof item.textcolor == "string")
+						cmd += sprintf("-c %s ", item.textcolor);
+										
+					if (typeof item.message == "string")
+						cmd += sprintf('"%s"', item.message);
+	
+					addCmd(cmd);
+				}
+
+				messageType.image = function(item) {
+					var cmd = "./run-image ";
+					
+					if (typeof item.name == "string")
+						cmd += sprintf('"images/%s"', item.name);
+	
+					addCmd(cmd);
+				}
+				
+				// Make sure it is an array
+				if (!Array.isArray(data))
+					data = [data];
+
+				for (var i in data) {
+					var item = data[i];
+		
+					if (item == undefined)
+						continue;
+									
+					var addItem = messageType[item.type];
+					
+					if (addItem == undefined) {
+						console.log("Unknown message type '%s'", item.type);
+						continue;
+					}
+						
+					addItem(item);
+				}
+				
+			}
+			catch (error) {
+				console.log("Upps!");
+			}
+		}
+		
 		socket.bind("text", function(json) {
 		
 			console.log("Got text: ", json);
