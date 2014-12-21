@@ -137,96 +137,76 @@ function main() {
 
 		});
 
+		function addMessage(messages, type) {
 		
-		socket.bind("message", function(data) {
-			console.log("Got text: ", data);
-			
 			try {
+				// Make sure it is an array
+				if (!Array.isArray(messages))
+					messages = [messages];
 
 				// Set up the dispatch table
 				var messageType = {};
 				
-				messageType.text = function(item) {
+				messageType.text = function(message) {
 					var cmd = "./run-text ";
 					
-					if (typeof item.textcolor == "string")
-						cmd += sprintf("-c %s ", item.textcolor);
+					if (typeof message.textcolor == "string")
+						cmd += sprintf("-c %s ", message.textcolor);
 										
-					if (typeof item.message == "string")
-						cmd += sprintf('"%s" ', item.message);
+					if (typeof message.message == "string")
+						cmd += sprintf('"%s" ', message.message);
 
-					if (typeof item.options == "string")
-						cmd += sprintf('%s ', item.options);
+					if (typeof message.options == "string")
+						cmd += sprintf('%s ', message.options);
 	
 					addCmd(cmd);
 				}
 
-				messageType.image = function(item) {
+				messageType.image = function(message) {
 					var cmd = "./run-image ";
 					
-					if (typeof item.name == "string")
-						cmd += sprintf('"images/%s" ', item.name);
+					if (typeof message.name == "string")
+						cmd += sprintf('"images/%s" ', message.name);
 
-					if (typeof item.options == "string")
+					if (typeof message.options == "string")
 						cmd += sprintf('%s ', item.options);
 	
 					addCmd(cmd);
 				}
 				
-				// Make sure it is an array
-				if (!Array.isArray(data))
-					data = [data];
 
-				for (var i in data) {
-					var item = data[i];
+				for (var i in messages) {
+					var message = messages[i];
 		
-					if (item == undefined)
+					if (message == undefined)
 						continue;
+						
+					if (typeof type == "string")
+						message.type = type;
 									
-					var addItem = messageType[item.type];
+					var addMessage = messageType[message.type];
 					
-					if (addItem == undefined) {
-						console.log("Unknown message type '%s'", item.type);
+					if (addMessage == undefined) {
+						console.log("Unknown message type '%s'", message.type);
 						continue;
 					}
 						
-					addItem(item);
+					addMessage(message);
 				}
 				
 			}
 			catch (error) {
 				console.log("Upps!");
 			}
+			
+		}
+		
+		socket.bind("message", function(data) {
+			addMessages(data);
 		});
 		
-		socket.bind("text", function(json) {
-		
-			console.log("Got text: ", json);
-			
-			try {
-
-				function add(item) {
-					var cmd = "./run-text ";
-					
-					if (typeof item.textcolor == "string")
-						cmd += sprintf("-c %s ", item.textcolor);
-										
-					if (typeof item.message == "string")
-						cmd += sprintf('"%s"', item.message);
-	
-					addCmd(cmd);
-				}				
-
-				if (Array.isArray(json)) {
-					for (var i in json)
-						add(json[i]);
-				}
-				else
-					add(json);
-				
-			}
-			catch (error) {
-			}
+		socket.bind("text", function(data) {
+			addMessages(data, "text");
 		});
 		
 	}
