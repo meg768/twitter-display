@@ -12,6 +12,7 @@
     "express": "^4.10.2",
     "twit": "^1.1.18",
     "node-schedule": "~0.1.13",
-    "feedsub": "~0.2.8"
+    "feedsub": "~0.2.8",
+    "pusher-client": "~0.2.2"
   }
 }

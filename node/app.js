@@ -153,27 +153,37 @@ function main() {
 		
 		stopAnimation();
 
-		var cmd = {};
-		cmd.command = './run-clock';
-		cmd.args = [];
-		cmd.options = { cwd: "../software"};
+		try {
+			var cmd = {};
+			cmd.command = './run-clock';
+			cmd.args = [];
+			cmd.options = { cwd: "../software"};
+				
+			console.log('Starting animation: "%s"', cmd.command, cmd.args, cmd.options);	
+				
+			animation = spawn(cmd.command, cmd.args, cmd.options);
 			
-		console.log('Starting animation: "%s"', cmd.command, cmd.args, cmd.options);	
-			
-		animation = spawn(cmd.command, cmd.args, cmd.options);
-		
-		animation.on('close', function() {
-			if (animation != null) {
-				console.log('Animation finished. Restarting...');
+			animation.on('error', function() {
+				console.log("Failed to start animation...");
+			});
 
-				animation = null;
-				startAnimation();
-			}
-			else {
-				console.log('Animation killed.');
-			}
+			animation.on('close', function() {
+				if (animation != null) {
+					console.log('Animation finished. Restarting...');
+	
+					animation = null;
+					startAnimation();
+				}
+				else {
+					console.log('Animation killed.');
+				}
+				
+			});		
 			
-		});		
+		}
+		catch (error) {
+			console.log("Failed to start animation...", error);
+		}
 	}
 
 	function work() {
@@ -211,6 +221,28 @@ function main() {
 		addCmd(sprintf('./run-text "%s" -c blue', text));
 		
 	}
+	
+	function enablePusher() {
+		var Pusher      = require('pusher-client');
+		var channelName = "test_channel";
+		
+		console.log("Initiating Pusher...");
+		var socket = new Pusher('062bc67be8d42e4ded9b');
+		
+		console.log("Subscribing to channel '%s'", channelName);
+		var channel = socket.subscribe(channelName);
+		
+		
+		console.log("Binding to event 'message'...");		
+		socket.bind("message", function(message) {
+			console.log(message);
+			if (message.cmd)
+				addCmd(message.cmd);
+			
+		});
+		
+	}
+	
 	
 	function enableTwitter() {
 		var twitterOptions = {};	
@@ -366,16 +398,17 @@ function main() {
 		else {
 			console.log("IP: is '%s', starting up...", ip);
 			//runText(ip);
-			scheduleAnimations();
+			//scheduleAnimations();
 			startAnimation();
-			enableTwitter();
-			
+			//enableTwitter();
+			enablePusher();
 		}
 	}
  
 	shell('./run-animation images/countdown.gif', function() {
-		enableTwitter();
-		scheduleAnimations();
+		//enableTwitter();
+		enablePusher();
+		//scheduleAnimations();
 		startAnimation();
 		
 	});
