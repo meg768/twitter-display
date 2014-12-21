@@ -234,6 +234,24 @@ function main() {
 		
 		
 		console.log("Binding to event 'message'...");		
+
+		socket.bind("command", function(data) {
+		
+			try {
+				
+				console.log("Got command: ", data);
+
+				if (typeof data == "string")
+					addCmd(data);					
+				
+			}
+			catch (error) {
+			}
+		
+			
+		});
+
+		
 		socket.bind("message", function(data) {
 		
 			try {
