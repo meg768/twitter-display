@@ -239,7 +239,7 @@ function main() {
 			try {
 				console.log(data);
 				
-				var message = JSON.parse(data);
+				var message = data; //JSON.parse(data);
 						
 				if (message.cmd) {
 					console.log("Adding command '%s'", message.cmd);
