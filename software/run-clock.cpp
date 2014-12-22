@@ -1,410 +1,292 @@
 #include "globals.h"
 
 
-#define RGB(r, g ,b)	((uint32_t) (((uint8_t) (r) | ((uint16_t) (g) << 8)) | (((uint32_t) (uint8_t) (b)) << 16)))
-#define RED(rgb)		((uint8_t) (rgb))
-#define BLUE(rgb)		((uint8_t) ((rgb) >> 16))
-#define GREEN(rgb)		((uint8_t) (((uint16_t) (rgb)) >> 8))
+//
+// This is right now a total mess!
+// But the result is finally OK...
+//
 
-class ClockAnimation  {
+typedef struct {
+	double r;       // percent
+	double g;       // percent
+	double b;       // percent
+} rgb;
+
+typedef struct {
+	double h;       // angle in degrees
+	double s;       // percent
+	double v;       // percent
+} hsv;
+
+static rgb      hsv2rgb(hsv in);
+
+
+rgb hsv2rgb(hsv in)
+{
+	double      hh, p, q, t, ff;
+	long        i;
+	rgb         out;
 	
+	if(in.s <= 0.0) {       // < is bogus, just shuts up warnings
+		out.r = in.v;
+		out.g = in.v;
+		out.b = in.v;
+		return out;
+	}
+	hh = in.h;
+	if(hh >= 360.0) hh = 0.0;
+	hh /= 60.0;
+	i = (long)hh;
+	ff = hh - i;
+	p = in.v * (1.0 - in.s);
+	q = in.v * (1.0 - (in.s * ff));
+	t = in.v * (1.0 - (in.s * (1.0 - ff)));
+	
+	switch(i) {
+		case 0:
+			out.r = in.v;
+			out.g = t;
+			out.b = p;
+			break;
+		case 1:
+			out.r = q;
+			out.g = in.v;
+			out.b = p;
+			break;
+		case 2:
+			out.r = p;
+			out.g = in.v;
+			out.b = t;
+			break;
+			
+		case 3:
+			out.r = p;
+			out.g = q;
+			out.b = in.v;
+			break;
+		case 4:
+			out.r = t;
+			out.g = p;
+			out.b = in.v;
+			break;
+		case 5:
+		default:
+			out.r = in.v;
+			out.g = p;
+			out.b = q;
+			break;
+	}
+	return out;
+}
+
+static int minutesCoords[12][2] = {
+	
+	{14,  0},
+	{21,  2},
+	{26,  7},
+	{28, 14},
+	{26, 21},
+	{21, 26},
+	{14, 28},
+	
+	{ 7, 26},
+	{ 2, 21},
+	{ 0, 14},
+	{ 2,  7},
+	{ 7,  2}
+	
+};
+
+static int hoursCoords[12][2] = {
+	
+	{14,  6},
+	{18,  7},
+	{21, 10},
+	{22, 14},
+	{21, 18},
+	{18, 21},
+	{14, 22},
+	
+	{10, 21},
+	{ 7, 18},
+	{ 6, 14},
+	{ 7, 10},
+	{10,  7}
+	
+};
+
+void HSL2RGB(double h, double sl, double l, uint8_t &R, uint8_t &G, uint8_t &B)
+{
+	double v;
+	double r,g,b;
+ 
+	r = l;   // default to gray
+	g = l;
+	b = l;
+	v = (l <= 0.5) ? (l * (1.0 + sl)) : (l + sl - l * sl);
+	if (v > 0)
+	{
+		double m;
+		double sv;
+		int sextant;
+		double fract, vsf, mid1, mid2;
+		
+		m = l + l - v;
+		sv = (v - m ) / v;
+		h *= 6.0;
+		sextant = (int)h;
+		fract = h - sextant;
+		vsf = v * sv * fract;
+		mid1 = m + vsf;
+		mid2 = v - vsf;
+		switch (sextant)
+		{
+			case 0:
+				r = v;
+				g = mid1;
+				b = m;
+				break;
+			case 1:
+				r = mid2;
+				g = v;
+				b = m;
+				break;
+			case 2:
+				r = m;
+				g = v;
+				b = mid1;
+				break;
+			case 3:
+				r = m;
+				g = mid2;
+				b = v;
+				break;
+			case 4:
+				r = mid1;
+				g = m;
+				b = v;
+				break;
+			case 5:
+				r = v;
+				g = m;
+				b = mid2;
+				break;
+		}
+	}
+	
+	R = (uint8_t)(r * 255.0f);
+	G = (uint8_t)(g * 255.0f);
+	B = (uint8_t)(b * 255.0f);
+}
+
+
+
+class Clock {
 	
 public:
-	
-	ClockAnimation(LogiMatrix *canvas)
-	{
-		_canvas          = canvas;
-		_hourColor       = RGB(255, 0, 0);
-		_hourBackColor   = RGB(0, 255, 0);
-		_minuteColor     = RGB(0, 0, 255);
-		_minuteBackColor = RGB(0, 0, 127);
-		_blipColor       = RGB(255, 255, 255);
+	Clock(LogiMatrix *matrix) {
+		_matrix = matrix;
 	}
 	
-	inline void drawSquare(int x, int y, int red, int green, int blue)
-	{
+	void draw() {
 		
-		drawPixel(x, y, red, green, blue);
-		drawPixel(x, y - 1, red, green, blue);
-		drawPixel(x - 1, y - 1, red, green, blue);
-		drawPixel(x - 1, y, red, green, blue);
-	}
-	
-	inline void drawSquare(int x, int y, int color)
-	{
+		time_t t = time(0);
+		struct tm *now = localtime(&t);
 		
-		drawSquare(x, y, RED(color), GREEN(color), BLUE(color));
-	}
-	
-	inline void drawPixel(int x, int y, int color)
-	{
-		
-		drawPixel(x, y, RED(color), GREEN(color), BLUE(color));
-	}
-	
-	inline void drawPixel(int x, int y, int red, int green, int blue) {
-		
-		_canvas->setPixel(x + 16, y + 16, red, green, blue);
-	}
-	
-	
-	void drawHours(int hours) {
-		static int coords[12][2] = {
-			{ 0, -15}, {8, -13}, {13, -8},
-			{15,   0}, {13, 8}, {8, 13},
-			{ 0,  15}, { -8,  13}, {-13,  8},
-			{-15,  0}, {-13,  -8}, {-8, -13}
-		};
-		
-		hours = hours % 12;
+		double hours   = (double)((now->tm_hour % 12) * 60 + now->tm_min) / (12.0 * 60.0);
+		double minutes = (double)(now->tm_min) / (60.0);
+		double seconds = (double)(now->tm_sec) / (60.0);
 		
 		for (int i = 0; i < 12; i++) {
-			if (i <= hours)
-				drawSquare(coords[i][0], coords[i][1], RED(_hourColor), GREEN(_hourColor), BLUE(_hourColor));
-			else
-				drawSquare(coords[i][0], coords[i][1], RED(_hourBackColor), GREEN(_hourBackColor), BLUE(_hourBackColor));
+			double angle = (double)i / 12.0 * 360.0;
+			angle -= minutes * 360.0;
+			while (angle < 0.0)
+				angle += 360.0;
+			drawDot(minutesCoords[i][0], minutesCoords[i][1], angle);
 		}
-	}
-	
-	
-	void drawMinutes(int minutes, int seconds) {
-		static int coords[12][2] = {
-			{ 0, -11}, { 6,  -9}, { 10, -5},
-			{11,   0}, { 10,  5}, {  6,  9},
-			{ 0,  11}, {-6,   9}, {-10,  5},
-			{-11,  0}, {-10, -5}, { -6, -9}
-		};
-		
-		
-		double time = (double)minutes + (double)seconds / 60.0;
-		int value = (int)((time + 2.5) / 5.0) * 5;;
-		
 		for (int i = 0; i < 12; i++) {
-			if (i * 5 <= value)
-				drawSquare(coords[i][0], coords[i][1], RED(_minuteColor), GREEN(_minuteColor), BLUE(_minuteColor));
-			else
-				drawSquare(coords[i][0], coords[i][1], RED(_minuteBackColor), GREEN(_minuteBackColor), BLUE(_minuteBackColor));
+			double angle = (double)i / 12.0 * 360.0;
+			angle -= hours * 360.0;
+			while (angle < 0.0)
+				angle += 360.0;
+			drawDot(hoursCoords[i][0], hoursCoords[i][1], angle);
 		}
 		
-	}
-	
-	
-	void drawBlip() {
-		static int coords[12][2] = {
-			{ 0, 0}, {-1, 0}, {-2, 0}, {-3, 0}, {-2, 0}, {-1, 0}, {0, 0}, {1, 0}, {2, 0}, {3, 0}, {2, 0}, {1, 0}
-		};
-		
-		static int ticks = 0;
-		
-		
-		int x = coords[ticks][0];
-		int y = coords[ticks][1];
-		
-		int red = RED(_blipColor);
-		int green = GREEN(_blipColor);
-		int blue = BLUE(_blipColor);
-		
-		drawPixel(x - 2, y - 1, 0, 0, 0);
-		drawPixel(x - 2, y - 0, 0, 0, 0);
-		drawPixel(x + 1, y - 1, 0, 0, 0);
-		drawPixel(x + 1, y - 0, 0, 0, 0);
-		
-		drawPixel(x, y, red, green, blue);
-		drawPixel(x, y - 1, red, green, blue);
-		drawPixel(x - 1, y - 1, red, green, blue);
-		drawPixel(x - 1, y, red, green, blue);
-		
-		ticks = (ticks + 1) % 12;
-		
-		
-	}
-	
-	
-	void drawClock(int hours, int minutes, int seconds = 0) {
-		drawHours(hours);
-		drawMinutes(minutes, seconds);
-	}
-	
-	inline virtual void idle() {
-		drawBlip();
-		usleep(25 * 1000);
-		_canvas->refresh();
-	}
-	
+		drawDot(14, 14, seconds * 360.0);
 
-	virtual void run(Timer &timer) {
+		_matrix->refresh();
+		usleep(1000);
+
+	}
+	
+	
+	void drawDot(int x, int y, double hue) {
+		
+		uint8_t red = 0;
+		uint8_t green = 0;
+		uint8_t blue = 0;
 		
 		
-		int hours   = 0;
-		int minutes = 0;
-		int seconds = 0;
+		hsv hsv;
+		rgb rgb;
 		
-		unsigned int ticks = 0;
+		hsv.h = hue;
+		hsv.s = 1.0;
+		hsv.v = 1.0;
 		
-		time_t t = time(0);
-		struct tm *now = localtime(&t);
+		rgb = hsv2rgb(hsv);
 		
-		while (!timer.expired()) {
-			
-			ticks++;
-			
-			
-			time_t t = time(0);
-			now = localtime(&t);
-			
-			if (now->tm_hour >= 23 || now->tm_hour <= 5) {
-				_hourColor       = RGB(255, 0, 0);
-				_hourBackColor   = RGB(70, 0, 0);
-				_minuteColor     = RGB(255, 0, 0);
-				_minuteBackColor = RGB(80, 0, 0);
-				_blipColor       = RGB(0, 0, 255);
-			}
-			else {
-				_hourColor       = RGB(255, 0, 0);
-				_hourBackColor   = RGB(70, 0, 0);
-				_minuteColor     = RGB(0, 0, 255);
-				_minuteBackColor = RGB(0, 0, 80);
-				_blipColor       = RGB(255, 255, 255);
-			}
-			
-			now->tm_hour = now->tm_hour % 12;
-			
-			if (now->tm_min	< minutes) {
-				
-				while (!timer.expired() && --minutes > 0) {
-					drawClock(hours, minutes, 0);
-					idle();
-					idle();
-				}
-			}
-			
-			if (now->tm_hour < hours) {
-				
-				while (!timer.expired() && --hours > 0) {
-					drawClock(hours, minutes);
-					idle();
-					idle();
-				}
-			}
-			
-			if (!timer.expired()) {
-				if (seconds != now->tm_sec) {
-					hours   = now->tm_hour;
-					minutes = now->tm_min;
-					seconds = now->tm_sec;
-					drawClock(hours, minutes, seconds);
-				}
-				
-				idle();
-			}
-		}
+		red = rgb.r * 255;
+		green = rgb.g * 255;
+		blue = rgb.b * 255;
+		
+		
+		//HSL2RGB(hue, 1.0, 1.0, red, green, blue);
+		_matrix->setPixel(x + 1, y + 1, red, green, blue);
+		_matrix->setPixel(x + 1, y + 2, red, green, blue);
+		_matrix->setPixel(x + 2, y + 1, red, green, blue);
+		_matrix->setPixel(x + 2, y + 2, red, green, blue);
+		
+		hsv.h = hue;
+		hsv.s = 1.0;
+		hsv.v = 0.3;
+		
+		rgb = hsv2rgb(hsv);
+		
+		red = rgb.r * 255;
+		green = rgb.g * 255;
+		blue = rgb.b * 255;
+		
+		
+		_matrix->setPixel(x + 1, y + 0, red, green, blue);
+		_matrix->setPixel(x + 2, y + 0, red, green, blue);
+		
+		_matrix->setPixel(x + 0, y + 1, red, green, blue);
+		_matrix->setPixel(x + 0, y + 2, red, green, blue);
+		
+		_matrix->setPixel(x + 1, y + 3, red, green, blue);
+		_matrix->setPixel(x + 2, y + 3, red, green, blue);
+		
+		_matrix->setPixel(x + 3, y + 1, red, green, blue);
+		_matrix->setPixel(x + 3, y + 2, red, green, blue);
+		
+		
 	}
 	
 private:
-	LogiMatrix *_canvas;
-	uint32_t _hourColor;
-	uint32_t _minuteColor;
-	uint32_t _blipColor;
-	uint32_t _hourBackColor;
-	uint32_t _minuteBackColor;
-	
-	
+	LogiMatrix *_matrix;
 };
-
-
-
-class ClockAnimationEx  {
-	
-	
-public:
-	
-	ClockAnimationEx(LogiMatrix *canvas)
-	{
-		_canvas          = canvas;
-	}
-	
-	
-	
-	
-	virtual void run(Timer &timer) {
-		
-		
-		int hours   = 0;
-		int minutes = 0;
-		int seconds = 0;
-		
-		unsigned int ticks = 0;
-		
-		time_t t = time(0);
-		struct tm *now = localtime(&t);
-		
-		while (!timer.expired()) {
-			
-			
-			time_t t = time(0);
-			now = localtime(&t);
-			
-			int hours = now->tm_hour % 12;
-			
-			double time = (double)now->tm_min + (double)now->tm_sec / 60.0;
-			int minutes = (int)((time + 2.5) / 5.0) * 5;;
-
-			Magick::Image backgroundImage("clock/bg.png");
-			Magick::Image foregroundImage("clock/fg.png");
-			Magick::Image clockImage(Magick::Geometry(32, 32), Magick::Color("black"));
-
-			clockImage.strokeColor("transparent");
-			//clockImage.strokeWidth(2.5);
-			//clockImage.strokeLineCap(Magick::RoundCap);
-
-			{
-				double alfa = (double)(now->tm_hour * 60 + now->tm_min) / 720.0 * 2.0 * M_PI;
-				
-				Magick::Image red("./clock/red.png");
-				
-				double x = 16;
-				double y = 16;
-				double dx =  cos(M_PI / 2.0 - alfa) * 6.0;
-				double dy =  sin(M_PI / 2.0 - alfa) * 12.0;
-				
-				//clockImage.draw(Magick::DrawableLine(x, y, x + dx, y - dy));
-				//clockImage.draw(Magick::DrawableCircle(x + dx, y - dy, x + dx + 2, y - dy + 2));
-				clockImage.composite(red, x + dx - 2.5, y - dy - 2.5, Magick::CompositeOperator(34));
-				clockImage.pixelColor(x + dx, y - dy, "blue");
-			}
-
-			 
-			{
-				double alfa = (double)now->tm_min / 60.0 * 2.0 * M_PI;
-
-				Magick::Image red("./clock/blue.png");
-				
-				double x = 16;
-				double y = 16;
-				double dx =  cos(M_PI / 2.0 - alfa) * 12.0;
-				double dy =  sin(M_PI / 2.0 - alfa) * 12.0;
-				
-				//clockImage.draw(Magick::DrawableLine(x, y, x + dx, y - dy));
-				//clockImage.draw(Magick::DrawableCircle(x + dx, y - dy, x + dx + 2, y - dy + 2));
-				clockImage.composite(red, x + dx - 2.5, y - dy - 2.5, Magick::CompositeOperator(34));
-				clockImage.pixelColor(x + dx, y - dy, "blue");
-				
-			}
-			/*
-			{
-				Magick::Image red("./clock/blue.png");
-				double alfa = (double)now->tm_sec / 60.0 * 2.0 * M_PI;
-				
-				double x = 16;
-				double y = 16;
-				double dx =  cos(M_PI / 2.0 - alfa) * 18.0;
-				double dy =  sin(M_PI / 2.0 - alfa) * 18.0;
-				
-				//clockImage.draw(Magick::DrawableLine(x, y, x + dx, y - dy));
-				//clockImage.draw(Magick::DrawableCircle(x + dx, y - dy, x + dx + 2, y - dy + 2));
-				clockImage.composite(red, x + dx - 2.5, y - dy - 2.5, Magick::CompositeOperator(34));
-				clockImage.pixelColor(x + dx, y - dy, "blue");
-			}
-*/
-
-			backgroundImage.composite(clockImage, 0, 0, Magick::CompositeOperator(34));
-			//backgroundImage.composite(foregroundImage, 0, 0, Magick::CompositeOperator(34));
-
-			
-			_canvas->drawImage(backgroundImage);
-			_canvas->refresh();
-		
-		}
-	}
-	
-private:
-	LogiMatrix *_canvas;
-	
-};
-
-
-
-class ClockAnimationEx2  {
-	
-	
-public:
-	
-	ClockAnimationEx2(LogiMatrix *canvas)
-	{
-		_canvas          = canvas;
-	}
-	
-	
-	void drawText(Magick::Image &image, double offsetX, double offsetY, char *text, int size, char *color) {
-		image.font("./fonts/Verdana.ttf");
-		image.strokeColor("transparent");
-		image.fillColor(color);
-		image.fontPointsize(size);
-		
-		Magick::TypeMetric metric;
-		image.fontTypeMetrics(text, &metric);
-		
-
-		image.draw(Magick::DrawableText(16.0 * offsetX * 2.0 - metric.textWidth() / 2, 16.0 * offsetY * 2.0 + metric.textHeight() / 2.0 + metric.descent(), text));
-		
-	}
-	
-	virtual void run(Timer &timer) {
-		
-		
-		int hours   = 0;
-		int minutes = 0;
-		int seconds = 0;
-		
-		unsigned int ticks = 0;
-		
-		time_t t = time(0);
-		struct tm *now = localtime(&t);
-		
-		while (!timer.expired()) {
-			
-			
-			time_t t = time(0);
-			now = localtime(&t);
-			
-			Magick::Image bg("clock/bg.png");
-			Magick::Image fg("clock/fg.png");
-			Magick::Image clock(Magick::Geometry(32, 32), Magick::Color("black"));
-
-			char text1[100];
-			sprintf(text1, "%02d:%02d", now->tm_hour, now->tm_min);
-			drawText(clock, 0.5, 0.5, text1, 10, "red");
-
-
-			bg.composite(clock, 0, 0, Magick::CompositeOperator(34));
-			
-			
-			_canvas->drawImage(bg);
-			_canvas->refresh();
-			
-		}
-	}
-	
-private:
-	LogiMatrix *_canvas;
-	
-};
-
-
 
 
 int main (int argc, char *argv[])
 {
 	Magick::InitializeMagick(*argv);
-
+	
 	LogiMatrix matrix;
-	Timer timer;
+	Timer timer(-1);
 	
 	int option = 0;
-	int duration = 60;
-
-	timer.setDuration(-1);
-
+	
 	while ((option = getopt(argc, argv, "g:d:")) != -1) {
 		switch (option) {
 			case 'g':
@@ -416,13 +298,14 @@ int main (int argc, char *argv[])
 		}
 	}
 	
-	ClockAnimationEx2 animation(&matrix);
-	animation.run(timer);
-
-	matrix.clear();
-	matrix.refresh();
+	Clock clock(&matrix);
 	
-    return 0;
+	while (!timer.expired()) {
+		clock.draw();
+	}
+	
+	
+	return 0;
 }
 
 
