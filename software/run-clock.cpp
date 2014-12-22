@@ -151,7 +151,6 @@ public:
 		double      hh, p, q, t, ff;
 		double r = 0, g = 0, b = 0;
 		long        i;
-		rgb         out;
 		
 		if(s <= 0.0) {       // < is bogus, just shuts up warnings
 			r = v;
