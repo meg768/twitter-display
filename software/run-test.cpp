@@ -234,7 +234,7 @@ public:
 		
 		for (int i = 0; i < 12; i++) {
 			double angle = (double)i / 12.0 * 360.0;
-//			angle += minutes * 360.0;
+			angle += minutes * 360.0;
 			while (angle > 360.0)
 				angle -= 360.0;
 			drawDot(minutesCoords[i][0], minutesCoords[i][1], angle);
