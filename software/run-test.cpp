@@ -6,9 +6,14 @@
 
 static int minutes[12][2] = {
 
-	{0, 14},
-	{2, 21},
-	{7, 26}
+	{14,  0},
+	{21,  2},
+	{26,  7},
+	{28, 14},
+	{26, 21},
+	{21, 26},
+	{14, 28}
+	
 };
 
 class Clock {
@@ -19,7 +24,7 @@ public:
 	}
 	
 	void foo() {
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 7; i++) {
 			drawDot(minutes[i][0], minutes[i][1]);
 		}
 	}
