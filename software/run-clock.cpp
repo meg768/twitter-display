@@ -79,7 +79,7 @@ rgb hsv2rgb(hsv in)
 	return out;
 }
 
-static int minutesCoords[12][2] = {
+static int minutesCoordsXX[12][2] = {
 	
 	{14,  0},
 	{21,  2},
@@ -92,6 +92,24 @@ static int minutesCoords[12][2] = {
 	{ 7, 26},
 	{ 2, 21},
 	{ 0, 14},
+	{ 2,  7},
+	{ 7,  2}
+	
+};
+
+static int minutesCoords[12][2] = {
+	
+	{14,  1},
+	{21,  2},
+	{26,  7},
+	{27, 14},
+	{26, 21},
+	{21, 26},
+	{14, 27},
+	
+	{ 7, 26},
+	{ 2, 21},
+	{ 1, 14},
 	{ 2,  7},
 	{ 7,  2}
 	
