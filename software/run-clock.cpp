@@ -146,61 +146,54 @@ public:
 	Clock(LogiMatrix *matrix) {
 		_matrix = matrix;
 	}
+	
 	void HslToRgb(double h, double s, double v, uint8_t &red, uint8_t &green, uint8_t &blue)
 	{
-		double      hh, p, q, t, ff;
+		double hh, p, q, t, ff;
 		double r = 0, g = 0, b = 0;
-		long        i;
+		long i;
 		
-		if(s <= 0.0) {       // < is bogus, just shuts up warnings
-			r = v;
-			g = v;
-			b = v;
-			return;
+		if (s <= 0.0) {       // < is bogus, just shuts up warnings
+			r = v, g = v, b = v;
 		}
-		hh = h;
-		if(hh >= 360.0) hh = 0.0;
-		hh /= 60.0;
-		i = (long)hh;
-		ff = hh - i;
-		p = v * (1.0 - s);
-		q = v * (1.0 - (s * ff));
-		t = v * (1.0 - (s * (1.0 - ff)));
+		else {
+			hh = h;
+			
+			if (hh >= 360.0)
+				hh = 0.0;
+
+			hh /= 60.0;
+			i = (long)hh;
+			ff = hh - i;
+			
+			p = v * (1.0 - s);
+			q = v * (1.0 - (s * ff));
+			t = v * (1.0 - (s * (1.0 - ff)));
+			
+			switch(i) {
+				case 0:
+					r = v, g = t, b = p;
+					break;
+				case 1:
+					r = q, g = v, b = p;
+					break;
+				case 2:
+					r = p, g = v, b = t;
+					break;
+					
+				case 3:
+					r = p, g = q, b = v;
+					break;
+				case 4:
+					r = t, g = p, b = v;
+					break;
+				default:
+					r = v, g = p, b = q;
+					break;
+			}
+			
+		}
 		
-		switch(i) {
-			case 0:
-				r = v;
-				g = t;
-				b = p;
-				break;
-			case 1:
-				r = q;
-				g = v;
-				b = p;
-				break;
-			case 2:
-				r = p;
-				g = v;
-				b = t;
-				break;
-				
-			case 3:
-				r = p;
-				g = q;
-				b = v;
-				break;
-			case 4:
-				r = t;
-				g = p;
-				b = v;
-				break;
-			case 5:
-			default:
-				r = v;
-				g = p;
-				b = q;
-				break;
-		}
 		
 		red = (uint8_t)(r * 255.0);
 		green = (uint8_t)(g * 255.0);
@@ -233,30 +226,7 @@ public:
 		
 		drawDot(14, 14, seconds * 360.0);
 
-		/*
-		 hsv hsv;
-		rgb rgb;
-		
-		hsv.h = seconds * 360.0;
-		hsv.s = 1.0;
-		hsv.v = 1.0;
-		
-		
-		
-		rgb = hsv2rgb(hsv);
-		uint8_t red = rgb.r * 255;
-		uint8_t green = rgb.g * 255;
-		uint8_t blue = rgb.b * 255;
-		
-		for (int x = 0; x < 32; x++) {
-			for (int y = 0; y < 32; y++) {
-				if (x == 0 || y == 0 || x == 31 || y == 31) {
-					
-					_matrix->setPixel(x, y, red, green, blue);
-				}
-			}
-		}
-		 */
+
 		_matrix->refresh();
 		usleep(1000);
 
@@ -269,39 +239,13 @@ public:
 		uint8_t green = 0;
 		uint8_t blue = 0;
 		
-		/*
-		hsv hsv;
-		rgb rgb;
-		
-		hsv.h = hue;
-		hsv.s = 1.0;
-		hsv.v = 1.0;
-		
-		rgb = hsv2rgb(hsv);
-		
-		red = rgb.r * 255;
-		green = rgb.g * 255;
-		blue = rgb.b * 255;
-		*/
-		
-		//
 		HslToRgb(hue, 1.0, 1.0, red, green, blue);
+		
 		_matrix->setPixel(x + 1, y + 1, red, green, blue);
 		_matrix->setPixel(x + 1, y + 2, red, green, blue);
 		_matrix->setPixel(x + 2, y + 1, red, green, blue);
 		_matrix->setPixel(x + 2, y + 2, red, green, blue);
-		/*
-		hsv.h = hue;
-		hsv.s = 1.0;
-		hsv.v = 0.3;
-		
-		rgb = hsv2rgb(hsv);
-		
-		red = rgb.r * 255;
-		green = rgb.g * 255;
-		blue = rgb.b * 255;
-		
-		*/
+
 		HslToRgb(hue, 1.0, 0.3, red, green, blue);
 		_matrix->setPixel(x + 1, y + 0, red, green, blue);
 		_matrix->setPixel(x + 2, y + 0, red, green, blue);
