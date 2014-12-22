@@ -4,12 +4,12 @@
 #define COLOR(red, green, blue) (uint16_t)((red << 8) | (green << 4) | blue)
 
 
-int minutes[12][2] = {
+static int minutes[12][2] = {
 
 	{0, 14},
 	{2, 21},
 	{7, 26}
-}
+};
 
 class Clock {
 	
