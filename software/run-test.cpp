@@ -246,7 +246,7 @@ public:
 		
 		hsv.h = hue;
 		hsv.s = 1.0;
-		hsv.v = 0.5;
+		hsv.v = 0.7;
 		
 		rgb = hsv2rgb(hsv);
 		
@@ -261,8 +261,8 @@ public:
 		_matrix->setPixel(x + 2, y + 2, red, green, blue);
 		
 		hsv.h = hue;
-		hsv.s = 0.1;
-		hsv.v = 0.1;
+		hsv.s = 1.0;
+		hsv.v = 0.4;
 		
 		rgb = hsv2rgb(hsv);
 		
