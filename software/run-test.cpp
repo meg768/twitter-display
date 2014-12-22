@@ -42,7 +42,8 @@ public:
 	
 private:
 	LogiMatrix *_matrix;
-	
+};
+
 
 int main (int argc, char *argv[])
 {
