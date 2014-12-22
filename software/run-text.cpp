@@ -1,21 +1,6 @@
 #include "globals.h"
 
 
-class Clock {
-	
-public:
-	Clock(LogiMatrix *matrix) {
-		_matrix = matrix;
-	}
-	
-	void drawDot(double x, double y) {
-		
-	}
-	
-private:
-	LogiMatrix *_matrix;
-	
-};
 int main (int argc, char *argv[])
 {
 	Magick::InitializeMagick(*argv);
