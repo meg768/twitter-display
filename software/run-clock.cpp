@@ -6,6 +6,8 @@
 // But the result is finally OK...
 //
 
+/*
+
 typedef struct {
 	double r;       // percent
 	double g;       // percent
@@ -80,6 +82,7 @@ rgb hsv2rgb(hsv in)
 	}
 	return out;
 }
+*/
 
 static int minutesCoordsXX[12][2] = {
 	
