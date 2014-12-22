@@ -262,7 +262,7 @@ public:
 		
 		hsv.h = hue;
 		hsv.s = 1.0;
-		hsv.v = 0.3;
+		hsv.v = 0.8;
 		
 		rgb = hsv2rgb(hsv);
 		
