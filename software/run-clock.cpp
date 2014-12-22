@@ -134,14 +134,10 @@ public:
 		double seconds = (double)(now->tm_sec) / (60.0);
 		
 		for (int i = 0; i < 12; i++) {
-			double angle = (double)i / 12.0 * 360.0;
-			angle -= minutes * 360.0;
-			drawDot(minutesCoords[i][0], minutesCoords[i][1], angle);
+			drawDot(minutesCoords[i][0], minutesCoords[i][1], (double)i / 12.0 * 360.0 - minutes * 360.0);
 		}
 		for (int i = 0; i < 12; i++) {
-			double angle = (double)i / 12.0 * 360.0;
-			angle -= hours * 360.0;
-			drawDot(hoursCoords[i][0], hoursCoords[i][1], angle);
+			drawDot(hoursCoords[i][0], hoursCoords[i][1], (double)i / 12.0 * 360.0 - hours * 360.0);
 		}
 		
 		drawDot(14, 14, seconds * 360.0);
