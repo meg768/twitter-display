@@ -142,9 +142,7 @@ public:
 		
 		drawDot(14, 14, seconds * 360.0);
 
-
 		_matrix->refresh();
-		usleep(1000);
 
 	}
 	
@@ -163,6 +161,7 @@ public:
 		_matrix->setPixel(x + 2, y + 2, red, green, blue);
 
 		HslToRgb(hue, 1.0, 0.3, red, green, blue);
+		
 		_matrix->setPixel(x + 1, y + 0, red, green, blue);
 		_matrix->setPixel(x + 2, y + 0, red, green, blue);
 		
@@ -207,6 +206,7 @@ int main (int argc, char *argv[])
 	
 	while (!timer.expired()) {
 		clock.draw();
+		usleep(1000);
 	}
 	
 	
