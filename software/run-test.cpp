@@ -231,6 +231,7 @@ public:
 
 		double hours   = (double)((now->tm_hour % 12) * 60 + now->tm_min) / (12.0 * 60.0);
 		double minutes = (double)(now->tm_min) / (60.0);
+		double seconds = (double)(now->tm_sec) / (60.0);
 		
 		for (int i = 0; i < 12; i++) {
 			double angle = (double)i / 12.0 * 360.0;
@@ -246,6 +247,8 @@ public:
 				angle += 360.0;
 			drawDot(hoursCoords[i][0], hoursCoords[i][1], angle);
 		}
+		
+		drawDot(14, 14, seconds * 360.0);
 	}
 
 	
@@ -326,9 +329,13 @@ int main (int argc, char *argv[])
 	
 	Clock clock(&matrix);
 	
-	clock.foo();
+	for (;;) {
+		clock.foo();
+		matrix.refresh();
+		sleep(1);
+	}
 	
-	matrix.refresh();
+	
 	
 
     return 0;
