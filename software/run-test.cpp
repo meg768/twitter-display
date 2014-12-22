@@ -115,7 +115,7 @@ rgb hsv2rgb(hsv in)
 	return out;
 }
 
-static int minutes[12][2] = {
+static int minutesCoords[12][2] = {
 
 	{14,  0},
 	{21,  2},
@@ -133,7 +133,7 @@ static int minutes[12][2] = {
 	
 };
 
-static int hours[12][2] = {
+static int hoursCoords[12][2] = {
 	
 	{14,  6},
 	{18,  7},
@@ -225,11 +225,16 @@ public:
 	}
 	
 	void foo() {
+		
+		time_t t = time(0);
+		now = localtime(&t);
+		
+		
 		for (int i = 0; i < 12; i++) {
-			drawDot(minutes[i][0], minutes[i][1], (double)i / 12.0 * 360.0);
+			drawDot(minutesCoords[i][0], minutesCoords[i][1], (double)i / 12.0 * 360.0);
 		}
 		for (int i = 0; i < 12; i++) {
-			drawDot(hours[i][0], hours[i][1], 0.0 + ((double)i / 12.0 * 360.0));
+			drawDot(hoursCoords[i][0], hoursCoords[i][1], 0.0 + ((double)i / 12.0 * 360.0));
 		}
 	}
 
