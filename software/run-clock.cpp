@@ -269,7 +269,7 @@ public:
 		uint8_t green = 0;
 		uint8_t blue = 0;
 		
-		
+		/*
 		hsv hsv;
 		rgb rgb;
 		
@@ -282,7 +282,7 @@ public:
 		red = rgb.r * 255;
 		green = rgb.g * 255;
 		blue = rgb.b * 255;
-		
+		*/
 		
 		//
 		HslToRgb(hue, 1.0, 1.0, red, green, blue);
@@ -290,7 +290,7 @@ public:
 		_matrix->setPixel(x + 1, y + 2, red, green, blue);
 		_matrix->setPixel(x + 2, y + 1, red, green, blue);
 		_matrix->setPixel(x + 2, y + 2, red, green, blue);
-		
+		/*
 		hsv.h = hue;
 		hsv.s = 1.0;
 		hsv.v = 0.3;
@@ -301,7 +301,7 @@ public:
 		green = rgb.g * 255;
 		blue = rgb.b * 255;
 		
-		
+		*/
 		HslToRgb(hue, 1.0, 0.3, red, green, blue);
 		_matrix->setPixel(x + 1, y + 0, red, green, blue);
 		_matrix->setPixel(x + 2, y + 0, red, green, blue);
