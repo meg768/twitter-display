@@ -227,14 +227,17 @@ public:
 	void foo() {
 		
 		time_t t = time(0);
-		now = localtime(&t);
-		
+		struct tm *now = localtime(&t);
+
+		double hours   = (double)((now->tm_hour % 12) * 60 + now->tm_min) / (12.0 * 60.0);
+		double minutes = (double)(now->tm_min) / (60.0);
 		
 		for (int i = 0; i < 12; i++) {
-			drawDot(minutesCoords[i][0], minutesCoords[i][1], (double)i / 12.0 * 360.0);
+			double minutes = (double)(now->tm_min + i * 5) / (60.0);
+			drawDot(minutesCoords[i][0], minutesCoords[i][1], minutes * 360.0 );
 		}
 		for (int i = 0; i < 12; i++) {
-			drawDot(hoursCoords[i][0], hoursCoords[i][1], 0.0 + ((double)i / 12.0 * 360.0));
+			drawDot(hoursCoords[i][0], hoursCoords[i][1], hours * 360.0);
 		}
 	}
 
