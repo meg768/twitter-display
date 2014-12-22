@@ -86,9 +86,6 @@ public:
 			
 			while (hh >= 360.0)
 				hh -= 360.0;
-			
-//			if (hh >= 360.0)
-//				hh = 0.0;
 
 			hh = hh / 60.0;
 			i  = (long)hh;
@@ -139,15 +136,11 @@ public:
 		for (int i = 0; i < 12; i++) {
 			double angle = (double)i / 12.0 * 360.0;
 			angle -= minutes * 360.0;
-			while (angle < 0.0)
-				angle += 360.0;
 			drawDot(minutesCoords[i][0], minutesCoords[i][1], angle);
 		}
 		for (int i = 0; i < 12; i++) {
 			double angle = (double)i / 12.0 * 360.0;
 			angle -= hours * 360.0;
-			while (angle < 0.0)
-				angle += 360.0;
 			drawDot(hoursCoords[i][0], hoursCoords[i][1], angle);
 		}
 		
