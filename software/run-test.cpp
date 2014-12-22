@@ -240,7 +240,11 @@ public:
 			drawDot(minutesCoords[i][0], minutesCoords[i][1], angle);
 		}
 		for (int i = 0; i < 12; i++) {
-			drawDot(hoursCoords[i][0], hoursCoords[i][1], 0.0 + ((double)i / 12.0 * 360.0));
+			double angle = (double)i / 12.0 * 360.0;
+			angle -= hours * 360.0;
+			while (angle < 0.0)
+				angle += 360.0;
+			drawDot(hoursCoords[i][0], hoursCoords[i][1], angle);
 		}
 	}
 
