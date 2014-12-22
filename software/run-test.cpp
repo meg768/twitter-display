@@ -3,12 +3,27 @@
 
 #define COLOR(red, green, blue) (uint16_t)((red << 8) | (green << 4) | blue)
 
+
+int minutes[12][2] = {
+
+	{0, 14},
+	{2, 21},
+	{7, 26}
+}
+
 class Clock {
 	
 public:
 	Clock(LogiMatrix *matrix) {
 		_matrix = matrix;
 	}
+	
+	void foo() {
+		for (int i = 0; i < 3; i++) {
+			drawDot(minutes[i][0], minutes[i][1]);
+		}
+	}
+
 	
 	void drawDot(int x, int y) {
 		
@@ -18,7 +33,7 @@ public:
 		
 		_matrix->setPixel(x + 1, y + 1, red, green, blue);
 		_matrix->setPixel(x + 1, y + 2, red, green, blue);
-		_matrix->setPixel(x + 2, y + 2, red, green, blue);
+		_matrix->setPixel(x + 2, y + 1, red, green, blue);
 		_matrix->setPixel(x + 2, y + 2, red, green, blue);
 		
 		red = red / 3;
@@ -64,8 +79,7 @@ int main (int argc, char *argv[])
 	
 	Clock clock(&matrix);
 	
-	clock.drawDot(0, 0);
-	clock.drawDot(15, 15);
+	clock.foo();
 	
 	matrix.refresh();
 	
