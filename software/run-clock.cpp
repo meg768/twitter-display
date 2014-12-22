@@ -21,63 +21,7 @@ typedef struct {
 static rgb      hsv2rgb(hsv in);
 
 
-void HslToRgb(double h, double s, double v, double &r, double &g, double &b)
-{
-	double      hh, p, q, t, ff;
-	long        i;
-	rgb         out;
-	
-	if(s <= 0.0) {       // < is bogus, just shuts up warnings
-		r = v;
-		g = v;
-		b = v;
-		return;
-	}
-	hh = h;
-	if(hh >= 360.0) hh = 0.0;
-	hh /= 60.0;
-	i = (long)hh;
-	ff = hh - i;
-	p = v * (1.0 - s);
-	q = v * (1.0 - (s * ff));
-	t = v * (1.0 - (s * (1.0 - ff)));
-	
-	switch(i) {
-		case 0:
-			r = v;
-			g = t;
-			b = p;
-			break;
-		case 1:
-			r = q;
-			g = v;
-			b = p;
-			break;
-		case 2:
-			r = p;
-			g = v;
-			b = t;
-			break;
-			
-		case 3:
-			r = p;
-			g = q;
-			b = v;
-			break;
-		case 4:
-			r = t;
-			g = p;
-			b = v;
-			break;
-		case 5:
-		default:
-			r = v;
-			g = p;
-			b = q;
-			break;
-	}
-	
-}
+
 
 rgb hsv2rgb(hsv in)
 {
@@ -199,6 +143,67 @@ public:
 	Clock(LogiMatrix *matrix) {
 		_matrix = matrix;
 	}
+	void HslToRgb(double h, double s, double v, uint8_t &red, uint8_t &green, uint8_t &blue)
+	{
+		double      hh, p, q, t, ff;
+		double r = 0, g = 0, b = 0;
+		long        i;
+		rgb         out;
+		
+		if(s <= 0.0) {       // < is bogus, just shuts up warnings
+			r = v;
+			g = v;
+			b = v;
+			return;
+		}
+		hh = h;
+		if(hh >= 360.0) hh = 0.0;
+		hh /= 60.0;
+		i = (long)hh;
+		ff = hh - i;
+		p = v * (1.0 - s);
+		q = v * (1.0 - (s * ff));
+		t = v * (1.0 - (s * (1.0 - ff)));
+		
+		switch(i) {
+			case 0:
+				r = v;
+				g = t;
+				b = p;
+				break;
+			case 1:
+				r = q;
+				g = v;
+				b = p;
+				break;
+			case 2:
+				r = p;
+				g = v;
+				b = t;
+				break;
+				
+			case 3:
+				r = p;
+				g = q;
+				b = v;
+				break;
+			case 4:
+				r = t;
+				g = p;
+				b = v;
+				break;
+			case 5:
+			default:
+				r = v;
+				g = p;
+				b = q;
+				break;
+		}
+		
+		red = (uint8_t)(r * 255.0);
+		green = (uint8_t)(g * 255.0);
+		blue = (uint8_t)(b * 255.0);
+	}
 	
 	void draw() {
 		
@@ -277,7 +282,8 @@ public:
 		blue = rgb.b * 255;
 		
 		
-		//HSL2RGB(hue, 1.0, 1.0, red, green, blue);
+		//
+		HslToRgb(hue, 1.0, 1.0, red, green, blue);
 		_matrix->setPixel(x + 1, y + 1, red, green, blue);
 		_matrix->setPixel(x + 1, y + 2, red, green, blue);
 		_matrix->setPixel(x + 2, y + 1, red, green, blue);
@@ -294,6 +300,7 @@ public:
 		blue = rgb.b * 255;
 		
 		
+		HslToRgb(hue, 1.0, 0.3, red, green, blue);
 		_matrix->setPixel(x + 1, y + 0, red, green, blue);
 		_matrix->setPixel(x + 2, y + 0, red, green, blue);
 		
