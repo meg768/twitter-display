@@ -38,9 +38,9 @@ void HslToRgb(double h, double s, double v, double &r, double &g, double &b)
 	hh /= 60.0;
 	i = (long)hh;
 	ff = hh - i;
-	p = in.v * (1.0 - s);
-	q = in.v * (1.0 - (s * ff));
-	t = in.v * (1.0 - (s * (1.0 - ff)));
+	p = v * (1.0 - s);
+	q = v * (1.0 - (s * ff));
+	t = v * (1.0 - (s * (1.0 - ff)));
 	
 	switch(i) {
 		case 0:
