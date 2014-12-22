@@ -240,9 +240,9 @@ public:
 		hsv.v = 1.0;
 		
 		rgb = hsv2rgb(hsv);
-		red = rgb.r * 255;
-		green = rgb.g * 255;
-		blue = rgb.b * 255;
+		uint8_t red = rgb.r * 255;
+		uint8_t green = rgb.g * 255;
+		uint8_t blue = rgb.b * 255;
 		
 		for (int x = 0; x < 32; x++) {
 			for (int y = 0; y < 32; y++) {
