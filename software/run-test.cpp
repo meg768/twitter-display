@@ -22,6 +22,24 @@ static int minutes[12][2] = {
 	
 };
 
+static int hours[12][2] = {
+	
+	{14,  6},
+	{18,  7},
+	{21, 10},
+	{22, 14},
+	{21, 18},
+	{18, 21},
+	{14, 22},
+	
+	{10, 21},
+	{ 7, 18},
+	{ 6, 14},
+	{ 7, 10},
+	{10,  7}
+	
+};
+
 class Clock {
 	
 public:
@@ -32,6 +50,9 @@ public:
 	void foo() {
 		for (int i = 0; i < 12; i++) {
 			drawDot(minutes[i][0], minutes[i][1]);
+		}
+		for (int i = 0; i < 12; i++) {
+			drawDot(hours[i][0], hours[i][1]);
 		}
 	}
 
