@@ -6,84 +6,6 @@
 // But the result is finally OK...
 //
 
-/*
-
-typedef struct {
-	double r;       // percent
-	double g;       // percent
-	double b;       // percent
-} rgb;
-
-typedef struct {
-	double h;       // angle in degrees
-	double s;       // percent
-	double v;       // percent
-} hsv;
-
-static rgb      hsv2rgb(hsv in);
-
-
-
-
-rgb hsv2rgb(hsv in)
-{
-	double      hh, p, q, t, ff;
-	long        i;
-	rgb         out;
-	
-	if(in.s <= 0.0) {       // < is bogus, just shuts up warnings
-		out.r = in.v;
-		out.g = in.v;
-		out.b = in.v;
-		return out;
-	}
-	hh = in.h;
-	if(hh >= 360.0) hh = 0.0;
-	hh /= 60.0;
-	i = (long)hh;
-	ff = hh - i;
-	p = in.v * (1.0 - in.s);
-	q = in.v * (1.0 - (in.s * ff));
-	t = in.v * (1.0 - (in.s * (1.0 - ff)));
-	
-	switch(i) {
-		case 0:
-			out.r = in.v;
-			out.g = t;
-			out.b = p;
-			break;
-		case 1:
-			out.r = q;
-			out.g = in.v;
-			out.b = p;
-			break;
-		case 2:
-			out.r = p;
-			out.g = in.v;
-			out.b = t;
-			break;
-			
-		case 3:
-			out.r = p;
-			out.g = q;
-			out.b = in.v;
-			break;
-		case 4:
-			out.r = t;
-			out.g = p;
-			out.b = in.v;
-			break;
-		case 5:
-		default:
-			out.r = in.v;
-			out.g = p;
-			out.b = q;
-			break;
-	}
-	return out;
-}
-*/
-
 static int minutesCoordsXX[12][2] = {
 	
 	{14,  0},
@@ -153,7 +75,7 @@ public:
 		double r = 0, g = 0, b = 0;
 		long i;
 		
-		if (s <= 0.0) {       // < is bogus, just shuts up warnings
+		if (s <= 0.0) {
 			r = v, g = v, b = v;
 		}
 		else {
@@ -162,8 +84,8 @@ public:
 			if (hh >= 360.0)
 				hh = 0.0;
 
-			hh /= 60.0;
-			i = (long)hh;
+			hh = hh / 60.0;
+			i  = (long)hh;
 			ff = hh - i;
 			
 			p = v * (1.0 - s);
@@ -193,7 +115,6 @@ public:
 			}
 			
 		}
-		
 		
 		red = (uint8_t)(r * 255.0);
 		green = (uint8_t)(g * 255.0);
