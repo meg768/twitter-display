@@ -248,7 +248,7 @@ public:
 			for (int y = 0; y < 32; y++) {
 				if (x == 0 || y == 0 || x == 31 || y == 31) {
 					
-					_matrix.setPixel(x, y, red, green, blue);
+					_matrix->setPixel(x, y, red, green, blue);
 				}
 			}
 		}
