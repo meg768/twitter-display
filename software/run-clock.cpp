@@ -232,6 +232,26 @@ public:
 		
 		drawDot(14, 14, seconds * 360.0);
 
+		hsv hsv;
+		rgb rgb;
+		
+		hsv.h = seconds * 360.0;
+		hsv.s = 1.0;
+		hsv.v = 1.0;
+		
+		rgb = hsv2rgb(hsv);
+		red = rgb.r * 255;
+		green = rgb.g * 255;
+		blue = rgb.b * 255;
+		
+		for (int x = 0; x < 32; x++) {
+			for (int y = 0; y < 32; y++) {
+				if (x == 0 || y == 0 || x == 31 || y == 31) {
+					
+					_matrix.setPixel(x, y, red, green, blue);
+				}
+			}
+		}
 		_matrix->refresh();
 		usleep(1000);
 
