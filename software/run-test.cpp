@@ -226,7 +226,7 @@ public:
 	
 	void foo() {
 		for (int i = 0; i < 12; i++) {
-			drawDot(minutes[i][0], minutes[i][1], 360.0);
+			drawDot(minutes[i][0], minutes[i][1], (double)i / 12.0 * 360.0);
 		}
 		for (int i = 0; i < 12; i++) {
 			drawDot(hours[i][0], hours[i][1], 240.0);
