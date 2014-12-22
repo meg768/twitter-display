@@ -232,12 +232,15 @@ public:
 		
 		drawDot(14, 14, seconds * 360.0);
 
-		hsv hsv;
+		/*
+		 hsv hsv;
 		rgb rgb;
 		
 		hsv.h = seconds * 360.0;
 		hsv.s = 1.0;
 		hsv.v = 1.0;
+		
+		
 		
 		rgb = hsv2rgb(hsv);
 		uint8_t red = rgb.r * 255;
@@ -252,6 +255,7 @@ public:
 				}
 			}
 		}
+		 */
 		_matrix->refresh();
 		usleep(1000);
 
