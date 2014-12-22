@@ -245,7 +245,7 @@ public:
 		rgb rgb;
 		
 		hsv.h = hue;
-		hsv.s = 1.0;
+		hsv.s = 0.5;
 		hsv.v = 0.5;
 		
 		rgb = hsv2rgb(hsv);
