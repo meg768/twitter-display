@@ -172,7 +172,7 @@ public:
 		double factor = (double)((now->tm_hour % 12) * 60 + now->tm_min) / (12.0 * 60.0);
 
 		for (int i = 0; i < 12; i++) {
-			drawDot(coords[i][0], coords[i][1], (double)i / 12.0 * 360.0 - hours * 360.0);
+			drawDot(coords[i][0], coords[i][1], (double)i / 12.0 * 360.0 - factor * 360.0);
 		}
 		
 	};
