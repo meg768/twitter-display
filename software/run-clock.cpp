@@ -124,21 +124,78 @@ public:
 		blue  = (uint8_t)(b * 255.0);
 	}
 	
+	void drawMinutes(struct tm *now) {
+		static int coords[12][2] = {
+			
+			{14,  1},
+			{21,  2},
+			{26,  7},
+			{27, 14},
+			{26, 21},
+			{21, 26},
+			{14, 27},
+			
+			{ 7, 26},
+			{ 2, 21},
+			{ 1, 14},
+			{ 2,  7},
+			{ 7,  2}
+			
+		};
+		
+		double factor = (double)(now->tm_min) / (60.0);
+
+		for (int i = 0; i < 12; i++) {
+			drawDot(coords[i][0], coords[i][1], (double)i / 12.0 * 360.0 - factor * 360.0);
+		}
+	};
+	
+	void drawHours(struct tm *now) {
+		static int coords[12][2] = {
+			
+			{14,  6},
+			{18,  7},
+			{21, 10},
+			{22, 14},
+			{21, 18},
+			{18, 21},
+			{14, 22},
+			
+			{10, 21},
+			{ 7, 18},
+			{ 6, 14},
+			{ 7, 10},
+			{10,  7}
+			
+		};
+		
+		double factor = (double)((now->tm_hour % 12) * 60 + now->tm_min) / (12.0 * 60.0);
+
+		for (int i = 0; i < 12; i++) {
+			drawDot(coords[i][0], coords[i][1], (double)i / 12.0 * 360.0 - hours * 360.0);
+		}
+		
+	};
+	
 	void draw() {
 		
 		time_t t = time(0);
 		struct tm *now = localtime(&t);
 		
-		double hours   = (double)((now->tm_hour % 12) * 60 + now->tm_min) / (12.0 * 60.0);
-		double minutes = (double)(now->tm_min) / (60.0);
+		//double hours   = (double)((now->tm_hour % 12) * 60 + now->tm_min) / (12.0 * 60.0);
+		//double minutes = (double)(now->tm_min) / (60.0);
 		double seconds = (double)(now->tm_sec) / (60.0);
 		
+		drawHours(now);
+		drawMinutes(now);
+		/*
 		for (int i = 0; i < 12; i++) {
 			drawDot(minutesCoords[i][0], minutesCoords[i][1], (double)i / 12.0 * 360.0 - minutes * 360.0);
 		}
 		for (int i = 0; i < 12; i++) {
 			drawDot(hoursCoords[i][0], hoursCoords[i][1], (double)i / 12.0 * 360.0 - hours * 360.0);
 		}
+		 */
 		
 		drawDot(14, 14, seconds * 360.0);
 
