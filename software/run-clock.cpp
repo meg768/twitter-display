@@ -166,6 +166,14 @@ public:
 		time_t t = time(0);
 		struct tm *now = localtime(&t);
 		drawTime(now);
+		
+	}
+
+	void draw(struct tm *now) {
+		
+		time_t t = time(0);
+		struct tm *now = localtime(&t);
+		drawTime(now);
 
 	}
 	
@@ -226,9 +234,12 @@ int main (int argc, char *argv[])
 	}
 	
 	Clock clock(&matrix);
+	time_t t = time(0);
+	struct tm *now = localtime(&t);
 	
 	while (!timer.expired()) {
-		clock.draw();
+		clock.drawTime(now);
+		clock.increment();
 		usleep(300);
 	}
 	
