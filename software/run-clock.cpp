@@ -234,9 +234,9 @@ int main (int argc, char *argv[])
 	}
 	
 	Clock clock(&matrix);
-	time_t t = time(0);
 	
 	while (!timer.expired()) {
+		time_t t = time(0);
 		struct tm *now = localtime(&t);
 		clock.drawTime(now);
 		usleep(950);
