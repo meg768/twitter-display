@@ -6,6 +6,7 @@ class Clock {
 public:
 	Clock(LogiMatrix *matrix) {
 		_matrix = matrix;
+		_nightMode = true;
 	}
 	
 	void HslToRgb(double h, double s, double v, uint8_t &red, uint8_t &green, uint8_t &blue)
@@ -81,11 +82,20 @@ public:
 			{ 7,  2}
 			
 		};
-		
-		double factor = (double)(now->tm_min) / (60.0);
 
-		for (int i = 0; i < 12; i++) {
-			drawDot(coords[i][0], coords[i][1], (double)i / 12.0 * 360.0 - factor * 360.0);
+		if (_nightMode) {
+			int minutes = (int)(((double)now->tm_min + 2.5) / 5.0);
+			
+			for (int i = 0; i <= minutes; i++)
+				drawDot(coords[i][0], coords[i][1], 0);
+		}
+		else {
+			double factor = (double)(now->tm_min) / (60.0);
+			
+			for (int i = 0; i < 12; i++) {
+				drawDot(coords[i][0], coords[i][1], (double)i / 12.0 * 360.0 - factor * 360.0);
+			}
+			
 		}
 	};
 	
@@ -108,10 +118,21 @@ public:
 			
 		};
 		
-		double factor = (double)((now->tm_hour % 12) * 60 + now->tm_min) / (12.0 * 60.0);
-
-		for (int i = 0; i < 12; i++) {
-			drawDot(coords[i][0], coords[i][1], (double)i / 12.0 * 360.0 - factor * 360.0);
+		if (_nightMode) {
+			int hours = now->tm_hour % 12;
+			
+			for (int i = 0; i <= hours; i++)
+				drawDot(coords[i][0], coords[i][1], 0);
+			
+			
+		}
+		else {
+			double factor = (double)((now->tm_hour % 12) * 60 + now->tm_min) / (12.0 * 60.0);
+			
+			for (int i = 0; i < 12; i++) {
+				drawDot(coords[i][0], coords[i][1], (double)i / 12.0 * 360.0 - factor * 360.0);
+			}
+			
 		}
 		
 	};
@@ -138,21 +159,7 @@ public:
 	};
 	
 	void drawTime(struct tm *now) {
-		/*
-		if (now->tm_sec == 0) {
-			struct tm tmx = *now;
-			tmx.tm_hour = 0;
-			tmx.tm_min = 0;
-			tmx.tm_sec = 0;
-			while (tmx.tm_hour * tmx.tm_min * > 0) {
-				drawMinutes(&tmx);
-				usleep(1000);
-				tmx.tm_min--;
-				_matrix->refresh();
-				
-			}
-		}
-*/
+
 		drawHours(now);
 		drawMinutes(now);
 		drawSeconds(now);
@@ -202,6 +209,7 @@ public:
 	
 private:
 	LogiMatrix *_matrix;
+	int _nightMode;
 };
 
 
@@ -227,12 +235,11 @@ int main (int argc, char *argv[])
 	
 	Clock clock(&matrix);
 	time_t t = time(0);
-	struct tm *now = localtime(&t);
 	
 	while (!timer.expired()) {
+		struct tm *now = localtime(&t);
 		clock.drawTime(now);
-		clock.increment(now);
-		usleep(50);
+		usleep(950);
 	}
 	
 	

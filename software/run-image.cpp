@@ -66,23 +66,12 @@ int main (int argc, char *argv[])
 
 		const Magick::PixelPacket *pixels = image.getConstPixels(0, 0, 32, 32);
 		
-		//image.type(Magick::GrayscaleType);
 		Magick::Image img("32x32", "black");
 		img.composite(image, 0, 0); //, Magick::CompositeOperator(30));
 		
 		if (rotate != 0)
 			img.rotate((rotate / 360.0) * 2.0 * 3.14);
-/*
- Magick::Pixels view(img);
-		Magick::PixelPacket *packs = view.get(0, 0, 32, 32);
-		for (int y = 0; y < 32; y++) {
-			for (int x = 0; x < 32; x++) {
-				*packs++ = *pixels++;
-				
-			}
-		}
-		view.sync();
-*/
+
 		matrix.drawImage(img);
 		matrix.refresh();
 		
