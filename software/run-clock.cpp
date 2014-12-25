@@ -119,7 +119,6 @@ public:
 		
 		if (_nightMode) {
 			int hours = now->tm_hour % 12;
-			
 			drawDot(coords[hours][0], coords[hours][1], 0);
 			
 			
