@@ -138,14 +138,13 @@ public:
 	};
 	
 	void drawTime(struct tm *now) {
-		
 		/*
 		if (now->tm_sec == 0) {
 			struct tm tmx = *now;
 			tmx.tm_hour = 0;
 			tmx.tm_min = 0;
-			tmx.tm_min = 59;
-			while (tmx.tm_min > 0) {
+			tmx.tm_sec = 0;
+			while (tmx.tm_hour * tmx.tm_min * > 0) {
 				drawMinutes(&tmx);
 				usleep(1000);
 				tmx.tm_min--;
