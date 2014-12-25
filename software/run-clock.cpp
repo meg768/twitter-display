@@ -231,8 +231,8 @@ int main (int argc, char *argv[])
 	
 	while (!timer.expired()) {
 		clock.drawTime(now);
-		clock.increment();
-		usleep(300);
+		clock.increment(now);
+		usleep(50);
 	}
 	
 	
