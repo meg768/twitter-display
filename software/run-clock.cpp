@@ -1,67 +1,6 @@
 #include "globals.h"
 
 
-//
-// This is right now a total mess!
-// But the result is finally OK...
-//
-/*
-static int minutesCoordsXX[12][2] = {
-	
-	{14,  0},
-	{21,  2},
-	{26,  7},
-	{28, 14},
-	{26, 21},
-	{21, 26},
-	{14, 28},
-	
-	{ 7, 26},
-	{ 2, 21},
-	{ 0, 14},
-	{ 2,  7},
-	{ 7,  2}
-	
-};
-
-static int minutesCoords[12][2] = {
-	
-	{14,  1},
-	{21,  2},
-	{26,  7},
-	{27, 14},
-	{26, 21},
-	{21, 26},
-	{14, 27},
-	
-	{ 7, 26},
-	{ 2, 21},
-	{ 1, 14},
-	{ 2,  7},
-	{ 7,  2}
-	
-};
-
-static int hoursCoords[12][2] = {
-	
-	{14,  6},
-	{18,  7},
-	{21, 10},
-	{22, 14},
-	{21, 18},
-	{18, 21},
-	{14, 22},
-	
-	{10, 21},
-	{ 7, 18},
-	{ 6, 14},
-	{ 7, 10},
-	{10,  7}
-	
-};
-*/
-
-
 class Clock {
 	
 public:
@@ -184,11 +123,27 @@ public:
 		
 	};
 	
+	void increment(struct tm *time) {
+	
+			time->tm_sec++;
+			
+			if (time->tm_sec >= 60)
+				time-tm_sec = 0, time->tm_min++;
+			
+			if (time->tm_min >= 60)
+				time->tm_min = 0, time->tm_hour++;
+			
+			if (time->tm_hour >= 24)
+				time->tm_hour = 0;
+	};
+	
 	void drawTime(struct tm *now) {
 		
-		
+		/*
 		if (now->tm_sec == 0) {
 			struct tm tmx = *now;
+			tmx.tm_hour = 0;
+			tmx.tm_min = 0;
 			tmx.tm_min = 59;
 			while (tmx.tm_min > 0) {
 				drawMinutes(&tmx);
@@ -198,7 +153,7 @@ public:
 				
 			}
 		}
-		
+*/		
 		drawHours(now);
 		drawMinutes(now);
 		drawSeconds(now);
