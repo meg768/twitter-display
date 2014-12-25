@@ -185,7 +185,7 @@ public:
 			tmx.tm_min = 59;
 			while (tmx.tm_min > 0) {
 				drawMinutes(&tmx);
-				usleep(500);
+				usleep(1000);
 				tmx.tm_min--;
 				_matrix->refresh();
 				
@@ -197,6 +197,7 @@ public:
 		
 		double seconds = (double)(now->tm_sec) / (60.0);
 		drawDot(14, 14, seconds * 360.0);
+		_matrix->refresh();
 		
 	}
 
@@ -204,26 +205,7 @@ public:
 		
 		time_t t = time(0);
 		struct tm *now = localtime(&t);
-
-		
-		//double hours   = (double)((now->tm_hour % 12) * 60 + now->tm_min) / (12.0 * 60.0);
-		//double minutes = (double)(now->tm_min) / (60.0);
-		double seconds = (double)(now->tm_sec) / (60.0);
-
-		if (now->tm_sec == 0) {
-			struct tm tmx = *now;
-			tmx.tm_min = 59;
-			while (tmx.tm_min > 0) {
-				drawTime(&tmx);
-				usleep(1000);
-				tmx.tm_min--;
-				_matrix->refresh();
-				
-			}
-		}
-		
 		drawTime(now);
-		_matrix->refresh();
 
 	}
 	
