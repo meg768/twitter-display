@@ -157,6 +157,7 @@ public:
 	
 	void drawTime(struct tm *now) {
 
+		_matrix->clear();
 		drawHours(now);
 		drawMinutes(now);
 		drawSeconds(now);
