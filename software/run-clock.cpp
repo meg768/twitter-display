@@ -186,7 +186,7 @@ public:
 		//double minutes = (double)(now->tm_min) / (60.0);
 		double seconds = (double)(now->tm_sec) / (60.0);
 
-		if (now->tm_min == 0) {
+		if (now->tm_sec == 0) {
 			struct tm tmx = *now;
 			tmx.tm_min = 59;
 			while (tmx.tm_min > 0) {
@@ -275,7 +275,7 @@ int main (int argc, char *argv[])
 	
 	while (!timer.expired()) {
 		clock.draw();
-		usleep(1000);
+		usleep(300);
 	}
 	
 	
