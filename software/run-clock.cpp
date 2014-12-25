@@ -161,7 +161,7 @@ public:
 		
 	}
 
-	void draw() {
+	void drawTime() {
 		
 		time_t t = time(0);
 		struct tm *now = localtime(&t);
@@ -169,14 +169,6 @@ public:
 		
 	}
 
-	void draw(struct tm *now) {
-		
-		time_t t = time(0);
-		struct tm *now = localtime(&t);
-		drawTime(now);
-
-	}
-	
 	
 	void drawDot(int x, int y, double hue) {
 		
