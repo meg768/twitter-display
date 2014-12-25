@@ -128,7 +128,7 @@ public:
 			time->tm_sec++;
 			
 			if (time->tm_sec >= 60)
-				time-tm_sec = 0, time->tm_min++;
+				time->tm_sec = 0, time->tm_min++;
 			
 			if (time->tm_min >= 60)
 				time->tm_min = 0, time->tm_hour++;
@@ -153,7 +153,7 @@ public:
 				
 			}
 		}
-*/		
+*/
 		drawHours(now);
 		drawMinutes(now);
 		drawSeconds(now);
