@@ -176,6 +176,13 @@ public:
 		}
 		
 	};
+
+	
+	void drawSeconds(struct tm *now) {
+		double seconds = (double)(now->tm_sec) / (60.0);
+		drawDot(14, 14, seconds * 360.0);
+		
+	};
 	
 	void drawTime(struct tm *now) {
 		
@@ -194,9 +201,8 @@ public:
 		
 		drawHours(now);
 		drawMinutes(now);
+		drawSeconds(now);
 		
-		double seconds = (double)(now->tm_sec) / (60.0);
-		drawDot(14, 14, seconds * 360.0);
 		_matrix->refresh();
 		
 	}
