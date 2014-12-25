@@ -187,7 +187,7 @@ public:
 		double seconds = (double)(now->tm_sec) / (60.0);
 
 		if (now->tm_min == 0) {
-			struct tmx = *now;
+			struct tm tmx = *now;
 			tmx.tm_min = 59;
 			while (tmx.tm_min > 0) {
 				drawMinutes(&tmx);
