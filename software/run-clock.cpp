@@ -5,7 +5,7 @@
 // This is right now a total mess!
 // But the result is finally OK...
 //
-
+/*
 static int minutesCoordsXX[12][2] = {
 	
 	{14,  0},
@@ -59,7 +59,7 @@ static int hoursCoords[12][2] = {
 	{10,  7}
 	
 };
-
+*/
 
 
 class Clock {
@@ -185,6 +185,18 @@ public:
 		//double hours   = (double)((now->tm_hour % 12) * 60 + now->tm_min) / (12.0 * 60.0);
 		//double minutes = (double)(now->tm_min) / (60.0);
 		double seconds = (double)(now->tm_sec) / (60.0);
+
+		if (now->tm_min == 0) {
+			struct tmx = *tm;
+			tmx.tm_min = 59;
+			while (tmx.tm_min > 0) {
+				drawMinutes(&tmx);
+				usleep(500);
+				tmx.tm_min--;
+				_matrix->refresh();
+				
+			}
+		}
 		
 		drawHours(now);
 		drawMinutes(now);
