@@ -136,7 +136,7 @@ public:
 
 	
 	void drawSeconds(struct tm *now) {
-		double seconds = (double)(now->tm_sec) / (60.0);
+		double seconds = _nightMode ? 0 : (double)(now->tm_sec) / (60.0);
 		drawDot(14, 14, seconds * 360.0);
 		
 	};
