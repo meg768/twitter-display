@@ -86,8 +86,7 @@ public:
 		if (_nightMode) {
 			int minutes = (int)(((double)now->tm_min + 2.5) / 5.0);
 			
-			for (int i = 0; i <= minutes; i++)
-				drawDot(coords[i][0], coords[i][1], 0);
+			drawDot(coords[minutes][0], coords[minutes][1], 0);
 		}
 		else {
 			double factor = (double)(now->tm_min) / (60.0);
@@ -121,8 +120,7 @@ public:
 		if (_nightMode) {
 			int hours = now->tm_hour % 12;
 			
-			for (int i = 0; i <= hours; i++)
-				drawDot(coords[i][0], coords[i][1], 0);
+			drawDot(coords[hours][0], coords[hours][1], 0);
 			
 			
 		}
