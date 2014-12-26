@@ -32,8 +32,12 @@ public:
 		_startTime = time(NULL);
 	}
 	
-	void setDuration(int duration) {
+	void duration(int duration) {
 		_duration = duration;
+	}
+	
+	int duration() {
+		return _duration;
 	}
 	
 	int expired() {
