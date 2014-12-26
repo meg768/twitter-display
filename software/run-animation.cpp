@@ -14,6 +14,7 @@ int main (int argc, char *argv[])
 		int option = 0;
 		int iterations = -1;
 		int verbose = 0;
+		int duration = -1;
 		float speed = 5.0;
 		
 		while ((option = getopt(argc, argv, "s:g:i:d:v")) != -1) {
@@ -22,7 +23,7 @@ int main (int argc, char *argv[])
 					iterations = atoi(optarg);
 					break;
 				case 'd':
-					timer.setDuration(atoi(optarg));
+					timer.setDuration(duration = atoi(optarg));
 					break;
 				case 'v':
 					verbose = true;
@@ -42,6 +43,9 @@ int main (int argc, char *argv[])
 			fprintf(stderr, "No animation specified.\n");
 			return -1;
 		}
+		
+		if (duration == 0)
+			return;
 
 		std::list<Magick::Image> images;
 		Magick::readImages(&images, animation);
@@ -66,7 +70,8 @@ int main (int argc, char *argv[])
 			// Done iterating?!
 			if (iterator == images.end()) {
 				
-				if (iterations > 0) {
+				// If duration set, ignore iterations
+				if (iterations > 0 && duration > 0) {
 					iterations--;
 					
 					if (iterations == 0)
