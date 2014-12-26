@@ -535,9 +535,7 @@ int main (int argc, char *argv[])
 	int option = 0;
 
 	Timer timer;
-	
-	timer.setDuration(60);
-	
+
 	while ((option = getopt(argc, argv, "d:")) != -1) {
 		switch (option) {
 			case 'd':
