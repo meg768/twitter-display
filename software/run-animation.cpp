@@ -9,10 +9,10 @@ int main (int argc, char *argv[])
 	
 	try {
 		LogiMatrix matrix;
-		Timer timer;
+		Timer timer(120);
 
 		int option = 0;
-		int iterations = 1;
+		int iterations = -1;
 		int verbose = 0;
 		float speed = 5.0;
 		
@@ -36,8 +36,6 @@ int main (int argc, char *argv[])
 			}
 		}
 		
-		time_t startTime = time(NULL);
-		
 		const char *animation = optind < argc ? argv[optind] : 0;
 		
 		if (animation == 0) {
@@ -47,7 +45,6 @@ int main (int argc, char *argv[])
 
 		std::list<Magick::Image> images;
 		Magick::readImages(&images, animation);
-
 		
 		std::list<Magick::Image>::iterator iterator = images.begin();
 		
@@ -56,24 +53,26 @@ int main (int argc, char *argv[])
 			// If so, get the number of animation iterations
 			Magick::Image &image = *iterator;
 
-			if (image.animationIterations() > 0) {
+			if (iterations == -1) {
 				iterations = image.animationIterations();
-				if (verbose)
-					printf("Image requests %d iterations.\n", iterations);
 			}
 		}
 		
-		if (iterations <= 0)
-			iterations = 1;
+		if (iterations < 0)
+			iterations = 0;
 		
 		while (!timer.expired()) {
 			
 			// Done iterating?!
 			if (iterator == images.end()) {
-				iterations--;
 				
-				if (iterations == 0)
-					break;
+				if (iterations > 0) {
+					iterations--;
+					
+					if (iterations == 0)
+						break;
+					
+				}
 
 				iterator = images.begin();
 			}
