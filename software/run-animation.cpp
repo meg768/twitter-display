@@ -45,7 +45,7 @@ int main (int argc, char *argv[])
 		}
 		
 		if (duration == 0)
-			return;
+			return 0;
 
 		std::list<Magick::Image> images;
 		Magick::readImages(&images, animation);
