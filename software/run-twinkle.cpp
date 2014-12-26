@@ -288,8 +288,6 @@ int main (int argc, char *argv[])
 	LogiMatrix matrix;
 	Timer timer;
 
-	timer.setDuration(60);
-	
 	int option = 0;
 	
 	while ((option = getopt(argc, argv, "d:")) != -1) {
