@@ -71,7 +71,7 @@ int main (int argc, char *argv[])
 			if (iterator == images.end()) {
 				
 				// If duration set, ignore iterations
-				if (iterations > 0 && duration > 0) {
+				if (iterations > 0 && duration != -1) {
 					iterations--;
 					
 					if (iterations == 0)
