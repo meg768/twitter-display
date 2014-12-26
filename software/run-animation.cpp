@@ -9,7 +9,7 @@ int main (int argc, char *argv[])
 	
 	try {
 		LogiMatrix matrix;
-		Timer timer(120);
+		Timer timer;
 
 		int option = 0;
 		int iterations = -1;
