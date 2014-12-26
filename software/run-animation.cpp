@@ -14,7 +14,7 @@ int main (int argc, char *argv[])
 		int option = 0;
 		int iterations = 1;
 		int verbose = 0;
-		float speed = 10.0;
+		float speed = 5.0;
 		
 		while ((option = getopt(argc, argv, "s:g:i:d:v")) != -1) {
 			switch (option) {
