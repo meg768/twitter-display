@@ -211,7 +211,7 @@ function main() {
 		
 	}
  
-	shell('./run-animation images/countdown.gif', function() {
+	shell('./run-animation animations/countdown.gif', function() {
 		enablePusher();
 		startAnimation();
 		
