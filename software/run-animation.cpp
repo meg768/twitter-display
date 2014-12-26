@@ -14,7 +14,7 @@ int main (int argc, char *argv[])
 		int option = 0;
 		int iterations = 1;
 		int verbose = 0;
-		float speed = 1.0;
+		float speed = 10.0;
 		
 		while ((option = getopt(argc, argv, "s:g:i:d:v")) != -1) {
 			switch (option) {
@@ -91,7 +91,7 @@ int main (int argc, char *argv[])
 
 			// Wait for next frame to display
 			// (Seems like we have to reduce the delay by some factor)
-			usleep(int(double((delay * 10 * 1000)) * speed));
+			usleep(int(double((delay * 1000)) * speed));
 			
 		}
 		
