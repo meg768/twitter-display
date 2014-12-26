@@ -22,7 +22,7 @@ int main (int argc, char *argv[])
 					iterations = atoi(optarg);
 					break;
 				case 'd':
-					timer.setDuration(atoi(optarg));
+					timer.duration(atoi(optarg));
 					break;
 				case 'v':
 					verbose = true;

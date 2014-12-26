@@ -183,7 +183,7 @@ int main (int argc, char *argv[])
 				matrix.setGamma(atof(optarg));
 				break;
 			case 'd':
-				timer.setDuration(atoi(optarg));
+				timer.duration(atoi(optarg));
 				break;
 		}
 	}

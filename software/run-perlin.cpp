@@ -541,7 +541,7 @@ int main (int argc, char *argv[])
 	while ((option = getopt(argc, argv, "d:")) != -1) {
 		switch (option) {
 			case 'd':
-				timer.setDuration(atoi(optarg));
+				timer.duration(atoi(optarg));
 				break;
 		}
 	}
