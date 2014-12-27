@@ -233,7 +233,7 @@ function main() {
 	}
  
 	//shell('./run-animation animations/countdown.gif', function() {
-	shell(sprintf('./run-text "%s"', getIP('wlan0')), function() {
+	shell(sprintf('./run-text "%s      %s      %s"', getIP('wlan0'), getIP('wlan0'), getIP('wlan0')), function() {
 		enablePusher();
 		startAnimation();
 		
