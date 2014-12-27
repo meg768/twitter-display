@@ -118,6 +118,70 @@ function main() {
 		
 	}
 
+	function addMessages(messages, type) {
+	
+		try {
+			// Make sure it is an array
+			if (!Array.isArray(messages))
+				messages = [messages];
+
+			// Set up the dispatch table
+			var messageType = {};
+			
+			messageType.text = function(message) {
+				var cmd = "./run-text ";
+				
+				if (typeof message.textcolor == "string")
+					cmd += sprintf("-c %s ", message.textcolor);
+									
+				if (typeof message.message == "string")
+					cmd += sprintf('"%s" ', message.message);
+
+				if (typeof message.options == "string")
+					cmd += sprintf('%s ', message.options);
+
+				addCmd(cmd);
+			}
+
+			messageType.image = function(message) {
+				var cmd = "./run-image ";
+				
+				if (typeof message.name == "string")
+					cmd += sprintf('"images/%s" ', message.name);
+
+				if (typeof message.options == "string")
+					cmd += sprintf('%s ', message.options);
+
+				addCmd(cmd);
+			}
+			
+
+			for (var i in messages) {
+				var message = messages[i];
+	
+				if (message == undefined)
+					continue;
+					
+				if (typeof type == "string")
+					message.type = type;
+								
+				var addMessage = messageType[message.type];
+				
+				if (addMessage == undefined) {
+					console.log("Unknown message type '%s'", message.type);
+					continue;
+				}
+					
+				addMessage(message);
+			}
+			
+		}
+		catch (error) {
+			console.log("Upps!");
+		}
+		
+	}
+
 	function enablePusher() {
 		var Pusher      = require('pusher-client');
 		var channelName = "test_channel";
@@ -137,69 +201,6 @@ function main() {
 
 		});
 
-		function addMessages(messages, type) {
-		
-			try {
-				// Make sure it is an array
-				if (!Array.isArray(messages))
-					messages = [messages];
-
-				// Set up the dispatch table
-				var messageType = {};
-				
-				messageType.text = function(message) {
-					var cmd = "./run-text ";
-					
-					if (typeof message.textcolor == "string")
-						cmd += sprintf("-c %s ", message.textcolor);
-										
-					if (typeof message.message == "string")
-						cmd += sprintf('"%s" ', message.message);
-
-					if (typeof message.options == "string")
-						cmd += sprintf('%s ', message.options);
-	
-					addCmd(cmd);
-				}
-
-				messageType.image = function(message) {
-					var cmd = "./run-image ";
-					
-					if (typeof message.name == "string")
-						cmd += sprintf('"images/%s" ', message.name);
-
-					if (typeof message.options == "string")
-						cmd += sprintf('%s ', message.options);
-	
-					addCmd(cmd);
-				}
-				
-
-				for (var i in messages) {
-					var message = messages[i];
-		
-					if (message == undefined)
-						continue;
-						
-					if (typeof type == "string")
-						message.type = type;
-									
-					var addMessage = messageType[message.type];
-					
-					if (addMessage == undefined) {
-						console.log("Unknown message type '%s'", message.type);
-						continue;
-					}
-						
-					addMessage(message);
-				}
-				
-			}
-			catch (error) {
-				console.log("Upps!");
-			}
-			
-		}
 		
 		socket.bind("message", function(data) {
 			addMessages(data);
@@ -211,7 +212,8 @@ function main() {
 		
 	}
  
-	shell('./run-animation animations/countdown.gif', function() {
+	//shell('./run-animation animations/countdown.gif', function() {
+	shell(sprintf('./run-text "%s"', getIP('wlan0')), function() {
 		enablePusher();
 		startAnimation();
 		

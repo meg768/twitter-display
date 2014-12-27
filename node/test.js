@@ -5,9 +5,10 @@ function getIP(device) {
 	var iface = ifaces[device];
 	
 	if (iface != undefined) {
-		for (var i in iface) {
-			var item = iface[i];
-			
+	
+		for (var i in ifaces) {
+			var item = ifaces[i];
+	
 			if (item.family == 'IPv4')
 				return item.address;
 		}
@@ -25,5 +26,5 @@ function waitForIP(device) {
 	}	
 }
 
-waitForIP("wlan1");
+//waitForIP("wlan1");
 console.log("IP: ", getIP("wlan0"));
