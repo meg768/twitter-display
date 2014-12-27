@@ -182,6 +182,25 @@ function main() {
 		
 	}
 
+	function getIP(device) {
+		var os = require('os');
+		var ifaces = os.networkInterfaces();
+	
+		var iface = ifaces[device];
+		
+		if (iface != undefined) {
+		
+			for (var i in ifaces) {
+				var item = ifaces[i];
+		
+				if (item.family == 'IPv4')
+					return item.address;
+			}
+		}
+	
+		return '';
+	}
+
 	function enablePusher() {
 		var Pusher      = require('pusher-client');
 		var channelName = "test_channel";
