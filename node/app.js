@@ -232,18 +232,24 @@ function main() {
 		
 	}
  
-	//shell('./run-animation animations/countdown.gif', function() {
-	shell(sprintf('./run-text "%s      %s      %s"', getIP('wlan0'), getIP('wlan0'), getIP('wlan0')), function() {
-		enablePusher();
-		startAnimation();
+	function sayHello() {
+		var ip = getIP('wlan0');
 		
-	});
+		shell(sprintf('./run-text "%s      %s      %s"', ip, ip, ip), function() {
+			enablePusher();
+			startAnimation();
+			
+		});
+		
+	}
 
 	app.set('port', (process.env.PORT || 5000))
 	
 	app.listen(app.get('port'), function() {
 	  console.log("Node app is running at localhost:" + app.get('port'))
 	});	
+	
+	sayHello();
 
 }
 
