@@ -234,7 +234,7 @@ function main() {
  
 	function sayHello() {
 		var ip = getIP('wlan0');
-		var text = ip != '' : sprintf('%s      %s      %s', ip, ip, ip) ? 'Wi-fi connection is missing...';
+		var text = ip != '' ? sprintf('%s      %s      %s', ip, ip, ip) : 'Wi-fi connection is missing...';
 		
 		shell(sprintf('./run-text "%s      %s      %s"', ip, ip, ip), function() {
 			enablePusher();
