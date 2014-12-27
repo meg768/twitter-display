@@ -190,6 +190,7 @@ function main() {
 		
 		if (iface != undefined) {
 		
+			console.log(iface);
 			for (var i in ifaces) {
 				var item = ifaces[i];
 		
