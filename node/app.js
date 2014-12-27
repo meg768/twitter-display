@@ -190,8 +190,8 @@ function main() {
 		
 		if (iface != undefined) {
 		
-			for (var i in ifaces) {
-				var item = ifaces[i];
+			for (var i in iface) {
+				var item = iface[i];
 				console.log(item);
 		
 				if (item.family == 'IPv4')
