@@ -224,7 +224,7 @@ int main (int argc, char *argv[])
 	LogiMatrix matrix;
 	ClockAnimation animation(&matrix);
 	
-	animation.duration(5);
+	animation.duration(60);
 	
 	int option = 0;
 	
