@@ -215,7 +215,7 @@ protected:
 	Twinkler *_twinkle;
 };
 
-volatile LogiMatrix *foo = 0;
+static LogiMatrix *foo = 0;
 
 void timer_handler (int signum)
 {
