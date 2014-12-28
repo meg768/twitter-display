@@ -58,7 +58,7 @@ function main() {
 		try {
 			var cmd = {};
 			cmd.command = './run-rain';
-			cmd.args = [];
+			cmd.args = ['-d', '-1', '-s', '2.0'];
 			cmd.options = { cwd: "../software"};
 				
 			console.log('Starting animation: "%s"', cmd.command, cmd.args, cmd.options);	
