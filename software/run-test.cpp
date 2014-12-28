@@ -138,6 +138,8 @@ public:
 					twinkle->speed = (rand() % 10) + 5;
 					twinkle->max = (rand() % 30) + 70;
 					twinkle->length = (rand() % 50) + 50;
+					
+					twinkle->state++;
 					break;
 				}
 				case 1: {
@@ -158,8 +160,10 @@ public:
 					
 				}
 				case 3: {
-					if (--twinkle->length <= 0) {
-						twinkle->state++;
+					twinkle->brightness -= twinkle->speed;
+					
+					if (twinkle->brightness < 0) {
+						twinkle->state = 0;
 					}
 					break;
 					
