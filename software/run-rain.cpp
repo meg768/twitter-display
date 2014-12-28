@@ -193,7 +193,7 @@ int main (int argc, char *argv[])
 	
 	Worm x(&matrix);
 	x.draw(15, 30);
-	
+	_matrix->refresh();
 	
 	return 0;
 }
