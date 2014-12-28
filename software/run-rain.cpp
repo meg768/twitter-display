@@ -215,7 +215,7 @@ public:
 			_matrix->clear();
 			
 			for (int i = 0; i < 32; i++) {
-				worms[i].draw(&matrix);
+				worms[i].draw(_matrix);
 				worms[i].idle();
 			}
 			
