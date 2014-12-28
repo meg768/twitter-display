@@ -65,6 +65,8 @@ class ClockAnimation : public Animation {
 	
 public:
 	ClockAnimation(LogiMatrix *matrix) : Animation(matrix) {
+		srand(time(NULL));
+
 		int size = matrix->width() * matrix->height();
 		_twinkle = new Twinkler[size];
 		
@@ -148,7 +150,7 @@ public:
 					twinkle->speed = 5; //(rand() % 10) + 1;
 					twinkle->max = 100; //(rand() % 100);
 					twinkle->duration = (rand() % 10) + 1;
-					twinkle->delay = (rand() % 100) + 100;
+					twinkle->delay = (rand() % 200) + 200;
 					twinkle->state++;
 					break;
 				}
