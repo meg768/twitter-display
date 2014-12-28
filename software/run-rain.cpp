@@ -20,6 +20,62 @@ static char digits[][] = {
 */
 
 
+void HslToRgb(double h, double s, double v, uint8_t &red, uint8_t &green, uint8_t &blue)
+{
+	double hh = 0, p = 0, q = 0, t = 0, ff = 0;
+	double r = 0, g = 0, b = 0;
+	long i = 0;
+	
+	if (s <= 0.0) {
+		r = v, g = v, b = v;
+	}
+	else {
+		hh = h;
+		
+		while (hh < 0)
+			hh += 360.0;
+		
+		while (hh >= 360.0)
+			hh -= 360.0;
+		
+		hh = hh / 60.0;
+		i  = (long)hh;
+		ff = hh - i;
+		
+		p = v * (1.0 - s);
+		q = v * (1.0 - (s * ff));
+		t = v * (1.0 - (s * (1.0 - ff)));
+		
+		switch(i) {
+			case 0:
+				r = v, g = t, b = p;
+				break;
+			case 1:
+				r = q, g = v, b = p;
+				break;
+			case 2:
+				r = p, g = v, b = t;
+				break;
+				
+			case 3:
+				r = p, g = q, b = v;
+				break;
+			case 4:
+				r = t, g = p, b = v;
+				break;
+			default:
+				r = v, g = p, b = q;
+				break;
+		}
+		
+	}
+	
+	red   = (uint8_t)(r * 255.0);
+	green = (uint8_t)(g * 255.0);
+	blue  = (uint8_t)(b * 255.0);
+}
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 
