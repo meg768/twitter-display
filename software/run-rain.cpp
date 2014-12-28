@@ -108,6 +108,7 @@ public:
 		
 		while (!expired()) {
 			loop();
+			_matrix->refresh();
 			usleep(delay);
 		}
 
