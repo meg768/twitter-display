@@ -215,9 +215,11 @@ protected:
 	Twinkler *_twinkle;
 };
 
+LogiMatrix *foo = 0;
+
 void timer_handler (int signum)
 {
-	((LogiMatrix *)__matrix)->refresh();
+	foo->refresh();
 }
 
 
@@ -228,6 +230,8 @@ int main (int argc, char *argv[])
 	
 	LogiMatrix matrix;
 	ClockAnimation animation(&matrix);
+	
+	foo = &matrix;
 	
 	struct sigaction sa;
 	struct itimerval timer;
