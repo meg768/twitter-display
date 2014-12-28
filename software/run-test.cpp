@@ -145,7 +145,7 @@ public:
 		for (int i = 0; i < size; i++, twinkle++) {
 			switch (twinkle->state) {
 				case 0: {
-					twinkle->hue = 0; //(rand() % 6) * 60;
+					twinkle->hue = (rand() % 3) * 120;
 					twinkle->brightness = 0;
 					twinkle->speed = 5; //(rand() % 10) + 1;
 					twinkle->max = 100; //(rand() % 100);
