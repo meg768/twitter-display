@@ -129,7 +129,7 @@ class Worm {
 public:
 	Worm(LogiMatrix *matrix) {
 		_matrix = matrix;
-		_length = (rand() % 15) + 6;
+		_length = (rand() % 20) + 10;
 	}
 	
 	void reset() {
