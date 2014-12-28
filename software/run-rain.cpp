@@ -227,8 +227,8 @@ public:
 
 	virtual void loop() {
 		for (int i = 0; i < _matrix->width(); i++) {
-			worms[i].draw(_matrix);
-			worms[i].idle();
+			worms[i]->draw(_matrix);
+			worms[i]->idle();
 		}
 		
 	}
