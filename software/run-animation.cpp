@@ -1,7 +1,59 @@
 #include "globals.h"
 
 
-/*HUBBA */
+/*
+class Animation {
+	
+public:
+	Animation(LogiMatrix *matrix, int duration = -1) {
+		_matrix = matrix;
+		_duration = duration;
+		_startTime = time(NULL);
+	}
+	
+	virtual int expired() {
+		if (_duration > 0) {
+			if (time(NULL) - _startTime > _duration) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
+	virtual void run() {
+		while (!expired()) {
+			loop();
+		}
+		
+	};
+	
+	virtual void loop() {
+		
+	}
+	
+private:
+	LogiMatrix *_matrix;
+	int _duration;
+	time_t _startTime;
+	
+};
+
+
+class GifAnimation {
+	
+	
+public:
+	GifAnimation(LogiMatrix *matrix) : Animation(matrix) {
+		
+	}
+	
+	virtual void initaialize(int argc, char *argv[]) {
+		
+	};
+};
+*/
+
 int main (int argc, char *argv[])
 {
 	Magick::InitializeMagick(*argv);

@@ -1,305 +1,219 @@
 #include "globals.h"
 
 
-#define COLOR(red, green, blue) (uint16_t)((red << 8) | (green << 4) | blue)
-
-typedef struct {
-	double r;       // percent
-	double g;       // percent
-	double b;       // percent
-} rgb;
-
-typedef struct {
-	double h;       // angle in degrees
-	double s;       // percent
-	double v;       // percent
-} hsv;
-
-static rgb      hsv2rgb(hsv in);
-
-
-rgb hsv2rgb(hsv in)
-{
-	double      hh, p, q, t, ff;
-	long        i;
-	rgb         out;
-	
-	if(in.s <= 0.0) {       // < is bogus, just shuts up warnings
-		out.r = in.v;
-		out.g = in.v;
-		out.b = in.v;
-		return out;
-	}
-	hh = in.h;
-	if(hh >= 360.0) hh = 0.0;
-	hh /= 60.0;
-	i = (long)hh;
-	ff = hh - i;
-	p = in.v * (1.0 - in.s);
-	q = in.v * (1.0 - (in.s * ff));
-	t = in.v * (1.0 - (in.s * (1.0 - ff)));
-	
-	switch(i) {
-		case 0:
-			out.r = in.v;
-			out.g = t;
-			out.b = p;
-			break;
-		case 1:
-			out.r = q;
-			out.g = in.v;
-			out.b = p;
-			break;
-		case 2:
-			out.r = p;
-			out.g = in.v;
-			out.b = t;
-			break;
-			
-		case 3:
-			out.r = p;
-			out.g = q;
-			out.b = in.v;
-			break;
-		case 4:
-			out.r = t;
-			out.g = p;
-			out.b = in.v;
-			break;
-		case 5:
-		default:
-			out.r = in.v;
-			out.g = p;
-			out.b = q;
-			break;
-	}
-	return out;
-}
-
-static int minutesCoords[12][2] = {
-
-	{14,  0},
-	{21,  2},
-	{26,  7},
-	{28, 14},
-	{26, 21},
-	{21, 26},
-	{14, 28},
-
-	{ 7, 26},
-	{ 2, 21},
-	{ 0, 14},
-	{ 2,  7},
-	{ 7,  2}
-	
-};
-
-static int hoursCoords[12][2] = {
-	
-	{14,  6},
-	{18,  7},
-	{21, 10},
-	{22, 14},
-	{21, 18},
-	{18, 21},
-	{14, 22},
-	
-	{10, 21},
-	{ 7, 18},
-	{ 6, 14},
-	{ 7, 10},
-	{10,  7}
-	
-};
-
-void HSL2RGB(double h, double sl, double l, uint8_t &R, uint8_t &G, uint8_t &B)
-{
-	double v;
-	double r,g,b;
- 
-	r = l;   // default to gray
-	g = l;
-	b = l;
-	v = (l <= 0.5) ? (l * (1.0 + sl)) : (l + sl - l * sl);
-	if (v > 0)
-	{
-		double m;
-		double sv;
-		int sextant;
-		double fract, vsf, mid1, mid2;
-		
-		m = l + l - v;
-		sv = (v - m ) / v;
-		h *= 6.0;
-		sextant = (int)h;
-		fract = h - sextant;
-		vsf = v * sv * fract;
-		mid1 = m + vsf;
-		mid2 = v - vsf;
-		switch (sextant)
-		{
-			case 0:
-				r = v;
-				g = mid1;
-				b = m;
-				break;
-			case 1:
-				r = mid2;
-				g = v;
-				b = m;
-				break;
-			case 2:
-				r = m;
-				g = v;
-				b = mid1;
-				break;
-			case 3:
-				r = m;
-				g = mid2;
-				b = v;
-				break;
-			case 4:
-				r = mid1;
-				g = m;
-				b = v;
-				break;
-			case 5:
-				r = v;
-				g = m;
-				b = mid2;
-				break;
-		}
-	}
-	
-	R = (uint8_t)(r * 255.0f);
-	G = (uint8_t)(g * 255.0f);
-	B = (uint8_t)(b * 255.0f);
-}
-
-
-
-class Clock {
+class Animation {
 	
 public:
-	Clock(LogiMatrix *matrix) {
+	Animation(LogiMatrix *matrix int duration = -1) {
+		_duration = duration;
 		_matrix = matrix;
+		_startTime = time(NULL);
 	}
 	
-	void foo() {
-		
-		time_t t = time(0);
-		struct tm *now = localtime(&t);
-
-		double hours   = (double)((now->tm_hour % 12) * 60 + now->tm_min) / (12.0 * 60.0);
-		double minutes = (double)(now->tm_min) / (60.0);
-		double seconds = (double)(now->tm_sec) / (60.0);
-		
-		for (int i = 0; i < 12; i++) {
-			double angle = (double)i / 12.0 * 360.0;
-			angle -= minutes * 360.0;
-			while (angle < 0.0)
-				angle += 360.0;
-			drawDot(minutesCoords[i][0], minutesCoords[i][1], angle);
-		}
-		for (int i = 0; i < 12; i++) {
-			double angle = (double)i / 12.0 * 360.0;
-			angle -= hours * 360.0;
-			while (angle < 0.0)
-				angle += 360.0;
-			drawDot(hoursCoords[i][0], hoursCoords[i][1], angle);
-		}
-		
-		drawDot(14, 14, seconds * 360.0);
+	void duration(int value) {
+		_duration = seconds;
 	}
-
 	
-	void drawDot(int x, int y, double hue) {
-		
-		uint8_t red = 0;
-		uint8_t green = 0;
-		uint8_t blue = 0;
-		
-
-		hsv hsv;
-		rgb rgb;
-		
-		hsv.h = hue;
-		hsv.s = 1.0;
-		hsv.v = 1.0;
-		
-		rgb = hsv2rgb(hsv);
-		
-		red = rgb.r * 255;
-		green = rgb.g * 255;
-		blue = rgb.b * 255;
-		
-		
-		//HSL2RGB(hue, 1.0, 1.0, red, green, blue);
-		_matrix->setPixel(x + 1, y + 1, red, green, blue);
-		_matrix->setPixel(x + 1, y + 2, red, green, blue);
-		_matrix->setPixel(x + 2, y + 1, red, green, blue);
-		_matrix->setPixel(x + 2, y + 2, red, green, blue);
-		
-		hsv.h = hue;
-		hsv.s = 1.0;
-		hsv.v = 0.3;
-		
-		rgb = hsv2rgb(hsv);
-		
-		red = rgb.r * 255;
-		green = rgb.g * 255;
-		blue = rgb.b * 255;
-
-		
-		_matrix->setPixel(x + 1, y + 0, red, green, blue);
-		_matrix->setPixel(x + 2, y + 0, red, green, blue);
-		
-		_matrix->setPixel(x + 0, y + 1, red, green, blue);
-		_matrix->setPixel(x + 0, y + 2, red, green, blue);
-		
-		_matrix->setPixel(x + 1, y + 3, red, green, blue);
-		_matrix->setPixel(x + 2, y + 3, red, green, blue);
-		
-		_matrix->setPixel(x + 3, y + 1, red, green, blue);
-		_matrix->setPixel(x + 3, y + 2, red, green, blue);
-		
-		
+	void gamma(double value) {
+		_matrix->setGamma(value);
 	}
+	
+	virtual int expired() {
+		if (_duration > 0) {
+			if (time(NULL) - _startTime > _duration) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	virtual void run() {
+		
+		_matrix->clear();
+		
+		while (!expired()) {
+			loop();
+		}
+
+		_matrix->clear();
+		
+	};
+	
+	virtual void loop() {
+	}
+
 	
 private:
 	LogiMatrix *_matrix;
+	int _duration;
+	time_t _startTime;
+	
+};
+
+class ClockAnimation {
+	
+public:
+	ClockAnimation(LogiMatrix *matrix) : Animation(matrix) {
+		int size = matrix->width() * matrix->height();
+		_twinkle = new Twinkler[size];
+		
+		for (int i = 0; i < size; i++) {
+			_twinkle[i].state = 0;
+		}
+	}
+	
+	~ClockAnimation() {
+		delete []_twinkle;
+	}
+	
+	void HslToRgb(double h, double s, double v, uint8_t &red, uint8_t &green, uint8_t &blue)
+	{
+		double hh = 0, p = 0, q = 0, t = 0, ff = 0;
+		double r = 0, g = 0, b = 0;
+		long i = 0;
+		
+		if (s <= 0.0) {
+			r = v, g = v, b = v;
+		}
+		else {
+			hh = h;
+			
+			while (hh < 0)
+				hh += 360.0;
+			
+			while (hh >= 360.0)
+				hh -= 360.0;
+			
+			hh = hh / 60.0;
+			i  = (long)hh;
+			ff = hh - i;
+			
+			p = v * (1.0 - s);
+			q = v * (1.0 - (s * ff));
+			t = v * (1.0 - (s * (1.0 - ff)));
+			
+			switch(i) {
+				case 0:
+					r = v, g = t, b = p;
+					break;
+				case 1:
+					r = q, g = v, b = p;
+					break;
+				case 2:
+					r = p, g = v, b = t;
+					break;
+					
+				case 3:
+					r = p, g = q, b = v;
+					break;
+				case 4:
+					r = t, g = p, b = v;
+					break;
+				default:
+					r = v, g = p, b = q;
+					break;
+			}
+			
+		}
+		
+		red   = (uint8_t)(r * 255.0);
+		green = (uint8_t)(g * 255.0);
+		blue  = (uint8_t)(b * 255.0);
+	}
+	
+
+	virtual void loop() {
+		int width = _matrix->width();
+		int height = _matrix->height();
+		int size = width * height;
+		
+		Twinkler *twinkle = _twinkle;
+		
+		for (int i = 0; i < size; i++, twinkle++) {
+			switch (twinkle->state) {
+				case 0: {
+					twinkle->hue = (rand() % 6) * 60;
+					twinkle->brightness = 0;
+					twinkle->speed = (rand() % 10) + 5;
+					twinkle->max = (rand() % 30) + 70;
+					twinkle->length = (rand() % 50) + 50;
+					break;
+				}
+				case 1: {
+					twinkle->brightness += twinkle->speed;
+					
+					if (twinkle->brightness > twinkle->max) {
+						twinkle->brightness = twinkle->max;
+						twinkle->state++;
+					}
+					break;
+					
+				}
+				case 2: {
+					if (--twinkle->length <= 0) {
+						twinkle->state++;
+					}
+					break;
+					
+				}
+				case 3: {
+					if (--twinkle->length <= 0) {
+						twinkle->state++;
+					}
+					break;
+					
+				}
+
+			}
+			
+			uint8_t red, green, blue;
+			HslToRgb((double)twinkle->hue, (double)twinkle->brightness / 100.0, 1.0, red, green, blue);
+			
+			_matrix->setPixel(i % width, i / height, red, green, blue);
+		}
+		
+	}
+
+protected:
+	
+	typedef struct {
+		int state;
+		int hue;
+		int brightness;
+	} Twinkler;
+	
+	
+	Twinkler *_twinkle;
 };
 
 
 int main (int argc, char *argv[])
 {
 	Magick::InitializeMagick(*argv);
-
-	LogiMatrix matrix;
 	
-	int op = 0;
+	LogiMatrix matrix;
+	ClockAnimation animation(&matrix);
+	
 	int option = 0;
 	
-	while ((option = getopt(argc, argv, "o:")) != -1) {
+	while ((option = getopt(argc, argv, "g:d:")) != -1) {
 		switch (option) {
-			case 'o':
-				op = atoi(optarg);
+			case 'd':
+				animation.duration(atoi(optarg));
+				break;
+			case 'g':
+				animation.gamma(atof(optarg));
 				break;
 		}
 	}
 	
-	Clock clock(&matrix);
 	
-	for (;;) {
-		clock.foo();
-		matrix.refresh();
-		sleep(1);
-	}
+	clock.run();
 	
 	
 	
-
-    return 0;
+	return 0;
 }
 
 
