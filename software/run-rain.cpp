@@ -67,11 +67,10 @@ class Animation {
 	
 public:
 	Animation(int duration = -1) {
+		_matrix = new LogiMatrix();
 		_duration = duration;
-		_matrix = matrix;
 		_startTime = time(NULL);
 		_speed = 1.0;
-		_matrix = new LogiMatrix();
 	}
 	
 	~Animation() {
@@ -102,12 +101,14 @@ public:
 	
 	virtual void run() {
 		
+		int delay = _speed * 1000;
+		
 		_matrix->clear();
 		_matrix->refresh();
 		
 		while (!expired()) {
 			loop();
-			usleep(_speed * 1000);
+			usleep(delay);
 		}
 
 		_matrix->clear();
@@ -133,7 +134,11 @@ class Worm {
 	
 public:
 	Worm() {
-		reset();
+		_x = 0;
+		_y = 0;
+		_length = 0;
+		_delay = 0;
+		_ticks = 0;
 	}
 	
 	void reset() {
@@ -208,6 +213,7 @@ public:
 		
 		for (int i = 0; i < size; i++) {
 			_worms[i]->column(i);
+			_worms[i]->reset(i);
 		}
 	}
 	
