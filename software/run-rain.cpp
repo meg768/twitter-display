@@ -129,15 +129,16 @@ class Worm {
 public:
 	Worm() {
 		_length = (rand() % 20) + 10;
+		_x = rand() % 32;
+		_y = -1 * rand() % 32;
 	}
 	
 	void reset() {
+		_length = (rand() % 20) + 10;
+		_x = rand() % 32;
+		_y = -1 * rand() % 32;
 	}
 	
-	void position(int x, int y) {
-		_x = x;
-		_y = y;
-	}
 	
 	void draw(LogiMatrix *_matrix) {
 		int hue = 100;
@@ -169,11 +170,11 @@ public:
 	
 	void idle() {
 		_y++;
+		
+		if (_y + _length > 32)
+			reset();
 	}
 	
-	bool finished() {
-		return _y + _length > 32;
-	}
 
 	int _length;
 	int _x, _y;
@@ -218,17 +219,14 @@ int main (int argc, char *argv[])
 	Worm worms[32];
 	int foo[32];
 
-	for (int i = 0; i < 32; i++) {
-		worms[i].position(i, -1 * (rand() % 40));
-	}
-	
 	for (int x = 0; x < 100; x++) {
+		matrix.clear();
 		for (int i = 0; i < 32; i++) {
 			worms[i].draw(&matrix);
 			worms[i].idle();
 		}
 		matrix.refresh();
-		usleep(3000);
+		usleep(8000);
 	}
 		
 	
