@@ -2,7 +2,7 @@
 
 using namespace std;
 
-
+/*
 static char *digit_0[7][7] = {
 	' XXXXX ',
 	'X     X',
@@ -17,7 +17,7 @@ static char digits[][] = {
 		''
 	}
 };
-
+*/
 
 void HslToRgb(double h, double s, double v, uint8_t &red, uint8_t &green, uint8_t &blue)
 {
