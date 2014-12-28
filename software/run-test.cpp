@@ -38,9 +38,9 @@ public:
 		//_matrix->refresh();
 		
 		while (!expired()) {
-			loop();
-			
-			usleep(_speed * 1000);
+//			loop();
+			sleep(1);
+			//usleep(_speed * 1000);
 		}
 
 		_matrix->clear();
@@ -215,15 +215,13 @@ protected:
 	Twinkler *_twinkle;
 };
 
-static LogiMatrix *foo = 0;
+static Animation *my_animation = 0;
+static LogiMatrix *my_matrix = 0;
 
 void timer_handler (int signum)
 {
-	static int i = 0;
-	i = (i + 1) % 9;
-	foo->setPixel(i, i, 255, 0, 0);
-	foo->setPixel(4, 4, 255, 0, 0);
-	foo->refresh();
+	my_animation->loop();
+	my_matrix->refresh();
 }
 
 
@@ -235,7 +233,8 @@ int main (int argc, char *argv[])
 	LogiMatrix matrix;
 	ClockAnimation animation(&matrix);
 	
-	foo = &matrix;
+	my_matrix = &matrix;
+	my_animation = &animation;
 	
 	struct sigaction sa;
 	struct itimerval timer;
