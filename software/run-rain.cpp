@@ -156,7 +156,7 @@ public:
 	}
 	
 	void hue(int value) {
-		_hue = hue;
+		_hue = value;
 	}
 	
 	void draw(LogiMatrix *_matrix) {
