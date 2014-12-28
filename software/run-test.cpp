@@ -51,7 +51,7 @@ protected:
 	
 };
 
-class ClockAnimation : Animation {
+class ClockAnimation : public Animation {
 	
 public:
 	ClockAnimation(LogiMatrix *matrix) : Animation(matrix) {
