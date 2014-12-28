@@ -128,13 +128,15 @@ public:
 		
 		for (int i = 0; i < _length; i++) {
 
+			int percent = (100 * i) / _length;
+			
 			HSL color;
 			color.hue        = _hue;
 			color.saturation = 100;
-			color.luminance  = 100 - (100 * i) / _length;
+			color.luminance  = 100 - percent;
 
 			// Shake the brightness a bit
-			//color.luminance += ((rand() % 50) - 25);
+			//color.luminance -= i / _length;
 			
 			if (color.luminance > 100)
 				color.luminance = 100;
