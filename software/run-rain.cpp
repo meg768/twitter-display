@@ -207,9 +207,24 @@ public:
 		_matrix->refresh();
 		
 	}
+	
+	virtual void run() {
+		Worm worms[32];
+		int foo[32];
+		
+		while (!expired()) {
+			matrix.clear();
+			for (int i = 0; i < 32; i++) {
+				worms[i].draw(&matrix);
+				worms[i].idle();
+			}
+			matrix.refresh();
+			usleep(1000);
+		}
+		
+	}
 
 protected:
-	
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -222,20 +237,28 @@ int main (int argc, char *argv[])
 	Magick::InitializeMagick(*argv);
 	
 	LogiMatrix matrix;
-	
-	Worm worms[32];
-	int foo[32];
+	MatrixAnimation animation(&matrix);
 
-	for (int x = 0; x < 10000; x++) {
-		matrix.clear();
-		for (int i = 0; i < 32; i++) {
-			worms[i].draw(&matrix);
-			worms[i].idle();
+	animation.duration(60);
+	
+	int option = 0;
+	
+	while ((option = getopt(argc, argv, "s:g:d:")) != -1) {
+		switch (option) {
+			case 'd':
+				animation.duration(atoi(optarg));
+				break;
+			case 'g':
+				animation.gamma(atof(optarg));
+				break;
+			case 's':
+				animation.speed(atof(optarg));
+				break;
 		}
-		matrix.refresh();
-		usleep(1000);
 	}
-		
+	
+	animation.run();
+	
 	
 	return 0;
 }
