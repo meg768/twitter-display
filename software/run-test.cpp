@@ -174,7 +174,7 @@ public:
 			uint8_t red, green, blue;
 			HslToRgb((double)twinkle->hue, (double)twinkle->brightness / 100.0, 1.0, red, green, blue);
 			
-			_matrix->setPixel(i % width, i / height, red, green, blue);
+			_matrix->setPixel(i % width, i / height, 255, green, blue);
 		}
 		
 	}
