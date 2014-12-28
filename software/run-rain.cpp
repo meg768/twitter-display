@@ -131,7 +131,7 @@ public:
 			HSL color;
 			color.hue        = _hue;
 			color.saturation = 100;
-			color.luminance  = (100 * i) - _length;
+			color.luminance  = (100 * i) / _length;
 
 			// Shake the brightness a bit
 			color.luminance += ((rand() % 50) - 25);
@@ -141,7 +141,7 @@ public:
 
 			if (color.luminance < 0)
 				color.luminance = 0;
-						
+			
 			_matrix->setPixel(x, y--, color);
 		}
 	}
