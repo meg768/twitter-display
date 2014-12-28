@@ -171,7 +171,7 @@ public:
 	void idle() {
 		_y++;
 		
-		if (_y + _length > 32)
+		if (_y - _length > 32)
 			reset();
 	}
 	
@@ -226,7 +226,7 @@ int main (int argc, char *argv[])
 			worms[i].idle();
 		}
 		matrix.refresh();
-		usleep(8000);
+		usleep(10 * 1000);
 	}
 		
 	
