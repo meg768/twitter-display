@@ -218,7 +218,7 @@ public:
 	}
 	
 	~MatrixAnimation() {
-		delete []_worms;
+		delete _worms;
 	}
 	
 	void hue(int value) {
@@ -227,8 +227,8 @@ public:
 
 	virtual void loop() {
 		for (int i = 0; i < _matrix->width(); i++) {
-			worms[i]->draw(_matrix);
-			worms[i]->idle();
+			_worms[i]->draw(_matrix);
+			_worms[i]->idle();
 		}
 		
 	}
