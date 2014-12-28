@@ -192,7 +192,11 @@ int main (int argc, char *argv[])
 	LogiMatrix matrix;
 	
 	Worm x(&matrix);
-	x.draw(15, 30);
+	
+	for (int i = 0; i < 32; i++) {
+		x.draw(i, rand() % 32);
+		
+	}
 	matrix.refresh();
 	
 	return 0;
