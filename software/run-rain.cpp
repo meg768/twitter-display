@@ -219,7 +219,7 @@ public:
 				worms[i].idle();
 			}
 			
-			matrix->refresh();
+			_matrix->refresh();
 			usleep(1000);
 		}
 		
