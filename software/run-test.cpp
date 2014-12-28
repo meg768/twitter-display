@@ -1,8 +1,5 @@
 #include "globals.h"
 
-#include <signal.h>
-
-
 class Animation {
 	
 public:
@@ -231,6 +228,9 @@ int main (int argc, char *argv[])
 	
 	LogiMatrix matrix;
 	ClockAnimation animation(&matrix);
+	
+	struct sigaction sa;
+	struct itimerval timer;
 	
 	// install timer handler
 	memset (&sa, 0, sizeof (sa));
