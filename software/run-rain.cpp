@@ -180,6 +180,11 @@ public:
 		int x = _column;
 		int y = _row;
 
+		
+		time_t t = time(0);
+		struct tm *now = localtime(&t);
+		hue = ((now->tm_hour % 12) * 60 + now->tm_min) / 2;
+
 		_matrix->setPixel(x, y--, 255, 255, 255);
 		
 		for (int i = 0; i < _length; i++) {
@@ -187,7 +192,6 @@ public:
 			
 			uint8_t	red, green, blue;
 			
-			double hue = 120.0;
 			double saturation = 1.0;
 			double brightness = 1.0 - ((double)i / (double)_length);
 			
@@ -199,7 +203,7 @@ public:
 			if (brightness < 0)
 				brightness = 0;
 			
-			HslToRgb(hue, saturation, brightness, red, green, blue);
+			HslToRgb((double)hue, saturation, brightness, red, green, blue);
 			_matrix->setPixel(x, y--, red, green, blue);
 			/*
 			int percent = (100 * i) / _length;
