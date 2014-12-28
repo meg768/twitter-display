@@ -198,7 +198,7 @@ public:
 			HSL color;
 			color.hue        = _hue;
 			color.saturation = 100;
-			color.lumination = (int)(brightness * 100.0);
+			color.luminance  = (int)(brightness * 100.0);
 			
 			//HslToRgb(hue, saturation, brightness, red, green, blue);
 			
