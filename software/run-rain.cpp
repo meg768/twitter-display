@@ -179,7 +179,7 @@ public:
 		int hue = 120;
 		int x = _column;
 		int y = _row;
-/*
+
 		if (_hue < 0) {
 			time_t t = time(0);
 			struct tm *now = localtime(&t);
@@ -188,7 +188,7 @@ public:
 		}
 		else
 			hue = _hue;
-*/
+
 		_matrix->setPixel(x, y--, 255, 255, 255);
 		
 		for (int i = 0; i < _length; i++) {
@@ -325,6 +325,7 @@ int main (int argc, char *argv[])
 	MatrixAnimation animation;
 	animation.duration(60);
 	animation.speed(2.0);
+	animation.speed(120.0);
 	
 	int option = 0;
 	
