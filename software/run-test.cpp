@@ -219,6 +219,8 @@ LogiMatrix *foo = 0;
 
 void timer_handler (int signum)
 {
+	foo->setPixel(3, 3, 255, 0, 0);
+	foo->setPixel(4, 4, 255, 0, 0);
 	foo->refresh();
 }
 
