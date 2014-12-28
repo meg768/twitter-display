@@ -128,6 +128,24 @@ public:
 		
 		for (int i = 0; i < _length; i++) {
 
+			
+			uint8_t	red, green, blue;
+			
+			double hue = 120.0;
+			double saturation = 1.0;
+			double brightness = 1.0 - ((double)i / (double)_length);
+			
+			brightness += (double)((rand() % 50) - 25) / 100.0;
+			
+			if (brightness > 1.0)
+				brightness = 1.0;
+			
+			if (brightness < 0)
+				brightness = 0;
+			
+			HslToRgb(hue, saturation, brightness, red, green, blue);
+			_matrix->setPixel(x, y--, red, green, blue);
+			/*
 			int percent = (100 * i) / _length;
 			
 			HSL color;
@@ -162,6 +180,7 @@ public:
 				color.luminance = 0;
 			
 			_matrix->setPixel(x, y--, color);
+			 */
 		}
 	}
 	
