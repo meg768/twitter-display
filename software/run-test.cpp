@@ -246,11 +246,11 @@ int main (int argc, char *argv[])
 	
 	// configure the timer to expire after 20 msec
 	timer.it_value.tv_sec = 0;
-	timer.it_value.tv_usec = 10000;
+	timer.it_value.tv_usec = 5000;
 	
 	// and every 20 msec after that.
 	timer.it_interval.tv_sec = 0;
-	timer.it_interval.tv_usec = 10000;
+	timer.it_interval.tv_usec = 5000;
 	
 	// start the timer
 	setitimer (ITIMER_REAL, &timer, NULL);
