@@ -127,8 +127,7 @@ protected:
 class Worm {
 	
 public:
-	Worm(LogiMatrix *matrix) {
-		_matrix = matrix;
+	Worm() {
 		_length = (rand() % 20) + 10;
 	}
 	
@@ -138,7 +137,7 @@ public:
 		
 	}
 	
-	void draw(int x, int y) {
+	void draw(LogiMatrix *_matrix, int x, int y) {
 		_matrix->setPixel(x, y--, 255, 255, 255);
 		
 		int hue = 100;
@@ -163,8 +162,6 @@ public:
 		}
 	}
 
-	
-	LogiMatrix *_matrix;
 	int _length;
 };
 
@@ -204,13 +201,22 @@ int main (int argc, char *argv[])
 	
 	LogiMatrix matrix;
 	
-	Worm x(&matrix);
+	Worms worms[32];
+	int foo[32];
+
+	for (int i = 0; i < 32; i++)
+		foo[i] = rand() % 32;
 	
-	for (int i = 0; i < 32; i++) {
-		x.draw(i, rand() % 32);
-		
+	for (int x = 0; x < 32; x++) {
+		for (int i = 0; i < 32; i++) {
+			worms[i].draw(&matrix, i, foo[i]);
+			foo[i] = foo[i] + 1;
+			
+		}
+		matrix.refresh();
+		usleep(1000);
 	}
-	matrix.refresh();
+		
 	
 	return 0;
 }
