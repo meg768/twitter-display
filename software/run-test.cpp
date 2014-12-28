@@ -4,7 +4,7 @@
 class Animation {
 	
 public:
-	Animation(LogiMatrix *matrix int duration = -1) {
+	Animation(LogiMatrix *matrix, int duration = -1) {
 		_duration = duration;
 		_matrix = matrix;
 		_startTime = time(NULL);
