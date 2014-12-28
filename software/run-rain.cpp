@@ -209,16 +209,15 @@ public:
 
 		int size = _matrix->width();
 		
-		_worms = new Worm[size];
+		_worms.resize(size);
 		
 		for (int i = 0; i < size; i++) {
-			_worms[i]->column(i);
-			_worms[i]->reset();
+			_worms[i].column(i);
+			_worms[i].reset();
 		}
 	}
 	
 	~MatrixAnimation() {
-		delete _worms;
 	}
 	
 	void hue(int value) {
@@ -234,7 +233,7 @@ public:
 	}
 
 protected:
-	Worm *_worms[];
+	vector <Worm> _worms;
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
