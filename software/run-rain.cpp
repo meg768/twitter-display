@@ -134,9 +134,8 @@ public:
 	void reset() {
 		_length = (rand() % 20) + 10;
 		_x = rand() % 32;
-		_y = -1 * rand() % 32;
-		_delay = (rand() % 100) + 5;
-		_iterations = _length + 32 + rand() % 30;
+		_y = -(5 + (rand() % 20));
+		_delay = 100; //(rand() % 100) + 5;
 		_ticks = 0;
 	}
 	
@@ -175,7 +174,7 @@ public:
 		if (_ticks >= _delay) {
 			_y++;
 			
-			if (--_iterations < 0)
+			if (_y - _length > 32)
 				reset();
 			
 		}
