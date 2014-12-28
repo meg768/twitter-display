@@ -11,7 +11,7 @@ public:
 	}
 	
 	void duration(int value) {
-		_duration = seconds;
+		_duration = value;
 	}
 	
 	void gamma(double value) {
@@ -181,6 +181,9 @@ protected:
 		int state;
 		int hue;
 		int brightness;
+		int speed;
+		int max;
+		int length;
 	} Twinkler;
 	
 	
