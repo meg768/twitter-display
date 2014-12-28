@@ -147,11 +147,13 @@ public:
 			//color.luminance  = (color.luminance * ((rand() % 10) - 5)) / 5;
 			
 			
-			double factor = (double)(rand() % 10) - 5.0;
-			factor = 1.0 / factor;
-			factor = 1 - factor;
+			double factor = (double)(rand() % 100) * (double)i / (double)_length;
+			factor = factor - 50.0;
+			//			factor = 1.0 / factor;
+//			factor = 1 - factor;
+			factor = factor / 5.0;
 			
-			color.luminance = (int)((double)color.luminance * factor);
+			color.luminance = (int)((double)color.luminance + factor);
 
 			if (color.luminance > 100)
 				color.luminance = 100;
