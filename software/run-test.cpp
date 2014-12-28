@@ -218,7 +218,7 @@ protected:
 
 void timer_handler (int signum)
 {
-	__matrix->refresh();
+	((LogiMatrix *)__matrix)->refresh();
 }
 
 
