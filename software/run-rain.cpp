@@ -155,6 +155,10 @@ public:
 		_column = value;
 	}
 	
+	void hue(int value) {
+		_hue = hue;
+	}
+	
 	void draw(LogiMatrix *_matrix) {
 		int hue = 100;
 		int x = _column;
@@ -224,7 +228,7 @@ public:
 	}
 	
 	void hue(int value) {
-		for (int i = 0; i < _worms.size(); i++) {
+		for (int i = 0; i < (int)_worms.size(); i++) {
 			_worms[i].hue(value);
 		}
 		
