@@ -108,7 +108,9 @@ public:
 		
 		while (!expired()) {
 			loop();
-			usleep(delay);
+			
+			if (delay > 0)
+				usleep(delay);
 		}
 
 		_matrix->clear();
@@ -139,6 +141,7 @@ public:
 		_length  = 0;
 		_delay   = 0;
 		_ticks   = 0;
+		_hue     = 120;
 	}
 	
 	void reset() {
@@ -159,14 +162,14 @@ public:
 
 		_matrix->setPixel(x, y--, 255, 255, 255);
 		
-		
 		for (int i = 0; i < _length; i++) {
 			uint8_t	red, green, blue;
 			
-			double hue = 120.0;
+			double hue = (double)_hue;;
 			double saturation = 1.0;
 			double brightness = 1.0 - ((double)i / (double)_length);
 			
+			// Shake the brightness a bit
 			brightness += (double)((rand() % 50) - 25) / 100.0;
 			
 			if (brightness > 1.0)
@@ -195,7 +198,7 @@ public:
 	}
 	
 
-	int _length, _iterations, _delay, _ticks;
+	int _length, _iterations, _delay, _ticks, _hue;
 	int _row, _column;
 };
 
@@ -221,6 +224,9 @@ public:
 	}
 	
 	void hue(int value) {
+		for (int i = 0; i < _worms.size(); i++) {
+			_worms[i].hue(value);
+		}
 		
 	}
 
@@ -256,7 +262,7 @@ int main (int argc, char *argv[])
 	
 	int option = 0;
 	
-	while ((option = getopt(argc, argv, "s:g:d:")) != -1) {
+	while ((option = getopt(argc, argv, "h:s:g:d:")) != -1) {
 		switch (option) {
 			case 'd':
 				animation.duration(atoi(optarg));
@@ -266,6 +272,9 @@ int main (int argc, char *argv[])
 				break;
 			case 's':
 				animation.speed(atof(optarg));
+				break;
+			case 's':
+				animation.hue(atoi(optarg));
 				break;
 		}
 	}
