@@ -57,7 +57,7 @@ function main() {
 
 		try {
 			var cmd = {};
-			cmd.command = './run-clock';
+			cmd.command = './run-rain';
 			cmd.args = [];
 			cmd.options = { cwd: "../software"};
 				
