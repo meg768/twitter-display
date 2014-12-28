@@ -181,11 +181,9 @@ public:
 
 		_matrix->setPixel(x, y--, 255, 255, 255);
 		
+		
 		for (int i = 0; i < _length; i++) {
-			uint8_t	red, green, blue;
-			
-			double hue = (double)_hue;;
-			double saturation = 1.0;
+
 			double brightness = 1.0 - ((double)i / (double)_length);
 			
 			// Shake the brightness a bit
@@ -196,10 +194,15 @@ public:
 			
 			if (brightness < 0)
 				brightness = 0;
+
+			HSL color;
+			color.hue        = _hue;
+			color.saturation = 100;
+			color.lumination = (int)(brightness * 100.0);
 			
-			HslToRgb(hue, saturation, brightness, red, green, blue);
+			//HslToRgb(hue, saturation, brightness, red, green, blue);
 			
-			_matrix->setPixel(x, y--, red, green, blue);
+			_matrix->setPixel(x, y--, color);
 		}
 	}
 	
