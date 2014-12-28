@@ -128,10 +128,12 @@ public:
 		
 		for (int i = 0; i < _length; i++) {
 
+			double foo = 1 - ((double)i / (double)length);
+			
 			HSL color;
 			color.hue        = _hue;
 			color.saturation = 100;
-			color.luminance  = (100 * i) / _length;
+			color.luminance  = (int)(foo * 100.0);
 
 			// Shake the brightness a bit
 			//color.luminance += ((rand() % 50) - 25);
