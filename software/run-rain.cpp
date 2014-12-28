@@ -150,10 +150,13 @@ public:
 			double saturation = 1.0;
 			double brightness = 1.0 - ((double)i / (double)_length);
 			
-			brightness += (double)((rand() % 20) - 10) / 100.0;
+			brightness += (double)((rand() % 30) - 15) / 100.0;
 			
 			if (brightness > 1.0)
 				brightness = 1.0;
+			
+			if (brightness < 0)
+				brightness = 0;
 			
 			HslToRgb(hue, saturation, brightness, red, green, blue);
 			_matrix->setPixel(x, y--, red, green, blue);
