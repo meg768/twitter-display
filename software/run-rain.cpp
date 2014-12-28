@@ -136,7 +136,13 @@ public:
 			color.luminance  = 100 - percent;
 
 			// Shake the brightness a bit
-			color.luminance = (color.luminance * percent * (rand() % 100)) / 100;
+			//color.luminance = (color.luminance * percent * (rand() % 100)) / 100;
+			//double factor = (double)i / (double)_length;
+			//double stability = 1.0 - factor;
+			//double fix = stability * double(rand() % 10);
+			//color.luminance = (color.luminance * percent * (rand() % 100)) / 100;
+
+			color.luminance  = (color.luminance * ((rand() % 10) - 5)) / 5;
 			
 			if (color.luminance > 100)
 				color.luminance = 100;
