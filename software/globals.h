@@ -230,6 +230,8 @@ public:
 		
 		if (x >= 0 && y >= 0 && x < _width && y < _height) {
 			
+			uint8_t red, green, blue;
+			
 			red   = _gamma[color.red];
 			green = _gamma[color.green];
 			blue  = _gamma[color.blue];
