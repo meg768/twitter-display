@@ -134,28 +134,28 @@ class Worm {
 	
 public:
 	Worm() {
-		_x = 0;
-		_y = 0;
-		_length = 0;
-		_delay = 0;
-		_ticks = 0;
+		_row     = 0;
+		_column  = 0;
+		_length  = 0;
+		_delay   = 0;
+		_ticks   = 0;
 	}
 	
 	void reset() {
-		_length = (rand() % 20) + 10;
-		_y = -(5 + (rand() % 20));
-		_delay = (rand() % 4) + 3;
-		_ticks = 0;
+		_length = (rand() % 15) + 5;
+		_row    = -(rand() % 30);
+		_delay  = (rand() % 4) + 3;
+		_ticks  = 0;
 	}
 	
 	void column(int value) {
-		_x = value;
+		_column = value;
 	}
 	
 	void draw(LogiMatrix *_matrix) {
 		int hue = 100;
-		int x = _x;
-		int y = _y;
+		int x = _column;
+		int y = _row;
 
 		_matrix->setPixel(x, y--, 255, 255, 255);
 		
@@ -185,9 +185,9 @@ public:
 		
 		if (_ticks >= _delay) {
 			_ticks = 0;
-			_y++;
+			_row++;
 			
-			if (_y - _length > 32)
+			if (_row - _length > 32)
 				reset();
 			
 		}
@@ -196,7 +196,7 @@ public:
 	
 
 	int _length, _iterations, _delay, _ticks;
-	int _x, _y;
+	int _row, _column;
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
