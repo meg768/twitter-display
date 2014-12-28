@@ -44,7 +44,7 @@ public:
 	}
 
 	
-private:
+protected:
 	LogiMatrix *_matrix;
 	int _duration;
 	time_t _startTime;
