@@ -324,8 +324,8 @@ int main (int argc, char *argv[])
 
 	MatrixAnimation animation;
 	animation.duration(60);
-	animation.speed(2.0);
-	animation.speed(120.0);
+	animation.speed(1.0);
+	animation.hue(120.0);
 	
 	int option = 0;
 	
