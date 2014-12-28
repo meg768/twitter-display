@@ -147,10 +147,10 @@ public:
 					twinkle->hue = 240; //(rand() % 3) * 120;
 					twinkle->brightness = 0;
 					twinkle->saturation = (rand() % 100) == 0 ? 0 : 100;
-					twinkle->speed = 5; //(rand() % 10) + 1;
+					twinkle->speed = (rand() % 5) + 1;
 					twinkle->max = 100; //(rand() % 100);
 					twinkle->duration = (rand() % 5) + 1;
-					twinkle->delay = (rand() % 1000);
+					twinkle->delay = (rand() % 500);
 					twinkle->state++;
 					break;
 				}
