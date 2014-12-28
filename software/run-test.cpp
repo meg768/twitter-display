@@ -135,6 +135,10 @@ public:
 	
 
 	virtual void loop() {
+		
+		time_t t = time(0);
+		struct tm *now = localtime(&t);
+
 		int width = _matrix->width();
 		int height = _matrix->height();
 		int size = width * height;
@@ -144,7 +148,7 @@ public:
 		for (int i = 0; i < size; i++, twinkle++) {
 			switch (twinkle->state) {
 				case 0: {
-					twinkle->hue = 240; //(rand() % 3) * 120;
+					twinkle->hue = ((now->tm_hour % 12) * 60 + now->tm_min) / 2;
 					twinkle->brightness = 0;
 					twinkle->saturation = (rand() % 100) == 0 ? 0 : 100;
 					twinkle->speed = (rand() % 5) + 1;
