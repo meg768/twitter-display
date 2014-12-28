@@ -157,7 +157,7 @@ public:
 		_length  = 0;
 		_delay   = 0;
 		_ticks   = 0;
-		_hue     = 120;
+		_hue     = -1;
 	}
 	
 	void reset() {
@@ -176,14 +176,18 @@ public:
 	}
 	
 	void draw(LogiMatrix *_matrix) {
-		int hue = 100;
+		int hue = 120;
 		int x = _column;
 		int y = _row;
 
-		
-		time_t t = time(0);
-		struct tm *now = localtime(&t);
-		hue = ((now->tm_hour % 12) * 60 + now->tm_min) / 2;
+		if (_hue < 0) {
+			time_t t = time(0);
+			struct tm *now = localtime(&t);
+			hue = ((now->tm_hour % 12) * 60 + now->tm_min) / 2;
+			
+		}
+		else
+			hue = _hue;
 
 		_matrix->setPixel(x, y--, 255, 255, 255);
 		
