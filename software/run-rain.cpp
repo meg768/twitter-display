@@ -210,15 +210,16 @@ public:
 	
 	virtual void run() {
 		Worm worms[32];
-		int foo[32];
 		
 		while (!expired()) {
-			matrix.clear();
+			_matrix->clear();
+			
 			for (int i = 0; i < 32; i++) {
 				worms[i].draw(&matrix);
 				worms[i].idle();
 			}
-			matrix.refresh();
+			
+			matrix->refresh();
 			usleep(1000);
 		}
 		
