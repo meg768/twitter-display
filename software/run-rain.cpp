@@ -135,7 +135,7 @@ public:
 		_length = (rand() % 20) + 10;
 		_x = rand() % 32;
 		_y = -(5 + (rand() % 20));
-		_delay = (rand() % 100) + 5;
+		_delay = (rand() % 4);
 		_ticks = 0;
 	}
 	
@@ -155,7 +155,7 @@ public:
 			double saturation = 1.0;
 			double brightness = 1.0 - ((double)i / (double)_length);
 			
-			brightness += (double)((rand() % 50) - 25) / 100.0;
+			//brightness += (double)((rand() % 50) - 25) / 100.0;
 			
 			if (brightness > 1.0)
 				brightness = 1.0;
