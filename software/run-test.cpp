@@ -18,6 +18,10 @@ public:
 	void gamma(double value) {
 		_matrix->setGamma(value);
 	}
+
+	void speed(double value) {
+		_speed = value;
+	}
 	
 	virtual int expired() {
 		if (_duration > 0) {
