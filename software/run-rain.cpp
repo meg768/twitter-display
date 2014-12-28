@@ -132,15 +132,20 @@ public:
 	}
 	
 	void reset() {
-		
-		
-		
 	}
 	
-	void draw(LogiMatrix *_matrix, int x, int y) {
+	void position(int x, int y) {
+		_x = x;
+		_y = y;
+	}
+	
+	void draw(LogiMatrix *_matrix) {
+		int hue = 100;
+		int x = _x;
+		int y = _y;
+
 		_matrix->setPixel(x, y--, 255, 255, 255);
 		
-		int hue = 100;
 		
 		for (int i = 0; i < _length; i++) {
 			uint8_t	red, green, blue;
@@ -161,8 +166,17 @@ public:
 			_matrix->setPixel(x, y--, red, green, blue);
 		}
 	}
+	
+	void idle() {
+		_y++;
+	}
+	
+	bool finished() {
+		return _y + _length > 32;
+	}
 
 	int _length;
+	int _x, _y;
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -204,17 +218,17 @@ int main (int argc, char *argv[])
 	Worm worms[32];
 	int foo[32];
 
-	for (int i = 0; i < 32; i++)
-		foo[i] = rand() % 32;
+	for (int i = 0; i < 32; i++) {
+		worms[i].position(i, -1 * (rand() % 40));
+	}
 	
-	for (int x = 0; x < 32; x++) {
+	for (int x = 0; x < 100; x++) {
 		for (int i = 0; i < 32; i++) {
-			worms[i].draw(&matrix, i, foo[i]);
-			foo[i] = foo[i] + 1;
-			
+			worms[i].draw(&matrix);
+			worms[i].idle();
 		}
 		matrix.refresh();
-		usleep(1000);
+		usleep(3000);
 	}
 		
 	
