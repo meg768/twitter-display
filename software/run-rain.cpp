@@ -150,7 +150,7 @@ public:
 			double saturation = 1.0;
 			double brightness = 1.0 - ((double)i / (double)_length);
 			
-			brightness += (double)((rand() % 10) - 5) / 100.0;
+			brightness += (double)((rand() % 20) - 10) / 100.0;
 			
 			if (brightness > 1.0)
 				brightness = 1.0;
