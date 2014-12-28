@@ -1,5 +1,7 @@
 #include "globals.h"
 
+#include <signal.h>
+
 
 class Animation {
 	
