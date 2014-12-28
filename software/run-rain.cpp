@@ -213,12 +213,16 @@ public:
 		
 		for (int i = 0; i < size; i++) {
 			_worms[i]->column(i);
-			_worms[i]->reset(i);
+			_worms[i]->reset();
 		}
 	}
 	
 	~MatrixAnimation() {
 		delete []_worms;
+	}
+	
+	void hue(int value) {
+		
 	}
 
 	virtual void loop() {
