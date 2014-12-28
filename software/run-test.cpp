@@ -144,8 +144,9 @@ public:
 		for (int i = 0; i < size; i++, twinkle++) {
 			switch (twinkle->state) {
 				case 0: {
-					twinkle->hue = (rand() % 3) * 120;
+					twinkle->hue = 0; //(rand() % 3) * 120;
 					twinkle->brightness = 0;
+					twinkle->saturation = (rand() % 100) == 0 ? 0 : 100;
 					twinkle->speed = 5; //(rand() % 10) + 1;
 					twinkle->max = 100; //(rand() % 100);
 					twinkle->duration = (rand() % 5) + 1;
@@ -190,7 +191,7 @@ public:
 			}
 			
 			uint8_t red, green, blue;
-			HslToRgb((double)twinkle->hue, 1.0, (double)twinkle->brightness / 100.0, red, green, blue);
+			HslToRgb((double)twinkle->hue, (double)twinkle->saturation / 100.0, (double)twinkle->brightness / 100.0, red, green, blue);
 			
 			_matrix->setPixel(i % width, i / height, red, green, blue);
 		}
@@ -205,6 +206,7 @@ protected:
 		int state;
 		int hue;
 		int brightness;
+		int saturation;
 		int speed;
 		int max;
 		int duration;
