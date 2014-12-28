@@ -150,7 +150,7 @@ public:
 				case 0: {
 					twinkle->hue = ((now->tm_hour % 12) * 60 + now->tm_min) / 2;
 					twinkle->brightness = 0;
-					twinkle->saturation = (rand() % 100) == 0 ? 0 : 100;
+					twinkle->saturation = (rand() % 100) < 3 ? 0 : 100;
 					twinkle->speed = (rand() % 5) + 1;
 					twinkle->max = 100; //(rand() % 100);
 					twinkle->duration = (rand() % 5) + 1;
