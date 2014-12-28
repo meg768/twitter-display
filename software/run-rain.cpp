@@ -135,7 +135,7 @@ public:
 		_length = (rand() % 20) + 10;
 		_x = rand() % 32;
 		_y = -1 * rand() % 32;
-		_delay = rand() % 10;
+		_delay = rand() % 4;
 		_iterations = _length + 32 + rand() % 30;
 		_ticks = 0;
 	}
@@ -183,7 +183,7 @@ public:
 	}
 	
 
-	int _length, _iterations, _delay;
+	int _length, _iterations, _delay, _ticks;
 	int _x, _y;
 };
 
