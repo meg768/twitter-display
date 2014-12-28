@@ -154,7 +154,7 @@ public:
 					twinkle->speed = (rand() % 5) + 1;
 					twinkle->max = 100; //(rand() % 100);
 					twinkle->duration = (rand() % 5) + 1;
-					twinkle->delay = (rand() % ((60 - now->tm_min) * 50));
+					twinkle->delay = (rand() % ((60 - now->tm_min) * 120));
 					twinkle->state++;
 					break;
 				}
