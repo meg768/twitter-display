@@ -8,6 +8,7 @@ public:
 		_duration = duration;
 		_matrix = matrix;
 		_startTime = time(NULL);
+		_speed = 1.0;
 	}
 	
 	void duration(int value) {
@@ -34,6 +35,8 @@ public:
 		
 		while (!expired()) {
 			loop();
+			
+			usleep(_speed * 1000);
 		}
 
 		_matrix->clear();
@@ -48,6 +51,7 @@ protected:
 	LogiMatrix *_matrix;
 	int _duration;
 	time_t _startTime;
+	double _speed;
 	
 };
 
@@ -133,16 +137,22 @@ public:
 		for (int i = 0; i < size; i++, twinkle++) {
 			switch (twinkle->state) {
 				case 0: {
-					twinkle->hue = (rand() % 6) * 60;
+					twinkle->hue = 0; //(rand() % 6) * 60;
 					twinkle->brightness = 0;
-					twinkle->speed = (rand() % 10) + 5;
-					twinkle->max = (rand() % 30) + 70;
-					twinkle->length = (rand() % 50) + 50;
-					
+					twinkle->speed = 10; //(rand() % 10) + 5;
+					twinkle->max = 100; //(rand() % 30) + 70;
+					twinkle->duration = 10; //(rand() % 50) + 50;
+					twinkle->delay = 20;
 					twinkle->state++;
 					break;
 				}
 				case 1: {
+					if (--twinkle->delay < 0)
+						twinkle->state++;
+
+					break;
+				}
+				case 2: {
 					twinkle->brightness += twinkle->speed;
 					
 					if (twinkle->brightness > twinkle->max) {
@@ -152,18 +162,19 @@ public:
 					break;
 					
 				}
-				case 2: {
-					if (--twinkle->length <= 0) {
+				case 3: {
+					if (--twinkle->duration <= 0) {
 						twinkle->state++;
 					}
 					break;
 					
 				}
-				case 3: {
+				case 4: {
 					twinkle->brightness -= twinkle->speed;
 					
 					if (twinkle->brightness < 0) {
-						twinkle->state = 0;
+						twinkle->brightness = 0;
+						twinkle->state++;
 					}
 					break;
 					
@@ -206,13 +217,16 @@ int main (int argc, char *argv[])
 	
 	int option = 0;
 	
-	while ((option = getopt(argc, argv, "g:d:")) != -1) {
+	while ((option = getopt(argc, argv, "s:g:d:")) != -1) {
 		switch (option) {
 			case 'd':
 				animation.duration(atoi(optarg));
 				break;
 			case 'g':
 				animation.gamma(atof(optarg));
+				break;
+			case 's':
+				animation.speed(atof(optarg));
 				break;
 		}
 	}
