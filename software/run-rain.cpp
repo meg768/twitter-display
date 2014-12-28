@@ -201,7 +201,7 @@ int main (int argc, char *argv[])
 	
 	LogiMatrix matrix;
 	
-	Worms worms[32];
+	Worm worms[32];
 	int foo[32];
 
 	for (int i = 0; i < 32; i++)
