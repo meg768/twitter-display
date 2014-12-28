@@ -108,7 +108,6 @@ public:
 		
 		while (!expired()) {
 			loop();
-			_matrix->refresh();
 			usleep(delay);
 		}
 
@@ -226,10 +225,14 @@ public:
 	}
 
 	virtual void loop() {
+		_matrix->clear();
+		
 		for (int i = 0; i < _matrix->width(); i++) {
 			_worms[i].draw(_matrix);
 			_worms[i].idle();
 		}
+		
+		_matrix->refresh();
 		
 	}
 
