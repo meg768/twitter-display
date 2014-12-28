@@ -155,7 +155,7 @@ public:
 			double saturation = 1.0;
 			double brightness = 1.0 - ((double)i / (double)_length);
 			
-			brightness += (double)((rand() % 30) - 15) / 100.0;
+			brightness += (double)((rand() % 50) - 25) / 100.0;
 			
 			if (brightness > 1.0)
 				brightness = 1.0;
@@ -219,14 +219,14 @@ int main (int argc, char *argv[])
 	Worm worms[32];
 	int foo[32];
 
-	for (int x = 0; x < 100; x++) {
+	for (int x = 0; x < 10000; x++) {
 		matrix.clear();
 		for (int i = 0; i < 32; i++) {
 			worms[i].draw(&matrix);
 			worms[i].idle();
 		}
 		matrix.refresh();
-		usleep(10 * 1000);
+		usleep(30 * 1000);
 	}
 		
 	
