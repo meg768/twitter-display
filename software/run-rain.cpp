@@ -136,7 +136,7 @@ public:
 			color.luminance  = 100 - percent;
 
 			// Shake the brightness a bit
-			//color.luminance -= i / _length;
+			color.luminance = (color.luminance * percent * (rand() % 100)) / 100;
 			
 			if (color.luminance > 100)
 				color.luminance = 100;
