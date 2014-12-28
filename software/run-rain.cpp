@@ -135,7 +135,7 @@ public:
 		_length = (rand() % 20) + 10;
 		_x = rand() % 32;
 		_y = -(5 + (rand() % 20));
-		_delay = 100; //(rand() % 100) + 5;
+		_delay = (rand() % 100) + 5;
 		_ticks = 0;
 	}
 	
@@ -172,6 +172,7 @@ public:
 		_ticks++;
 		
 		if (_ticks >= _delay) {
+			_ticks = 0;
 			_y++;
 			
 			if (_y - _length > 32)
