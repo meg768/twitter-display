@@ -163,7 +163,7 @@ public:
 					
 				}
 				case 3: {
-					if (--twinkle->duration <= 0) {
+					if (--twinkle->duration < 0) {
 						twinkle->state++;
 					}
 					break;
@@ -174,7 +174,7 @@ public:
 					
 					if (twinkle->brightness < 0) {
 						twinkle->brightness = 0;
-						twinkle->state++;
+						twinkle->state = 0;
 					}
 					break;
 					
@@ -200,7 +200,8 @@ protected:
 		int brightness;
 		int speed;
 		int max;
-		int length;
+		int duration;
+		int delay;
 	} Twinkler;
 	
 	
