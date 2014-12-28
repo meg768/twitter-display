@@ -128,15 +128,16 @@ class Worm {
 	
 public:
 	Worm() {
-		_length = (rand() % 20) + 10;
-		_x = rand() % 32;
-		_y = -1 * rand() % 32;
+		reset();
 	}
 	
 	void reset() {
 		_length = (rand() % 20) + 10;
 		_x = rand() % 32;
 		_y = -1 * rand() % 32;
+		_delay = rand() % 10;
+		_iterations = _length + 32 + rand() % 30;
+		_ticks = 0;
 	}
 	
 	
@@ -169,14 +170,20 @@ public:
 	}
 	
 	void idle() {
-		_y++;
+		_ticks++;
 		
-		if (_y - _length > 32)
-			reset();
+		if (_ticks >= _delay) {
+			_y++;
+			
+			if (--_iterations < 0)
+				reset();
+			
+		}
+
 	}
 	
 
-	int _length;
+	int _length, _iterations, _delay;
 	int _x, _y;
 };
 
