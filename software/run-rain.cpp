@@ -145,7 +145,7 @@ public:
 	}
 	
 	void reset() {
-		_length = (rand() % 15) + 10;
+		_length = (rand() % 15) + 20;
 		_row    = -(rand() % 100);
 		_delay  = (rand() % 4);
 		_ticks  = 0;
