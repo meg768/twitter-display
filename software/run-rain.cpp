@@ -146,9 +146,13 @@ public:
 			
 			//color.luminance  = (color.luminance * ((rand() % 10) - 5)) / 5;
 			
-			int flicker = rand() % (i - _length));
 			
-			color.luminance = color.luminance + flicker - (flicker / 2)
+			double factor = (double)(rand() % 20) - 10.0;
+			factor = 1.0 / factor;
+			factor = 1 - factor;
+			
+			color.luminance = (int)((double)color.luminance * factor);
+
 			if (color.luminance > 100)
 				color.luminance = 100;
 
