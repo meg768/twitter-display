@@ -66,11 +66,16 @@ void HslToRgb(double h, double s, double v, uint8_t &red, uint8_t &green, uint8_
 class Animation {
 	
 public:
-	Animation(LogiMatrix *matrix, int duration = -1) {
+	Animation(int duration = -1) {
 		_duration = duration;
 		_matrix = matrix;
 		_startTime = time(NULL);
 		_speed = 1.0;
+		_matrix = new LogiMatrix();
+	}
+	
+	~Animation() {
+		delete _matrix;
 	}
 	
 	void duration(int value) {
@@ -133,12 +138,14 @@ public:
 	
 	void reset() {
 		_length = (rand() % 20) + 10;
-		_x = rand() % 32;
 		_y = -(5 + (rand() % 20));
 		_delay = (rand() % 4) + 3;
 		_ticks = 0;
 	}
 	
+	void column(int value) {
+		_x = value;
+	}
 	
 	void draw(LogiMatrix *_matrix) {
 		int hue = 100;
@@ -193,39 +200,31 @@ public:
 class MatrixAnimation : public Animation {
 	
 public:
-	MatrixAnimation(LogiMatrix *matrix) : Animation(matrix) {
-		srand(time(NULL));
+	MatrixAnimation() : Animation() {
 
+		int size = _matrix->width();
+		
+		_worms = new Worm[size];
+		
+		for (int i = 0; i < size; i++) {
+			_worms[i]->column(i);
+		}
 	}
 	
 	~MatrixAnimation() {
+		delete []_worms;
 	}
-	
-	
 
 	virtual void loop() {
-		_matrix->refresh();
-		
-	}
-	
-	virtual void run() {
-		Worm worms[32];
-		
-		while (!expired()) {
-			_matrix->clear();
-			
-			for (int i = 0; i < 32; i++) {
-				worms[i].draw(_matrix);
-				worms[i].idle();
-			}
-			
-			_matrix->refresh();
-			usleep(1000);
+		for (int i = 0; i < _matrix->width(); i++) {
+			worms[i].draw(_matrix);
+			worms[i].idle();
 		}
 		
 	}
 
 protected:
+	Worm *_worms;
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -237,9 +236,9 @@ int main (int argc, char *argv[])
 {
 	Magick::InitializeMagick(*argv);
 	
-	LogiMatrix matrix;
-	MatrixAnimation animation(&matrix);
+	srand(time(NULL));
 
+	MatrixAnimation animation;
 	animation.duration(60);
 	
 	int option = 0;
