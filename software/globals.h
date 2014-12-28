@@ -24,18 +24,18 @@
 
 
 typedef struct {
-	uint8_t red;
-	uint8_t green;
-	uint8_t blue;
+	uint8_t red;     // 0 - 255 */
+	uint8_t green;   // 0 - 255 */
+	uint8_t blue;    // 0 - 255 */
 	
 } RGB;
 
 typedef struct {
-	uint8_t hue;
-	uint8_t saturation;
-	uint8_t brightness;
+	uint8_t hue;        // 0 - 360  */
+	uint8_t saturation; // 0 - 100  */
+	uint8_t luminance;  // 0 - 100  */
 	
-} HSB;
+} HSL;
 
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -225,7 +225,35 @@ public:
 			_matrix[y * _width + x] = (red << 8) | (green << 4) | blue;
 		}
 	}
-	
+
+	inline void setPixel(int x, int y, RGB color) {
+		
+		if (x >= 0 && y >= 0 && x < _width && y < _height) {
+			
+			red   = _gamma[color.red];
+			green = _gamma[color.green];
+			blue  = _gamma[color.blue];
+			
+			_matrix[y * _width + x] = (red << 8) | (green << 4) | blue;
+		}
+	}
+
+	inline void setPixel(int x, int y, HSL color) {
+		
+		if (x >= 0 && y >= 0 && x < _width && y < _height) {
+			
+			uint8_t red, green, blue;
+			
+			HslToRgb((double)color.hue, (double)color.saturation / 100.0, (double)color.luminance / 100.0, red, green, blue);
+			
+			red   = _gamma[red];
+			green = _gamma[green];
+			blue  = _gamma[blue];
+			
+			_matrix[y * _width + x] = (red << 8) | (green << 4) | blue;
+		}
+	}
+
 	void HslToRgb(double h, double s, double v, uint8_t &red, uint8_t &green, uint8_t &blue)
 	{
 		double hh = 0, p = 0, q = 0, t = 0, ff = 0;
