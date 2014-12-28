@@ -141,7 +141,7 @@ public:
 		for (int i = 0; i < size; i++, twinkle++) {
 			switch (twinkle->state) {
 				case 0: {
-					twinkle->hue = 0; //(rand() % 6) * 60;
+					twinkle->hue = (rand() % 6) * 60;
 					twinkle->brightness = 0;
 					twinkle->speed = 10; //(rand() % 10) + 5;
 					twinkle->max = 100; //(rand() % 30) + 70;
@@ -187,7 +187,7 @@ public:
 			}
 			
 			uint8_t red, green, blue;
-			HslToRgb((double)twinkle->hue, (double)twinkle->brightness / 100.0, 1.0, red, green, blue);
+			HslToRgb((double)twinkle->hue, 1.0, (double)twinkle->brightness / 100.0, red, green, blue);
 			
 			_matrix->setPixel(i % width, i / height, red, green, blue);
 		}
@@ -219,6 +219,8 @@ int main (int argc, char *argv[])
 	
 	LogiMatrix matrix;
 	ClockAnimation animation(&matrix);
+	
+	animation.duration(5);
 	
 	int option = 0;
 	
