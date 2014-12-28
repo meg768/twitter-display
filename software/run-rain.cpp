@@ -207,7 +207,7 @@ public:
 			if (brightness < 0)
 				brightness = 0;
 			
-			HslToRgb((double)hue, saturation, brightness, red, green, blue);
+			HslToRgb((double)120, saturation, brightness, red, green, blue);
 			_matrix->setPixel(x, y--, red, green, blue);
 			/*
 			int percent = (100 * i) / _length;
