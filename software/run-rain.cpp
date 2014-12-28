@@ -135,7 +135,7 @@ public:
 		_length = (rand() % 20) + 10;
 		_x = rand() % 32;
 		_y = -(5 + (rand() % 20));
-		_delay = (rand() % 5);
+		_delay = (rand() % 4) + 3;
 		_ticks = 0;
 	}
 	
