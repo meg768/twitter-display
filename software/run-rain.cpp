@@ -145,7 +145,14 @@ public:
 		
 		for (int i = 0; i < _length; i++) {
 			uint8_t	red, green, blue;
-			HslToRgb((double)120, 1.0, 1.0 - ((double)i / (double)_length), red, green, blue);
+			
+			double hue = 120.0;
+			double saturation = 1.0;
+			double brightness = 1.0 - ((double)i / (double)_length);
+			
+			brightness += (double)((rand() % 10) - 5) / 100;
+			
+			HslToRgb(hue, saturation, brightness, red, green, blue);
 			_matrix->setPixel(x, y--, red, green, blue);
 		}
 	}
