@@ -143,10 +143,10 @@ public:
 				case 0: {
 					twinkle->hue = (rand() % 6) * 60;
 					twinkle->brightness = 0;
-					twinkle->speed = 10; //(rand() % 10) + 5;
-					twinkle->max = 100; //(rand() % 30) + 70;
-					twinkle->duration = 10; //(rand() % 50) + 50;
-					twinkle->delay = 20;
+					twinkle->speed = (rand() % 10) + 5;
+					twinkle->max = (rand() % 100);
+					twinkle->duration = (rand() % 50) + 50;
+					twinkle->delay = (rand() % 50) + 50;
 					twinkle->state++;
 					break;
 				}
