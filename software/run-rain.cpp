@@ -128,7 +128,7 @@ public:
 		
 		for (int i = 0; i < _length; i++) {
 
-			double foo = 1 - ((double)i / (double)length);
+			double foo = 1.0 - ((double)i / (double)_length);
 			
 			HSL color;
 			color.hue        = _hue;
