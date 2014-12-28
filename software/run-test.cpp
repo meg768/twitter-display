@@ -36,6 +36,7 @@ public:
 	virtual void run() {
 		
 		_matrix->clear();
+		_matrix->refresh();
 		
 		while (!expired()) {
 			loop();
@@ -44,6 +45,7 @@ public:
 		}
 
 		_matrix->clear();
+		_matrix->refresh();
 		
 	};
 	
@@ -141,11 +143,11 @@ public:
 		for (int i = 0; i < size; i++, twinkle++) {
 			switch (twinkle->state) {
 				case 0: {
-					twinkle->hue = (rand() % 6) * 60;
+					twinkle->hue = 0; //(rand() % 6) * 60;
 					twinkle->brightness = 0;
-					twinkle->speed = (rand() % 10) + 5;
+					twinkle->speed = 5; //(rand() % 10) + 1;
 					twinkle->max = (rand() % 100);
-					twinkle->duration = (rand() % 50) + 50;
+					twinkle->duration = (rand() % 50) + 1;
 					twinkle->delay = (rand() % 100);
 					twinkle->state++;
 					break;
