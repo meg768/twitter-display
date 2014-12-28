@@ -2,13 +2,16 @@
 CCFLAGS = `Magick++-config --cxxflags --cppflags`  -O2 -Wall -Wno-unused-value -Wno-unused-result -Wno-unused-but-set-variable -Wno-maybe-uninitialized -Wno-unused-variable -Wno-reorder
 LDFLAGS = `Magick++-config --ldflags --libs`
 SHARED  = globals.h
-TARGETS = run-image run-animation run-text run-test run-rgb run-static run-clock run-hue-block run-circle run-perlin run-twinkle run-wash run-life run-wipe
+TARGETS = run-rain run-image run-animation run-text run-test run-rgb run-static run-clock run-hue-block run-circle run-perlin run-twinkle run-wash run-life run-wipe
 
 all: $(TARGETS)
 
 clean:
 	rm $(TARGETS)
 
+
+run-rain: run-rain.cpp $(SHARED)
+	g++  $(CCFLAGS) -o $@ $@.cpp $(LDFLAGS)
 
 run-image: run-image.cpp $(SHARED)
 	g++  $(CCFLAGS) -o $@ $@.cpp $(LDFLAGS)
