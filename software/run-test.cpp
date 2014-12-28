@@ -149,8 +149,8 @@ public:
 					twinkle->brightness = 0;
 					twinkle->speed = 5; //(rand() % 10) + 1;
 					twinkle->max = 100; //(rand() % 100);
-					twinkle->duration = (rand() % 10) + 1;
-					twinkle->delay = (rand() % 200) + 200;
+					twinkle->duration = (rand() % 5) + 1;
+					twinkle->delay = (rand() % 1000);
 					twinkle->state++;
 					break;
 				}
