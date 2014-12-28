@@ -233,7 +233,7 @@ int main (int argc, char *argv[])
 			worms[i].idle();
 		}
 		matrix.refresh();
-		usleep(30 * 1000);
+		usleep(10 * 1000);
 	}
 		
 	
