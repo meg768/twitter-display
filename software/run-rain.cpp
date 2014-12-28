@@ -135,7 +135,7 @@ public:
 		_length = (rand() % 20) + 10;
 		_x = rand() % 32;
 		_y = -(5 + (rand() % 20));
-		_delay = (rand() % 4);
+		_delay = (rand() % 5);
 		_ticks = 0;
 	}
 	
@@ -233,7 +233,7 @@ int main (int argc, char *argv[])
 			worms[i].idle();
 		}
 		matrix.refresh();
-		usleep(10 * 1000);
+		usleep(1000);
 	}
 		
 	
