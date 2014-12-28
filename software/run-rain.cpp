@@ -142,7 +142,9 @@ public:
 			//double fix = stability * double(rand() % 10);
 			//color.luminance = (color.luminance * percent * (rand() % 100)) / 100;
 
-			color.luminance  = (color.luminance * ((rand() % 10) - 5)) / 5;
+			//double luminance = color.luminance;
+			
+			//color.luminance  = (color.luminance * ((rand() % 10) - 5)) / 5;
 			
 			if (color.luminance > 100)
 				color.luminance = 100;
