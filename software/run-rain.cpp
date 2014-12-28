@@ -101,7 +101,7 @@ public:
 	
 	virtual void run() {
 		
-		int delay = _speed * 1000;
+		int delay = (int)(_speed * 1000.0);
 		
 		_matrix->clear();
 		_matrix->refresh();
@@ -146,7 +146,7 @@ public:
 	
 	void reset() {
 		_length = (rand() % 15) + 10;
-		_row    = -(rand() % 30);
+		_row    = -(rand() % 100);
 		_delay  = (rand() % 4);
 		_ticks  = 0;
 	}
@@ -183,6 +183,7 @@ public:
 				brightness = 0;
 			
 			HslToRgb(hue, saturation, brightness, red, green, blue);
+			
 			_matrix->setPixel(x, y--, red, green, blue);
 		}
 	}
@@ -201,7 +202,7 @@ public:
 
 	}
 	
-
+private:
 	int _length, _iterations, _delay, _ticks, _hue;
 	int _row, _column;
 };
@@ -263,7 +264,7 @@ int main (int argc, char *argv[])
 
 	MatrixAnimation animation;
 	animation.duration(60);
-	animation.speed(10.0);
+	animation.speed(40.0);
 	
 	int option = 0;
 	
