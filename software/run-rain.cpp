@@ -277,7 +277,7 @@ int main (int argc, char *argv[])
 			case 's':
 				animation.speed(atof(optarg));
 				break;
-			case 's':
+			case 'h':
 				animation.hue(atoi(optarg));
 				break;
 		}
