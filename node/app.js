@@ -236,7 +236,7 @@ function main() {
 		var ip = getIP('wlan0');
 		var text = ip != '' ? sprintf('%s      %s      %s', ip, ip, ip) : 'Wi-fi connection is missing...';
 		
-		shell(sprintf('./run-text "%s      %s      %s"', ip, ip, ip), function() {
+		shell(sprintf('./run-text "%s"', text), function() {
 			enablePusher();
 			startAnimation();
 			
