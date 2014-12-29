@@ -2,22 +2,129 @@
 
 using namespace std;
 
-/*
-static char *digit_0[7][7] = {
+
+static char *digits[] = {
 	' XXXXX ',
 	'X     X',
 	'X     X',
 	'X     X',
 	'X     X',
 	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	' XXXXX ',
+	' XXXXX ',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	' XXXXX ',
+	' XXXXX ',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	' XXXXX ',
+	' XXXXX ',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	' XXXXX ',
+	' XXXXX ',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	' XXXXX ',
+	' XXXXX ',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	' XXXXX ',
+	' XXXXX ',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	' XXXXX ',
+	' XXXXX ',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	' XXXXX ',
+	' XXXXX ',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	' XXXXX ',
+	' XXXXX ',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
+	'X     X',
 	' XXXXX '
-}
-static char digits[][] = {
-	{
-		''
-	}
 };
-*/
 
 
 void HslToRgb(double h, double s, double v, uint8_t &red, uint8_t &green, uint8_t &blue)
@@ -288,6 +395,21 @@ public:
 	~MatrixAnimation() {
 	}
 	
+	void drawDigit(int x, int y, int digit, int red, int green, int blue) {
+		
+		for (int row = 0; row < 12; row++) {
+			
+			char *sp = digits[digit * 12 + row];
+
+			for (int column = 0; column < 7; column++) {
+				if (sp[column] == ' ')
+					_matrix.setPixel(x + column, y + row, red, green, blue);
+			}
+			
+		}
+		char **start = digits[digit * 12];
+	}
+	
 	void hue(int value) {
 		for (int i = 0; i < (int)_worms.size(); i++) {
 			_worms[i].hue(value);
@@ -302,6 +424,11 @@ public:
 			_worms[i].draw(_matrix);
 			_worms[i].idle();
 		}
+		
+		drawDigit(1,      8, 0, 0, 0, 0);
+		drawDigit(1 + 8,  8, 1, 255, 0, 0);
+		drawDigit(1 + 16, 8, 2, 0, 255, 0);
+		drawDigit(1 + 24, 8, 3, 255, 0, 255);
 		
 		_matrix->refresh();
 		
