@@ -423,10 +423,10 @@ public:
 		time_t t = time(0);
 		struct tm *now = localtime(&t);
 		
-		drawDigit(1,      8, now->tm_hour / 10, 0, 0, 0);
-		drawDigit(1 + 8,  8, now->tm_hour % 10, 0, 0, 0);
-		drawDigit(1 + 16, 8, now->tm_min  / 10, 0, 0, 0);
-		drawDigit(1 + 24, 8, now->tm_min  % 10, 0, 0, 0);
+		drawDigit(1,      8, now->tm_hour / 10, 0, 70, 0);
+		drawDigit(1 + 8,  8, now->tm_hour % 10, 0, 70, 0);
+		drawDigit(1 + 16, 8, now->tm_min  / 10, 0, 70, 0);
+		drawDigit(1 + 24, 8, now->tm_min  % 10, 0, 70, 0);
 	}
 	
 	void hue(int value) {
