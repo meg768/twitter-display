@@ -222,7 +222,7 @@ public:
 	
 	void reset() {
 		_length = (rand() % 15) + 30;
-		_row    = -(rand() % 10);
+		_row    = -(rand() % 100);
 		_delay  = (rand() % 5) + 2;
 		_ticks  = 0;
 	}
@@ -252,8 +252,6 @@ public:
 		_matrix->setPixel(x, y--, 255, 255, 255);
 		
 		for (int i = 0; i < _length; i++) {
-
-
 			// Calculate brightness
 			int luminance  = 100 - (100 * i) / _length;
 
@@ -272,22 +270,6 @@ public:
 			color.luminance  = luminance;
 
 			_matrix->setPixel(x, y--, color);
-			
-			/*
-			double saturation = 1.0;
-			double brightness = 1.0 - ((double)i / (double)_length);
-			
-			brightness += (double)((rand() % 50) - 25) / 100.0;
-			
-			if (brightness > 1.0)
-				brightness = 1.0;
-			
-			if (brightness < 0)
-				brightness = 0;
-			
-			HslToRgb((double)hue, saturation, brightness, red, green, blue);
-			_matrix->setPixel(x, y--, red, green, blue);
-			 */
 		}
 	}
 	
