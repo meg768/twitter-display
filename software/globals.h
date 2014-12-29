@@ -31,10 +31,9 @@ typedef struct {
 } RGB;
 
 typedef struct {
-	uint8_t hue;        // 0 - 360  */
+	uint16_t hue;       // 0 - 360  */
 	uint8_t saturation; // 0 - 100  */
 	uint8_t luminance;  // 0 - 100  */
-	
 } HSL;
 
 

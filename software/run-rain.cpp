@@ -310,20 +310,24 @@ public:
 		
 		for (int i = 0; i < _length; i++) {
 
+
+			// Calculate brightness
+			int luminance  = 100 - (100 * i) / _length;
+
+			// Add some variance
+			int luminance -= (rand() % 30);
+
+			if (luminance < 0)
+				luminance = 0;
+
+			if (luminance > 100)
+				luminance = 100;
+			
 			HSL color;
 			color.hue        = _hue;
 			color.saturation = 100;
-			color.luminance  = 100 - (100 * i) / _length;
+			color.luminance  = luminance;
 
-			// Add some variance
-			color.luminance -= (rand() % 30);
-
-			if (color.luminance < 0)
-				color.luminance = 0;
-
-			if (color.luminance > 100)
-				color.luminance = 100;
-			
 			_matrix->setPixel(x, y--, color);
 			
 			/*
