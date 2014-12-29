@@ -444,7 +444,7 @@ public:
 			_worms[i].idle();
 		}
 		
-		drawTime();
+		//drawTime();
 		
 		_matrix->refresh();
 		
