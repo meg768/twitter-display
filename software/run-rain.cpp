@@ -221,8 +221,8 @@ public:
 	}
 	
 	void reset() {
-		_length = (rand() % 32) + 32;
-		_row    = -(rand() % 500);
+		_length = (rand() % 16) + 16;
+		_row    = -(rand() % 50);
 		_delay  = (rand() % 5) + 2;
 		_ticks  = 0;
 	}
