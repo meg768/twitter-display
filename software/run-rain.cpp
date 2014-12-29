@@ -223,7 +223,7 @@ public:
 	void reset() {
 		_length = (rand() % 16) + 32;
 		_row    = -(rand() % 128);
-		_delay  = (rand() % 5);
+		_delay  = (rand() % 16);
 		_ticks  = 0;
 	}
 	
