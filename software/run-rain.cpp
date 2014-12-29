@@ -316,7 +316,7 @@ public:
 			color.luminance  = 100 - (100 * i) / _length;
 
 			// Add some variance
-			color.luminance += (rand() % 30) - 15;
+			color.luminance -= (rand() % 30);
 
 			if (color.luminance < 0)
 				color.luminance = 0;
