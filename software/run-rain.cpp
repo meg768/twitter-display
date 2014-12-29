@@ -3,7 +3,7 @@
 using namespace std;
 
 
-static char *digits[] = {
+static char **digits = {
 	' XXXXX ',
 	'X     X',
 	'X     X',
