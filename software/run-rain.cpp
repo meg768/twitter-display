@@ -312,7 +312,23 @@ public:
 
 			
 			uint8_t	red, green, blue;
+
+			HSL color;
+			color.hue        = _hue;
+			color.saturation = 100;
+			color.luminance  = 100 - (100 * i) / length;
+
+			color.luminance += (double)((rand() % 50) - 25);
+
+			if (color.luminance < 0)
+				color.luminance = 0;
+
+			if (color.luminance > 100)
+				color.luminance = 100;
 			
+			_matrix->setPixel(x, y--, color);
+			
+			/*
 			double saturation = 1.0;
 			double brightness = 1.0 - ((double)i / (double)_length);
 			
@@ -326,41 +342,6 @@ public:
 			
 			HslToRgb((double)hue, saturation, brightness, red, green, blue);
 			_matrix->setPixel(x, y--, red, green, blue);
-			/*
-			int percent = (100 * i) / _length;
-			
-			HSL color;
-			color.hue        = _hue;
-			color.saturation = 100;
-			color.luminance  = 100 - percent;
-
-			// Shake the brightness a bit
-			//color.luminance = (color.luminance * percent * (rand() % 100)) / 100;
-			//double factor = (double)i / (double)_length;
-			//double stability = 1.0 - factor;
-			//double fix = stability * double(rand() % 10);
-			//color.luminance = (color.luminance * percent * (rand() % 100)) / 100;
-
-			//double luminance = color.luminance;
-			
-			//color.luminance  = (color.luminance * ((rand() % 10) - 5)) / 5;
-			
-			
-			double factor = (double)(rand() % 100) * (double)i / (double)_length;
-			factor = factor - 50.0;
-			//			factor = 1.0 / factor;
-//			factor = 1 - factor;
-			factor = factor / 5.0;
-			
-			color.luminance = (int)((double)color.luminance + factor);
-
-			if (color.luminance > 100)
-				color.luminance = 100;
-
-			if (color.luminance < 0)
-				color.luminance = 0;
-			
-			_matrix->setPixel(x, y--, color);
 			 */
 		}
 	}
