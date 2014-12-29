@@ -310,15 +310,13 @@ public:
 		
 		for (int i = 0; i < _length; i++) {
 
-			
-			uint8_t	red, green, blue;
-
 			HSL color;
 			color.hue        = _hue;
 			color.saturation = 100;
-			color.luminance  = 100 - (100 * i) / length;
+			color.luminance  = 100 - (100 * i) / _length;
 
-			color.luminance += (double)((rand() % 50) - 25);
+			// Add some variance
+			color.luminance += (rand() % 50) - 25;
 
 			if (color.luminance < 0)
 				color.luminance = 0;
