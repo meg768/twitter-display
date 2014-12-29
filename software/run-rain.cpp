@@ -402,7 +402,7 @@ public:
 			char *sp = digits[digit * 12 + row];
 
 			for (int column = 0; column < 7; column++) {
-				if (sp[column] =! ' ')
+				if (sp[column] != ' ')
 					_matrix->setPixel(x + column, y + row, red, green, blue);
 			}
 			
