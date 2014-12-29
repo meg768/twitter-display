@@ -5,6 +5,7 @@ using namespace std;
 
 static char *digits[] = {
 	" XXXXX ",
+	"XXXXXXX",
 	"XX   XX",
 	"XX   XX",
 	"XX   XX",
@@ -13,45 +14,63 @@ static char *digits[] = {
 	"XX   XX",
 	"XX   XX",
 	"XX   XX",
-	"XX   XX",
-	"XX   XX",
+	"XXXXXXX",
 	" XXXXX ",
+	
+	"   XX  ",
+	"  XXX  ",
+	"   XX  ",
+	"   XX  ",
+	"   XX  ",
+	"   XX  ",
+	"   XX  ",
+	"   XX  ",
+	"   XX  ",
+	"   XX  ",
+	"  XXXX ",
+	"  XXXX ",
+
+	
+	"  XXX  ",
+	"XXXXXXX",
+	"XX   XX",
+	"     XX",
+	"     XX",
+	"    XX ",
+	"   XX  ",
+	"  XX   ",
+	" XX    ",
+	"XX     ",
+	"XX     ",
+	"XXXXXXX",
+	"XXXXXXX",
+	
 	" XXXXX ",
+	"XXXXXXX",
 	"XX   XX",
+	"     XX",
+	"     XX",
+	"   XXX ",
+	"   XXX ",
+	"     XX",
+	"     XX",
 	"XX   XX",
-	"XX   XX",
-	"XX   XX",
-	"XX   XX",
-	"XX   XX",
-	"XX   XX",
-	"XX   XX",
-	"XX   XX",
-	"XX   XX",
+	"XXXXXXX",
 	" XXXXX ",
-	" XXXXX ",
+	
 	"XX   XX",
 	"XX   XX",
 	"XX   XX",
 	"XX   XX",
 	"XX   XX",
-	"XX   XX",
-	"XX   XX",
-	"XX   XX",
-	"XX   XX",
-	"XX   XX",
-	" XXXXX ",
-	" XXXXX ",
-	"XX   XX",
-	"XX   XX",
-	"XX   XX",
-	"XX   XX",
-	"XX   XX",
-	"XX   XX",
-	"XX   XX",
-	"XX   XX",
-	"XX   XX",
-	"XX   XX",
-	" XXXXX ",
+	"XXXXXXX",
+	" XXXXXX",
+	"     XX",
+	"     XX",
+	"     XX",
+	"     XX",
+	"     XX",
+	
 	" XXXXX ",
 	"X     X",
 	"X     X",
@@ -64,18 +83,7 @@ static char *digits[] = {
 	"X     X",
 	"X     X",
 	" XXXXX ",
-	" XXXXX ",
-	"X     X",
-	"X     X",
-	"X     X",
-	"X     X",
-	"X     X",
-	"X     X",
-	"X     X",
-	"X     X",
-	"X     X",
-	"X     X",
-	" XXXXX ",
+
 	" XXXXX ",
 	"X     X",
 	"X     X",
@@ -433,6 +441,17 @@ public:
 		}
 	}
 	
+	void drawTime() {
+		time_t t = time(0);
+		struct tm *now = localtime(&t);
+		hue = ((now->tm_hour % 12) * 60 + now->tm_min) / 2;
+		
+		drawDigit(1,      8, tm_hour / 10, 0, 0, 0);
+		drawDigit(1 + 8,  8, tm_hour % 10, 0, 0, 0);
+		drawDigit(1 + 16, 8, tm_min  / 10, 0, 0, 0);
+		drawDigit(1 + 24, 8, tm_min  % 10, 0, 0, 0);
+	}
+	
 	void hue(int value) {
 		for (int i = 0; i < (int)_worms.size(); i++) {
 			_worms[i].hue(value);
@@ -448,10 +467,7 @@ public:
 			_worms[i].idle();
 		}
 		
-		drawDigit(1,      8, 0, 0, 0, 0);
-		drawDigit(1 + 8,  8, 1, 0, 0, 0);
-		drawDigit(1 + 16, 8, 2, 0, 0, 0);
-		drawDigit(1 + 24, 8, 3, 0, 0, 0);
+		drawTime();
 		
 		_matrix->refresh();
 		
