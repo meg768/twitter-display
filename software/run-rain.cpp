@@ -315,7 +315,7 @@ public:
 			int luminance  = 100 - (100 * i) / _length;
 
 			// Add some variance
-			int luminance -= (rand() % 30);
+			luminance -= (rand() % 30);
 
 			if (luminance < 0)
 				luminance = 0;
