@@ -231,6 +231,21 @@ function main() {
 		});
 		
 	}
+	
+	function enableSocketIO {
+		var socket = require('socket.io-client')('http://10.0.1.64:3000');
+
+		socket.on('connect', function() {
+			console.log("SocketIO Connected");
+		});
+		socket.on('event', function(data) {
+			console.log("SocketIO event", data);
+		});
+		socket.on('disconnect', function() {
+			console.log("SocketIO Disconnect");
+			
+		});		
+	}
  
 	function sayHello() {
 		var ip = getIP('wlan0');
@@ -238,6 +253,7 @@ function main() {
 		
 		shell(sprintf('./run-text "%s"', text), function() {
 			enablePusher();
+			enableSocketIO();
 			startAnimation();
 			
 		});

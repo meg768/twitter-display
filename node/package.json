@@ -13,6 +13,7 @@
     "twit": "^1.1.18",
     "node-schedule": "~0.1.13",
     "feedsub": "~0.2.8",
-    "pusher-client": "~0.2.2"
+    "pusher-client": "~0.2.2",
+    "socket.io-client": "~1.2.1"
   }
 }
