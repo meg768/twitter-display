@@ -260,10 +260,18 @@ function main() {
 	}
  
 	function sayHello() {
-		var ip = getIP('wlan0');
-		var text = ip != '' ? sprintf('%s      %s      %s', ip, ip, ip) : 'Wi-fi connection is missing...';
+		var wlan0 = getIP('wlan0');
+		var eth0 = getIP('eth0');
 		
-		shell(sprintf('./run-text "%s"', text), function() {
+		var text = '';
+		
+		if (wlan0 != '')
+			text += sprintf('Wireless: %s ', wlan0);
+			
+		if (eth0 != '')
+			text += sprintf('Wire: %s ', eth0);
+		
+		shell(sprintf('./run-text "%s" -i 2', text), function() {
 			enableSocketIO();
 			startAnimation();
 			
