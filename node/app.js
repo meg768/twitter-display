@@ -201,7 +201,7 @@ function main() {
 	
 		return '';
 	}
-
+/*
 	function enablePusher() {
 		var Pusher      = require('pusher-client');
 		var channelName = "test_channel";
@@ -231,6 +231,7 @@ function main() {
 		});
 		
 	}
+*/
 	
 	function enableSocketIO() {
 		var socket = require('socket.io-client')('http://10.0.1.63:3000');
@@ -246,6 +247,10 @@ function main() {
 		
 		socket.on("text", function(data) {
 			addMessages(data, "text");
+		});
+
+		socket.on("image", function(data) {
+			addMessages(data, "image");
 		});
 		
 		socket.on('disconnect', function() {
