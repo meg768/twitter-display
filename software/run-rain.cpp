@@ -265,7 +265,7 @@ public:
 				luminance = 100;
 			
 			HSL color;
-			color.hue        = _hue;
+			color.hue        = hue;
 			color.saturation = 100;
 			color.luminance  = luminance;
 
