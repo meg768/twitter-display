@@ -237,7 +237,7 @@ function main() {
 			queueMessage({
 				type: 'text',
 				textcolor: 'cyan',
-				message: sprintf('Connection to %s lost just faded away...', serverName);
+				message: sprintf('Connection to %s lost just faded away...', serverName)
 			});
 			
 		});		
