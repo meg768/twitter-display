@@ -238,9 +238,15 @@ function main() {
 		socket.on('connect', function() {
 			console.log("SocketIO Connected");
 		});
-		socket.on('welcomeevent', function(data) {
-			console.log("SocketIO event", data);
+
+		socket.on("message", function(data) {
+			addMessages(data);
 		});
+		
+		socket.on("text", function(data) {
+			addMessages(data, "text");
+		});
+		
 		socket.on('disconnect', function() {
 			console.log("SocketIO Disconnect");
 			
@@ -252,7 +258,6 @@ function main() {
 		var text = ip != '' ? sprintf('%s      %s      %s', ip, ip, ip) : 'Wi-fi connection is missing...';
 		
 		shell(sprintf('./run-text "%s"', text), function() {
-			enablePusher();
 			enableSocketIO();
 			startAnimation();
 			
