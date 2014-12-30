@@ -232,8 +232,8 @@ function main() {
 		
 	}
 	
-	function enableSocketIO {
-		var socket = require('socket.io-client')('http://10.0.1.64:3000');
+	function enableSocketIO() {
+		var socket = require('socket.io-client')('http://10.0.1.63:3000');
 
 		socket.on('connect', function() {
 			console.log("SocketIO Connected");
