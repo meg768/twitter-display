@@ -204,15 +204,18 @@ function main() {
 
 	
 	function enableSocketIO() {
-		//var socket = require('socket.io-client')('http://10.0.1.63:5000');
-		var socket = require('socket.io-client')('http://akuru.herokuapp.com');
+		var serverURL  = 'http://akuru.herokuapp.com';
+		var serverName = 'Heroku';
+		
+		var socket = require('socket.io-client')(serverURL);
 
 		socket.on('connect', function() {
 			console.log("SocketIO Connected");
 			
 			queueMessage({
 				type: 'text',
-				message: 'Connection OK!'
+				textcolor: 'cyan',
+				message: sprintf('Connected to %s!', serverName);
 			});
 		});
 
@@ -233,7 +236,8 @@ function main() {
 
 			queueMessage({
 				type: 'text',
-				message: 'Lost connection... :('
+				textcolor: 'cyan',
+				message: sprintf('Connection to %s lost just faded away...', serverName);
 			});
 			
 		});		
