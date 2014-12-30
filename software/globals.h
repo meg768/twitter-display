@@ -176,7 +176,7 @@ public:
 		
 		for (int i = 0; i < 256; i++) {
 			if (gamma == 0.0)
-				_gamma[i] = i;
+				_gamma[i] = gamma_org[i];
 			else if (gamma == -1.0)
 				_gamma[i] = gamma_org2[i];
 			else if (gamma == -2.0)
