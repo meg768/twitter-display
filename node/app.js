@@ -118,7 +118,7 @@ function main() {
 		
 	}
 
-	function addMessages(messages, type) {
+	function queueMessage(messages, type) {
 	
 		try {
 			// Make sure it is an array
@@ -201,37 +201,7 @@ function main() {
 	
 		return '';
 	}
-/*
-	function enablePusher() {
-		var Pusher      = require('pusher-client');
-		var channelName = "test_channel";
-		
-		console.log("Initiating Pusher...");
-		var socket = new Pusher('062bc67be8d42e4ded9b');
-		
-		console.log("Subscribing to channel '%s'", channelName);
-		var channel = socket.subscribe(channelName);
-		
-		socket.bind("command", function(data) {
-		
-			console.log("Got command: ", data);
-			
-			if (typeof data == "string")
-				addCmd(data);					
 
-		});
-
-		
-		socket.bind("message", function(data) {
-			addMessages(data);
-		});
-		
-		socket.bind("text", function(data) {
-			addMessages(data, "text");
-		});
-		
-	}
-*/
 	
 	function enableSocketIO() {
 		//var socket = require('socket.io-client')('http://10.0.1.63:5000');
@@ -239,22 +209,32 @@ function main() {
 
 		socket.on('connect', function() {
 			console.log("SocketIO Connected");
+			
+			queueMessage({
+				type: 'text',
+				message: 'Connection OK!'
+			});
 		});
 
 		socket.on("message", function(data) {
-			addMessages(data);
+			queueMessage(data);
 		});
 		
 		socket.on("text", function(data) {
-			addMessages(data, "text");
+			queueMessage(data, "text");
 		});
 
 		socket.on("image", function(data) {
-			addMessages(data, "image");
+			queueMessage(data, "image");
 		});
 		
 		socket.on('disconnect', function() {
 			console.log("SocketIO Disconnect");
+
+			queueMessage({
+				type: 'text',
+				message: 'Lost connection... :('
+			});
 			
 		});		
 	}
