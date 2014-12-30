@@ -215,7 +215,7 @@ function main() {
 			queueMessage({
 				type: 'text',
 				textcolor: 'cyan',
-				message: sprintf('Connected to %s!', serverName);
+				message: sprintf('Connected to %s!', serverName)
 			});
 		});
 
