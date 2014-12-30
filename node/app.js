@@ -238,7 +238,7 @@ function main() {
 		socket.on('connect', function() {
 			console.log("SocketIO Connected");
 		});
-		socket.on('event', function(data) {
+		socket.on('welcome sent', function(data) {
 			console.log("SocketIO event", data);
 		});
 		socket.on('disconnect', function() {
