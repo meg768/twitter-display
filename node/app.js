@@ -266,10 +266,10 @@ function main() {
 		var text = '';
 		
 		if (wlan0 != '')
-			text += sprintf('Wireless: %s ', wlan0);
+			text += sprintf('Wireless - %s ', wlan0);
 			
 		if (eth0 != '')
-			text += sprintf('Wire: %s ', eth0);
+			text += sprintf('Ethernet - %s ', eth0);
 		
 		shell(sprintf('./run-text "%s" -i 2', text), function() {
 			enableSocketIO();
@@ -282,7 +282,7 @@ function main() {
 	app.set('port', (process.env.PORT || 5000))
 	
 	app.listen(app.get('port'), function() {
-	  console.log("Node app is running at localhost:" + app.get('port'))
+		console.log("Node app is running at localhost:" + app.get('port'))
 	});	
 	
 	sayHello();
