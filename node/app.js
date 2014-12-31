@@ -154,6 +154,18 @@ function main() {
 
 				addCommand(cmd);
 			}
+
+			messageType.animation = function(message) {
+				var cmd = "./run-animation ";
+				
+				if (typeof message.name == "string")
+					cmd += sprintf('"animations/%s.gif" ', message.name);
+
+				if (typeof message.options == "string")
+					cmd += sprintf('%s ', message.options);
+
+				addCommand(cmd);
+			}
 			
 
 			for (var i in messages) {
