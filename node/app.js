@@ -1,15 +1,9 @@
-var express = require('express')
-var twit    = require('twit');
-var http    = require('http');
-var fs      = require('fs');
-var path    = require('path');
-var exec    = require('child_process').exec;
-var sprintf = require('./sprintf.js').sprintf;
 
 
 function main() {
 
-	var app = express();
+	var sprintf = require('./sprintf.js').sprintf;
+	var app = require('express')();
 
 	// The animation to be used
 	var animation = null;
