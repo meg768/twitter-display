@@ -112,7 +112,7 @@ function main() {
 		}
 	}
 	
-	function addCmd(cmd) {
+	function addCommand(cmd) {
 		_cmdQueue.push(cmd);
 		work();
 		
@@ -140,7 +140,7 @@ function main() {
 				if (typeof message.options == "string")
 					cmd += sprintf('%s ', message.options);
 
-				addCmd(cmd);
+				addCommand(cmd);
 			}
 
 			messageType.image = function(message) {
@@ -152,7 +152,7 @@ function main() {
 				if (typeof message.options == "string")
 					cmd += sprintf('%s ', message.options);
 
-				addCmd(cmd);
+				addCommand(cmd);
 			}
 			
 
@@ -219,6 +219,10 @@ function main() {
 			});
 		});
 
+		socket.on("command", function(data) {
+			addCommand(data);
+		});
+
 		socket.on("message", function(data) {
 			queueMessage(data);
 		});
@@ -237,7 +241,7 @@ function main() {
 			queueMessage({
 				type: 'text',
 				textcolor: 'cyan',
-				message: sprintf('Connection to %s lost just faded away...', serverName)
+				message: sprintf('Connection to %s lost :(', serverName)
 			});
 			
 		});		
