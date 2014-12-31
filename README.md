@@ -12,6 +12,10 @@ It also uses a later version of the kernel, since I wanted to connect a wi-fi do
 Since it listens to Twitter it is campatible with IFTTT. In other words, the display can display a message at sunrise
 telling you to wake up.
 
+EDIT: It now listens to a server on Heroku using socket-io. The server itself listens to Google Talk (or Hangouts), Twitter, RSS and
+other things...
+
+
 Flashing the Beaglebone
 -----------------------
 
