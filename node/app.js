@@ -27,6 +27,10 @@ function main() {
 		}
 	}	
 
+	function startDefaultAnimation() {
+		startAnimation(_defaultAnimation);
+	}
+
 	function startAnimation(cmd, callback) {
 
 		stopAnimation();
@@ -68,18 +72,22 @@ function main() {
 		_animation = animation;		
 		
 	}
+	
 
 	_queue.on('idle', function() {
-		startAnimation(_defaultAnimation);
+		startDefaultAnimation();
 	});
+	
 	
 	_queue.on('process', function(cmd, callback) {
 		startAnimation(cmd, callback);
 	});
 	
+	
 	function addCommand(command, args) {
 		_queue.push({command:command, args:args});
 	}
+
 
 	function queueMessage(messages, type) {
 	
@@ -95,8 +103,13 @@ function main() {
 
 			messageType.settings = function(message) {
 				
-				if (message.defaultAnimation != undefined)
+				if (message.defaultAnimation != undefined) {
+					stopAnimation();
+					
 					_defaultAnimation = message.defaultAnimation;
+					
+					startDefaultAnimation();
+				}
 
 			}
 
