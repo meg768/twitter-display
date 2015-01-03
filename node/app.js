@@ -165,10 +165,13 @@ function main() {
 				var args = [];
 				
 				if (message.name != undefined)
-					args.push(sprintf('animations/%s.gif', message.name));
+					args.push(sprintf('animations/%s', message.name));
 
 				if (message.iterations != undefined)
 					args.push('-i'), args.push(message.iterations);
+
+				if (message.duration != undefined)
+					args.push('-d'), args.push(message.duration);
 
 				addCommand('./run-animation', args);
 			}
