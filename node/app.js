@@ -21,7 +21,6 @@ function main() {
 			
 			_animation = null;
 
-			console.log('Stopping animation.');
 			process.kill('SIGINT');
 
 		}
