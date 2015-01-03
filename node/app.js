@@ -8,27 +8,13 @@ function main() {
 
 	// The animation to be used
 	var _animation = null;
-
 	var _queue = new Queue();
+	var _defaultAnimation = {};
 	
-	function shell(cmd, callback) {
-		var exec = require('child_process').exec;
-		
-		var options = {};
-		options.cwd = '../software';
-		
-		console.log('Executing command: "%s"...', cmd);
-		
-		return exec(cmd, options, function(error, stdout, stderr) {
-			console.log('Command completed.', cmd);
-			
-			if (callback != undefined)
-				callback(error);
-		});
-		
-	}
+	_defaultAnimation.command = './run-rain';
+	_defaultAnimation.args = ['-d', '-1'];
 	
-	
+
 	function stopAnimation() {
 		if (_animation != null) {
 			var process = _animation;
@@ -41,59 +27,22 @@ function main() {
 		}
 	}	
 
+	function startAnimation(cmd, callback) {
 
-	function startAnimation() {
-
-		var spawn = require('child_process').spawn;
-		
-		stopAnimation();
-
-		try {
-			var cmd = {};
-			cmd.command = './run-rain';
-			cmd.args = ['-d', '-1'];
-			cmd.options = { cwd: "../software"};
-				
-			console.log('Starting animation: "%s"', cmd.command, cmd.args, cmd.options);	
-				
-			_animation = spawn(cmd.command, cmd.args, cmd.options);
-			
-			_animation.on('error', function() {
-				console.log("Failed to start animation...");
-			});
-
-			_animation.on('close', function() {
-				if (_animation != null) {
-					console.log('Animation finished. Restarting...');
-	
-					_animation = null;
-					startAnimation();
-				}
-				else {
-					console.log('Animation killed.');
-				}
-				
-			});		
-			
-		}
-		catch (error) {
-			console.log("Failed to start animation...", error);
-		}
-	}
-
-	_queue.on('idle', function() {
-		startAnimation();
-	});
-	
-	_queue.on('process', function(cmd, callback) {
 		stopAnimation();
 
 		var spawn = require('child_process').spawn;
+		var animation = null;
 		
+		if (callback == undefined) {
+			callback = function() {
+			};
+		}
+
 		try {
 			console.log('Starting animation: %s', cmd.command, cmd.args);	
 				
-			var animation = spawn(cmd.command, cmd.args, { cwd: "../software"});
+			animation = spawn(cmd.command, cmd.args, { cwd: "../software"});
 			
 			if (animation == null) {
 				console.log("Failed to start animation...");
@@ -115,7 +64,17 @@ function main() {
 			console.log("Failed to start animation...", error);
 			callback();
 		}
+
+		_animation = animation;		
 		
+	}
+
+	_queue.on('idle', function() {
+		startAnimation(_defaultAnimation);
+	});
+	
+	_queue.on('process', function(cmd, callback) {
+		startAnimation(cmd, callback);
 	});
 	
 	function addCommand(command, args) {
@@ -137,14 +96,23 @@ function main() {
 			messageType.text = function(message) {
 				var args = [];
 				
-				if (typeof message.textcolor == "string")
+				if (message.textcolor != undefined)
 					args.push('-c'), args.push(message.textcolor);
-									
-				if (typeof message.message == "string")
-					args.push(message.message);
 
+				if (message.color != undefined)
+					args.push('-c'), args.push(message.color);
+
+				if (message.font != undefined)
+					args.push('-f'), args.push(message.font);
+
+				if (message.size != undefined)
+					args.push('-p'), args.push(message.size);
+									
 				if (message.iterations != undefined)
 					args.push('-i'), args.push(message.iterations);
+
+				if (message.message != undefined)
+					args.push(message.message);
 
 				addCommand('./run-text', args);
 			}
@@ -235,7 +203,7 @@ function main() {
 			
 			queueMessage({
 				type: 'text',
-				textcolor: 'cyan',
+				textcolor: 'red',
 				message: sprintf('Connected to %s!', serverName)
 			});
 		});
