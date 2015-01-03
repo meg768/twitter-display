@@ -21,52 +21,55 @@ function main() {
 			
 			_animation = null;
 
-			console.log('Stopping animation...');
+			console.log('Stopping animation.');
 			process.kill('SIGINT');
 
 		}
 	}	
 
-	function startDefaultAnimation() {
-		startAnimation(_defaultAnimation);
-	}
-
 	function startAnimation(cmd, callback) {
 
-		stopAnimation();
-
-		var spawn = require('child_process').spawn;
-		var animation = null;
-		
-		if (callback == undefined) {
-			callback = function() {
-			};
-		}
-
 		try {
-			console.log('Starting animation: %s', cmd.command, cmd.args);	
+			function NO(error) {
+				console.log("Failed to start animation...", error == undefined ? '' : error);
+				callback();				
+			}
+
+			function YES() {
+				callback();				
+			}
+
+			stopAnimation();
+	
+			var spawn = require('child_process').spawn;
+			var animation = null;
+			
+			if (cmd == undefined)
+				cmd = _defaultAnimation;
 				
+			if (callback == undefined) {
+				callback = function() {
+				};
+			}
+
+			console.log('Starting animation: %s', cmd.command, cmd.args);					
 			animation = spawn(cmd.command, cmd.args, { cwd: "../software"});
 			
 			if (animation == null) {
-				console.log("Failed to start animation...");
-				callback();				
+				NO();
 			}
 			
 			animation.on('error', function() {
-				console.log("Failed to start animation...");
-				callback();
+				NO();
 			});
 
 			animation.on('close', function() {
-				console.log('Animation finished.');
-				callback();
+				YES();
 			});		
 			
 		}
 		catch (error) {
-			console.log("Failed to start animation...", error);
-			callback();
+			NO();
 		}
 
 		_animation = animation;		
@@ -75,7 +78,7 @@ function main() {
 	
 
 	_queue.on('idle', function() {
-		startDefaultAnimation();
+		startAnimation();
 	});
 	
 	
