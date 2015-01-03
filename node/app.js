@@ -194,7 +194,7 @@ function main() {
 			
 		}
 		catch (error) {
-			console.log("Upps!");
+			console.log("Upps!", error);
 		}
 		
 	}
