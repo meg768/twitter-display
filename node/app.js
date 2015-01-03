@@ -51,7 +51,7 @@ function main() {
 				};
 			}
 
-			console.log('Starting animation: %s', cmd.command, cmd.args);					
+			console.log('Running animation: %s', cmd.command, cmd.args);					
 			animation = spawn(cmd.command, cmd.args, { cwd: "../software"});
 			
 			if (animation == null) {
