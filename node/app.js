@@ -87,12 +87,39 @@ function main() {
 	
 	_queue.on('process', function(cmd, callback) {
 		stopAnimation();
-		shell(cmd, callback);
+
+		var spawn = require('child_process').spawn;
+		
+		try {
+			console.log('Starting animation: %s', cmd.command, cmd.args);	
+				
+			var animation = spawn(cmd.command, cmd.args, { cwd: "../software"});
+			
+			if (animation == null) {
+				console.log("Failed to start animation...");
+				callback();				
+			}
+			
+			animation.on('error', function() {
+				console.log("Failed to start animation...");
+				callback();
+			});
+
+			animation.on('close', function() {
+				console.log('Animation finished.');
+				callback();
+			});		
+			
+		}
+		catch (error) {
+			console.log("Failed to start animation...", error);
+			callback();
+		}
 		
 	});
 	
-	function addCommand(cmd) {
-		_queue.push(cmd);
+	function addCommand(command, args) {
+		_queue.push({command:command, args:args});
 	}
 
 	function queueMessage(messages, type) {
@@ -106,42 +133,42 @@ function main() {
 			var messageType = {};
 			
 			messageType.text = function(message) {
-				var cmd = "./run-text ";
+				var args = [];
 				
 				if (typeof message.textcolor == "string")
-					cmd += sprintf("-c %s ", message.textcolor);
+					args.push('-c'), args.push(message.textcolor);
 									
 				if (typeof message.message == "string")
-					cmd += sprintf('"%s" ', message.message);
+					args.push(sprintf('"%s"', message.message));
 
-				if (typeof message.options == "string")
-					cmd += sprintf('%s ', message.options);
+				if (message.iterations != undefined)
+					args.push('-i'), args.push(message.iterations);
 
-				addCommand(cmd);
+				addCommand('./run-text', args);
 			}
 
 			messageType.image = function(message) {
-				var cmd = "./run-image ";
-				
-				if (typeof message.name == "string")
-					cmd += sprintf('"images/%s" ', message.name);
+				var args = [];
 
-				if (typeof message.options == "string")
-					cmd += sprintf('%s ', message.options);
+				if (message.name != undefined)
+					args.push(sprintf('"images/%s" ', message.name));
 
-				addCommand(cmd);
+				if (message.duration != undefined)
+					args.push('-d'), args.push(message.duration);
+
+				addCommand('./run-image', args);
 			}
 
 			messageType.animation = function(message) {
-				var cmd = "./run-animation ";
+				var args = [];
 				
-				if (typeof message.name == "string")
-					cmd += sprintf('"animations/%s.gif" ', message.name);
+				if (message.name != undefined)
+					args.push(sprintf('"animations/%s.gif" ', message.name));
 
-				if (typeof message.options == "string")
-					cmd += sprintf('%s ', message.options);
+				if (message.iterations != undefined)
+					args.push('-i'), args.push(message.iterations);
 
-				addCommand(cmd);
+				addCommand('./run-animation', args);
 			}
 			
 
@@ -209,7 +236,8 @@ function main() {
 		});
 
 		socket.on("command", function(data) {
-			addCommand(data);
+			if (data.name != undefined)
+				addCommand(data.name, data.args == undefined ? [] : data.args);
 		});
 
 		socket.on("message", function(data) {
@@ -247,11 +275,12 @@ function main() {
 			
 		if (eth0 != '')
 			text += sprintf('Ethernet - %s ', eth0);
-		
-		shell(sprintf('./run-text "%s" -i 2', text), function() {
-			enableSocketIO();
-			startAnimation();
 			
+		queueMessage({
+			type: 'text',
+			textcolor: 'red',
+			iterations: 2,
+			message: text
 		});
 		
 	}
@@ -262,6 +291,7 @@ function main() {
 		console.log("Node app is running at localhost:" + app.get('port'))
 	});	
 	
+	enableSocketIO();
 	sayHello();
 
 }
