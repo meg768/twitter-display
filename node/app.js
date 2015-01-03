@@ -139,7 +139,7 @@ function main() {
 					args.push('-c'), args.push(message.textcolor);
 									
 				if (typeof message.message == "string")
-					args.push(sprintf('"%s"', message.message));
+					args.push(message.message);
 
 				if (message.iterations != undefined)
 					args.push('-i'), args.push(message.iterations);
@@ -151,7 +151,7 @@ function main() {
 				var args = [];
 
 				if (message.name != undefined)
-					args.push(sprintf('"images/%s" ', message.name));
+					args.push(sprintf('images/%s', message.name));
 
 				if (message.duration != undefined)
 					args.push('-d'), args.push(message.duration);
@@ -163,7 +163,7 @@ function main() {
 				var args = [];
 				
 				if (message.name != undefined)
-					args.push(sprintf('"animations/%s.gif" ', message.name));
+					args.push(sprintf('animations/%s.gif', message.name));
 
 				if (message.iterations != undefined)
 					args.push('-i'), args.push(message.iterations);
