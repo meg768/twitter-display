@@ -99,8 +99,6 @@ function main() {
 			// Set up the dispatch table
 			var messageType = {};
 			
-			console.log("Got messages", messages);
-
 			messageType.settings = function(message) {
 				
 				if (message.defaultAnimation != undefined) {
