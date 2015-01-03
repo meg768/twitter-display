@@ -132,6 +132,8 @@ function main() {
 			// Set up the dispatch table
 			var messageType = {};
 			
+			console.log("Got message", message);
+			
 			messageType.text = function(message) {
 				var args = [];
 				
