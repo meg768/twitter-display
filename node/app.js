@@ -236,19 +236,24 @@ function main() {
 		});
 
 		socket.on("command", function(data) {
+			console.log("Got command", data);
+			
 			if (data.name != undefined)
 				addCommand(data.name, data.args == undefined ? [] : data.args);
 		});
 
 		socket.on("message", function(data) {
+			console.log("Got message", data);
 			queueMessage(data);
 		});
 		
 		socket.on("text", function(data) {
+			console.log("Got text", data);
 			queueMessage(data, "text");
 		});
 
 		socket.on("image", function(data) {
+			console.log("Got image", data);
 			queueMessage(data, "image");
 		});
 		
