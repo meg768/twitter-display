@@ -58,7 +58,7 @@ int main (int argc, char *argv[])
 		Magick::Image tmp("32x32", "black");
 		
 		char fontFile[200];
-		sprintf(fontFile, "./fonts/%s.ttf", fontName);
+		sprintf(fontFile, "./fonts/%s", fontName);
 		
 		tmp.font(fontFile);
 		tmp.strokeColor("transparent");
