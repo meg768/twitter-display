@@ -99,6 +99,13 @@ function main() {
 					_defaultAnimation = message.defaultAnimation;
 
 			}
+
+			messageType.command = function(message) {
+				
+				if (message.name != undefined && message.args != undefined)
+					addCommand(message.name, message.args);
+					
+			}
 			
 			messageType.text = function(message) {
 				var args = [];
