@@ -4,14 +4,13 @@ function main() {
 
 	var sprintf = require('./sprintf.js').sprintf;
 	var app = require('express')();
+	var Queue = require('./runqueue.js');
 
 	// The animation to be used
-	var animation = null;
+	var _animation = null;
 
-	// The array of tweets
-	var _cmdQueue = [];
-	var _working = false;
-
+	var _queue = new Queue();
+	
 	function shell(cmd, callback) {
 		var exec = require('child_process').exec;
 		
@@ -31,10 +30,10 @@ function main() {
 	
 	
 	function stopAnimation() {
-		if (animation != null) {
-			var process = animation;
+		if (_animation != null) {
+			var process = _animation;
 			
-			animation = null;
+			_animation = null;
 
 			console.log('Stopping animation...');
 			process.kill('SIGINT');
@@ -57,17 +56,17 @@ function main() {
 				
 			console.log('Starting animation: "%s"', cmd.command, cmd.args, cmd.options);	
 				
-			animation = spawn(cmd.command, cmd.args, cmd.options);
+			_animation = spawn(cmd.command, cmd.args, cmd.options);
 			
-			animation.on('error', function() {
+			_animation.on('error', function() {
 				console.log("Failed to start animation...");
 			});
 
-			animation.on('close', function() {
-				if (animation != null) {
+			_animation.on('close', function() {
+				if (_animation != null) {
 					console.log('Animation finished. Restarting...');
 	
-					animation = null;
+					_animation = null;
 					startAnimation();
 				}
 				else {
@@ -82,34 +81,18 @@ function main() {
 		}
 	}
 
-	function work() {
-		if (_cmdQueue.length > 0) {
-			var cmd = _cmdQueue[0];
-			
-			if (!_working) {
-				_working = true;
-				
-				stopAnimation();
-
-				shell(cmd, function() {	
-					_cmdQueue.shift();					
-					_working = false;
-					
-					work();
-				});				
-			} 
-			
-		}
-		else {
-			_working = false;	
-			startAnimation();	
-		}
-	}
+	_queue.on('idle', function() {
+		startAnimation();
+	});
+	
+	_queue.on('process', function(cmd, callback) {
+		stopAnimation();
+		shell(cmd, callback);
+		
+	});
 	
 	function addCommand(cmd) {
-		_cmdQueue.push(cmd);
-		work();
-		
+		_queue.push(cmd);
 	}
 
 	function queueMessage(messages, type) {
