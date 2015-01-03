@@ -108,7 +108,7 @@ function main() {
 					
 					_defaultAnimation = message.defaultAnimation;
 					
-					startDefaultAnimation();
+					startAnimation();
 				}
 
 			}
