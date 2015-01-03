@@ -92,6 +92,13 @@ function main() {
 			var messageType = {};
 			
 			console.log("Got messages", messages);
+
+			messageType.settings = function(message) {
+				
+				if (message.defaultAnimation != undefined)
+					_defaultAnimation = message.defaultAnimation;
+
+			}
 			
 			messageType.text = function(message) {
 				var args = [];
