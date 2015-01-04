@@ -57,18 +57,18 @@ function main() {
 			if (animation == null) {
 				NO();
 			}
-			
-			animation.on('error', function() {
-				NO();
-			});
-
-			animation.on('close', function() {
-				YES();
-			});		
-			
+			else {
+				animation.on('error', function() {
+					NO();
+				});
+	
+				animation.on('close', function() {
+					YES();
+				});		
+			}
 		}
 		catch (error) {
-			NO();
+			NO(error);
 		}
 
 		_animation = animation;		
@@ -255,6 +255,11 @@ function main() {
 		socket.on("image", function(data) {
 			console.log("Got image", data);
 			queueMessage(data, "image");
+		});
+
+		socket.on("animation", function(data) {
+			console.log("Got animation", data);
+			queueMessage(data, "animation");
 		});
 		
 		socket.on('disconnect', function() {
