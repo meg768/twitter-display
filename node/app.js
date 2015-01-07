@@ -103,10 +103,10 @@ function main() {
 			
 			messageType.settings = function(message) {
 				
-				if (message.defaultAnimation != undefined) {
+				if (message.animation != undefined) {
 					stopAnimation();
 					
-					_defaultAnimation = message.defaultAnimation;
+					_defaultAnimation = message.animation;
 					
 					startAnimation();
 				}
