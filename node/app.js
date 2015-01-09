@@ -230,16 +230,23 @@ function main() {
 			
 			queueMessage({
 				type: 'text',
-				textcolor: 'red',
-				message: sprintf('Connected to %s!', serverName)
+				message: sprintf('Connected to %s...', serverName)
 			});
 		});
 
+		socket.on('disconnect', function() {
+			console.log("SocketIO Disconnect");
+
+			queueMessage({
+				type: 'text',
+				message: sprintf('Connection to %s lost.', serverName)
+			});
+			
+		});		
+
 		socket.on("command", function(data) {
 			console.log("Got command", data);
-			
-			if (data.name != undefined)
-				addCommand(data.name, data.args == undefined ? [] : data.args);
+			queueMessage(data, "command");
 		});
 
 		socket.on("message", function(data) {
@@ -262,16 +269,6 @@ function main() {
 			queueMessage(data, "animation");
 		});
 		
-		socket.on('disconnect', function() {
-			console.log("SocketIO Disconnect");
-
-			queueMessage({
-				type: 'text',
-				textcolor: 'cyan',
-				message: sprintf('Connection to %s lost :(', serverName)
-			});
-			
-		});		
 	}
  
 	function sayHello() {
