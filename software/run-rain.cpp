@@ -115,8 +115,8 @@ public:
 		
 	}
 
-	virtual void init(int argc, char *argv[]) {
-		Animation::init(argc, argv);
+	virtual void args(int argc, char *argv[]) {
+		Animation::args(argc, argv);
 
 		int option;
 		
