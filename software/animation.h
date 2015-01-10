@@ -114,6 +114,7 @@ protected:
 	Canvas *_canvas;
 	time_t _startTime;
 	int _duration;
+	int _delay;
 	double _speed;
 	
 };
