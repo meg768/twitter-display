@@ -17,6 +17,7 @@
 #include <memory.h>
 #include <math.h>
 #include <vector>
+#include <dirent.h>
 #include <Magick++.h>
 
 using namespace std;
