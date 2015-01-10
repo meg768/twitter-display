@@ -6,17 +6,22 @@
 class Animation {
 	
 public:
-	Animation(int duration = -1) {
+	Animation(int duration = 60) {
 		srand(time(NULL));
 
 		_canvas = new Canvas();
 		_duration = duration;
 		_startTime = time(NULL);
-		_speed = 1000;
+		_speed = 1.0;
+		_delay = 1000;
 	}
 	
 	~Animation() {
 		delete _canvas;
+	}
+	
+	inline void gamma(double value) {
+		_canvas->setGamma(value);
 	}
 	
 	inline void duration(int value) {
@@ -27,17 +32,22 @@ public:
 		return _duration;
 	}
 	
-	void gamma(double value) {
-		_canvas->setGamma(value);
-	}
-
-	void speed(int value) {
+	inline void speed(double value) {
 		_speed = value;
+		_delay = 1000.0 * value;
 	}
 	
-	void sleep() {
-		if (_speed > 0)
-			usleep(_speed);
+	inline double speed() {
+		return _speed;
+	}
+	
+	inline void sleep() {
+		if (_delay > 0)
+			usleep(_delay);
+	}
+	
+	inline Canvas *canvas() {
+		return _canvas;
 	}
 	
 	virtual int expired() {
@@ -50,7 +60,7 @@ public:
 		return false;
 	}
 	
-	virtual void init(int argc, char *argv[]) {
+	virtual void args(int argc, char *argv[]) {
 		int option = 0;
 		int saved = optind;
 		
@@ -66,7 +76,7 @@ public:
 					gamma(atof(optarg));
 					break;
 				case 's':
-					speed(atof(optarg) * 1000.0);
+					speed(atof(optarg));
 					break;
 			}
 		}
@@ -74,34 +84,37 @@ public:
 		optind = saved;
 	}
 	
-	
-	virtual int run(int argc, char *argv[]) {
-		
-		init(argc, argv);
-		
+	virtual int run() {
 		_canvas->clear();
 		_canvas->refresh();
 		
 		while (!expired()) {
 			loop();
-			sleep();
 		}
-
+		
 		_canvas->clear();
 		_canvas->refresh();
 		
 		return 0;
-	};
-	
-	virtual void loop() {
+		
 	}
+
+	virtual void loop() {
+		sleep();
+	}
+	
+	virtual int run(int argc, char *argv[]) {
+		args(argc, argv);
+		return run();
+	}
+	
 
 	
 protected:
 	Canvas *_canvas;
 	time_t _startTime;
 	int _duration;
-	int _speed;
+	double _speed;
 	
 };
 

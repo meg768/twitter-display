@@ -7,10 +7,11 @@
 class GifAnimation : public Animation {
 
 public:
+	
 	virtual int run(int argc, char *argv[]) {
 		
 		try {
-			Animation::init(argc, argv);
+			Animation::args(argc, argv);
 			
 			int option = 0;
 			int iterations = -1;
@@ -76,6 +77,8 @@ public:
 			if (iterations < 0)
 				iterations = 0;
 			
+			Canvas *canvas = canvas();
+			
 			while (!expired()) {
 				
 				// Done iterating?!
@@ -96,22 +99,22 @@ public:
 				Magick::Image &image = *iterator;
 				
 				// Draw the image
-				_canvas->drawImage(image);
+				canvas->drawImage(image);
 				
 				// Get the animation delay factor
 				size_t delay = image.animationDelay();
 				
 				iterator++;
-				_canvas->refresh();
+				canvas->refresh();
 				
 				// Wait for next frame to display
 				// (Seems like we have to reduce the delay by some factor)
-				usleep(int(double((delay * 1000)) * 1.0));
+				usleep(int(double((delay * 1000)) * speed()));
 				
 			}
 			
-			_canvas->clear();
-			_canvas->refresh();
+			canvas->clear();
+			canvas->refresh();
 			
 			
 		}
