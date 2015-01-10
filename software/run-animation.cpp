@@ -1,58 +1,7 @@
 #include "globals.h"
 
+#include <dirent.h>
 
-/*
-class Animation {
-	
-public:
-	Animation(LogiMatrix *matrix, int duration = -1) {
-		_matrix = matrix;
-		_duration = duration;
-		_startTime = time(NULL);
-	}
-	
-	virtual int expired() {
-		if (_duration > 0) {
-			if (time(NULL) - _startTime > _duration) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
-
-	virtual void run() {
-		while (!expired()) {
-			loop();
-		}
-		
-	};
-	
-	virtual void loop() {
-		
-	}
-	
-private:
-	LogiMatrix *_matrix;
-	int _duration;
-	time_t _startTime;
-	
-};
-
-
-class GifAnimation {
-	
-	
-public:
-	GifAnimation(LogiMatrix *matrix) : Animation(matrix) {
-		
-	}
-	
-	virtual void initaialize(int argc, char *argv[]) {
-		
-	};
-};
-*/
 
 int main (int argc, char *argv[])
 {
@@ -91,6 +40,17 @@ int main (int argc, char *argv[])
 		const char *animation = optind < argc ? argv[optind] : 0;
 		
 		if (animation == 0) {
+			DIR *dir = opendir("./animations");
+			
+			if (dir != NULL) {
+				struct dirent *entry;
+
+				while ((entry = readdir(dir)) != NULL) {
+					printf ("%s\n", entry->d_name);
+				}
+				
+				closedir(dir);
+			}
 			fprintf(stderr, "No animation specified.\n");
 			return -1;
 		}
