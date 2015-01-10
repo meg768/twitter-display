@@ -51,6 +51,7 @@ public:
 		int saved = optind;
 		
 		optind = 1;
+		opterr = 0;
 		
 		while ((option = getopt(argc, argv, "s:g:d:")) != -1) {
 			switch (option) {
