@@ -177,30 +177,6 @@ public:
 	~MatrixAnimation() {
 	}
 	
-	void drawDigit(int x, int y, int digit, int red, int green, int blue) {
-		
-		for (int row = 0; row < 12; row++) {
-			
-			char *sp = digits[digit * 12 + row];
-
-			for (int column = 0; column < 7; column++) {
-				if (sp[column] != ' ')
-					_matrix->setPixel(x + column, y + row, red, green, blue);
-			}
-			
-		}
-	}
-	
-	void drawTime() {
-		time_t t = time(0);
-		struct tm *now = localtime(&t);
-		
-		drawDigit(1,      8, now->tm_hour / 10, 0, 70, 0);
-		drawDigit(1 + 8,  8, now->tm_hour % 10, 0, 70, 0);
-		drawDigit(1 + 16, 8, now->tm_min  / 10, 0, 70, 0);
-		drawDigit(1 + 24, 8, now->tm_min  % 10, 0, 70, 0);
-	}
-	
 	void hue(int value) {
 		for (int i = 0; i < (int)_worms.size(); i++) {
 			_worms[i].hue(value);
@@ -215,8 +191,6 @@ public:
 			_worms[i].draw(_matrix);
 			_worms[i].idle();
 		}
-		
-		//drawTime();
 		
 		_matrix->refresh();
 		
