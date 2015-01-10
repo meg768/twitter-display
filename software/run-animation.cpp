@@ -77,7 +77,7 @@ public:
 			if (iterations < 0)
 				iterations = 0;
 			
-			Canvas *canvas = canvas();
+			Canvas *canvas = Animation::canvas();
 			
 			while (!expired()) {
 				
