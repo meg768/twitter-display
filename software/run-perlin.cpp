@@ -535,17 +535,22 @@ int main (int argc, char *argv[])
 	int option = 0;
 
 	Timer timer;
-
-	while ((option = getopt(argc, argv, "d:")) != -1) {
+	int mode = 2;
+	
+	while ((option = getopt(argc, argv, "d:m:")) != -1) {
 		switch (option) {
 			case 'd':
 				timer.duration(atoi(optarg));
 				break;
+			case 'm':
+				mode = atoi(optarg);
+				break;
 		}
 	}
 
-	pattern = new Perlin (DISPLAY_WIDTH, DISPLAY_HEIGHT, 2, 8.0/64.0, 0.0125, 512.0, 0.005);
+	pattern = new Perlin (DISPLAY_WIDTH, DISPLAY_HEIGHT, mode); //, 8.0/64.0, 0.0125, 512.0, 0.005);
 	pattern->init ();
+	
 	
 	while (!timer.expired()) {
 
