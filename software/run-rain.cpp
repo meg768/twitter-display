@@ -158,7 +158,7 @@ int main (int argc, char *argv[])
 
 	MatrixAnimation animation;
 	animation.duration(60);
-	animation.speed(1000);
+	animation.speed(1.0);
 	animation.run(argc, argv);
 	
 	return 0;
