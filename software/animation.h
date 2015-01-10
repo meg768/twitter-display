@@ -71,7 +71,7 @@ public:
 	}
 	
 	
-	virtual void run(int argc, char *argv[]) {
+	virtual int run(int argc, char *argv[]) {
 		
 		init(argc, argv);
 		
@@ -86,6 +86,7 @@ public:
 		_canvas->clear();
 		_canvas->refresh();
 		
+		return 0;
 	};
 	
 	virtual void loop() {
