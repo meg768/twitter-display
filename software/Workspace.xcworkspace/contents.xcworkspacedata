@@ -8,6 +8,9 @@
       location = "group:includes.h">
    </FileRef>
    <FileRef
+      location = "group:animation.h">
+   </FileRef>
+   <FileRef
       location = "group:canvas.h">
    </FileRef>
    <FileRef
@@ -60,8 +63,5 @@
    </FileRef>
    <FileRef
       location = "group:../../../../../../Volumes/Macintosh HD/Users/Magnus/Dropbox/Beaglebone/twitter-display/software/run-rain.cpp">
-   </FileRef>
-   <FileRef
-      location = "group:animation.h">
    </FileRef>
 </Workspace>

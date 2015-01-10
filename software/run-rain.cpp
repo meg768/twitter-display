@@ -115,6 +115,21 @@ public:
 		
 	}
 
+	virtual void init(int argc, char *argv[]) {
+		Animation::init(argc, argv);
+
+		int option;
+		
+		while ((option = getopt(argc, argv, "h:")) != -1) {
+			switch (option) {
+				case 'h':
+					hue(atoi(optarg));
+					break;
+			}
+		}
+		
+	}
+	
 	virtual void loop() {
 		_canvas->clear();
 		
@@ -143,29 +158,8 @@ int main (int argc, char *argv[])
 
 	MatrixAnimation animation;
 	animation.duration(60);
-	animation.speed(1.0);
-	
-	int option = 0;
-	
-	while ((option = getopt(argc, argv, "h:s:g:d:")) != -1) {
-		switch (option) {
-			case 'd':
-				animation.duration(atoi(optarg));
-				break;
-			case 'g':
-				animation.gamma(atof(optarg));
-				break;
-			case 's':
-				animation.speed(atof(optarg));
-				break;
-			case 'h':
-				animation.hue(atoi(optarg));
-				break;
-		}
-	}
-	
-	animation.run();
-	
+	animation.speed(1000);
+	animation.run(argc, argv);
 	
 	return 0;
 }

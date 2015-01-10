@@ -12,7 +12,7 @@ public:
 		_canvas = new Canvas();
 		_duration = duration;
 		_startTime = time(NULL);
-		_speed = 1.0;
+		_speed = 1000;
 	}
 	
 	~Animation() {
@@ -27,8 +27,13 @@ public:
 		_canvas->setGamma(value);
 	}
 
-	void speed(double value) {
+	void speed(int value) {
 		_speed = value;
+	}
+	
+	void sleep() {
+		if (_speed > 0)
+			usleep(_speed);
 	}
 	
 	virtual int expired() {
@@ -41,18 +46,39 @@ public:
 		return false;
 	}
 	
-	virtual void run() {
+	virtual void init(int argc, char *argv[]) {
+		int option = 0;
 		
-		int delay = (int)(_speed * 1000.0);
+		optarg = 1;
+		
+		while ((option = getopt(argc, argv, "s:g:d:")) != -1) {
+			switch (option) {
+				case 'd':
+					duration(atoi(optarg));
+					break;
+				case 'g':
+					gamma(atof(optarg));
+					break;
+				case 's':
+					speed(atof(optarg) * 1000.0);
+					break;
+			}
+		}
+
+		optarg = 1;
+	}
+	
+	
+	virtual void run(int argc, char *argv[]) {
+		
+		init(argc, argv);
 		
 		_canvas->clear();
 		_canvas->refresh();
 		
 		while (!expired()) {
 			loop();
-			
-			if (delay > 0)
-				usleep(delay);
+			sleep();
 		}
 
 		_canvas->clear();
@@ -66,9 +92,9 @@ public:
 	
 protected:
 	Canvas *_canvas;
-	int _duration;
 	time_t _startTime;
-	double _speed;
+	int _duration;
+	int _speed;
 	
 };
 
