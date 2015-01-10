@@ -62,7 +62,10 @@ public:
 	
 	virtual void args(int argc, char *argv[]) {
 		int option = 0;
-		int saved = optind;
+		
+		int optindSaved   = optind;
+		int opterrSaved   = opterr;
+		char *optargSaved = optarg;
 		
 		optind = 1;
 		opterr = 0;
@@ -81,7 +84,10 @@ public:
 			}
 		}
 
-		optind = saved;
+		optind = optindSaved;
+		optarg = optargSaved;
+		opterr = opterrSaved;
+		
 	}
 	
 	virtual int run() {
