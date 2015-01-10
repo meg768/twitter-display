@@ -11,7 +11,9 @@ function main() {
 	var _queue = new Queue();
 	var _defaultAnimation = {};
 	
+	
 	_defaultAnimation.command = './run-rain';
+	
 	_defaultAnimation.args = ['-d', '-1'];
 	
 
