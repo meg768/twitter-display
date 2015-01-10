@@ -8,7 +8,7 @@ using namespace std;
 int main (int argc, char *argv[])
 {
 	Magick::InitializeMagick(*argv);
-
+	srand(time(NULL));
 	
 	try {
 		LogiMatrix matrix;
@@ -39,9 +39,9 @@ int main (int argc, char *argv[])
 			}
 		}
 		
-		const char *animation = optind < argc ? argv[optind] : 0;
+		string animation = optind < argc ? argv[optind] : "";
 		
-		if (animation == 0) {
+		if (animation.length() == 0) {
 			DIR *dir = opendir("./animations");
 			
 			vector <string> files;
@@ -56,15 +56,21 @@ int main (int argc, char *argv[])
 				
 				closedir(dir);
 			}
-			fprintf(stderr, "No animation specified.\n");
-			return -1;
+			
+			if (files.size() == 0) {
+				fprintf(stderr, "No animation specified.\n");
+				return -1;
+			}
+			
+			animation = files[rand() % files.size()];
+			
 		}
 		
 		if (timer.duration() == 0)
 			return 0;
 		
 		std::list<Magick::Image> images;
-		Magick::readImages(&images, animation);
+		Magick::readImages(&images, animation.c_str());
 		
 		std::list<Magick::Image>::iterator iterator = images.begin();
 		
