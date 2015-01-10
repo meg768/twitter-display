@@ -23,6 +23,10 @@ public:
 		_duration = value;
 	}
 	
+	inline int duration() {
+		return _duration;
+	}
+	
 	void gamma(double value) {
 		_canvas->setGamma(value);
 	}
