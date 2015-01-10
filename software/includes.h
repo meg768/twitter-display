@@ -19,6 +19,6 @@
 #include <vector>
 #include <Magick++.h>
 
-use namespace std;
+using namespace std;
 
 #endif
