@@ -42,7 +42,8 @@ int main (int argc, char *argv[])
 		string animation = optind < argc ? argv[optind] : "";
 		
 		if (animation.length() == 0) {
-			DIR *dir = opendir("./animations");
+			string folder = "./animations";
+			DIR *dir = opendir(folder.c_str());
 			
 			vector <string> files;
 			
@@ -62,7 +63,7 @@ int main (int argc, char *argv[])
 				return -1;
 			}
 			
-			animation = files[rand() % files.size()];
+			animation = folder + "/" + files[rand() % files.size()];
 			
 		}
 		
