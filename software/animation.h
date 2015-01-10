@@ -48,8 +48,9 @@ public:
 	
 	virtual void init(int argc, char *argv[]) {
 		int option = 0;
+		int saved = optind;
 		
-		optarg = 1;
+		optind = 1;
 		
 		while ((option = getopt(argc, argv, "s:g:d:")) != -1) {
 			switch (option) {
@@ -65,7 +66,7 @@ public:
 			}
 		}
 
-		optarg = 1;
+		optind = saved;
 	}
 	
 	
