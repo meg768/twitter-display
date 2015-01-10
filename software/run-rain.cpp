@@ -1,76 +1,7 @@
-#include "globals.h"
+#include "includes.h"
+#include "animation.h"
 
-using namespace std;
 
-
-class Animation {
-	
-public:
-	Animation(int duration = -1) {
-		_matrix = new LogiMatrix();
-		_duration = duration;
-		_startTime = time(NULL);
-		_speed = 1.0;
-	}
-	
-	~Animation() {
-		delete _matrix;
-	}
-	
-	void duration(int value) {
-		_duration = value;
-	}
-	
-	void gamma(double value) {
-		_matrix->setGamma(value);
-	}
-
-	void speed(double value) {
-		_speed = value;
-	}
-	
-	virtual int expired() {
-		if (_duration > 0) {
-			if (time(NULL) - _startTime > _duration) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	
-	virtual void run() {
-		
-		int delay = (int)(_speed * 1000.0);
-		
-		_matrix->clear();
-		_matrix->refresh();
-		
-		while (!expired()) {
-			loop();
-			
-			if (delay > 0)
-				usleep(delay);
-		}
-
-		_matrix->clear();
-		_matrix->refresh();
-		
-	};
-	
-	virtual void loop() {
-	}
-
-	
-protected:
-	LogiMatrix *_matrix;
-	int _duration;
-	time_t _startTime;
-	double _speed;
-	
-};
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
 
 class Worm {
 	
@@ -99,7 +30,7 @@ public:
 		_hue = value;
 	}
 	
-	void draw(LogiMatrix *_matrix) {
+	void draw(Canvas *canvas) {
 		int hue = 120;
 		int x = _column;
 		int y = _row;
@@ -113,7 +44,7 @@ public:
 		else
 			hue = _hue;
 
-		_matrix->setPixel(x, y--, 255, 255, 255);
+		canvas->setPixel(x, y--, 255, 255, 255);
 		
 		for (int i = 0; i < _length; i++) {
 			// Calculate brightness
@@ -133,7 +64,7 @@ public:
 			color.saturation = 100;
 			color.luminance  = luminance;
 
-			_matrix->setPixel(x, y--, color);
+			canvas->setPixel(x, y--, color);
 		}
 	}
 	
@@ -164,7 +95,7 @@ class MatrixAnimation : public Animation {
 public:
 	MatrixAnimation() : Animation() {
 
-		int size = _matrix->width();
+		int size = _canvas->width();
 		
 		_worms.resize(size);
 		
@@ -185,14 +116,14 @@ public:
 	}
 
 	virtual void loop() {
-		_matrix->clear();
+		_canvas->clear();
 		
-		for (int i = 0; i < _matrix->width(); i++) {
-			_worms[i].draw(_matrix);
+		for (int i = 0; i < _canvas->width(); i++) {
+			_worms[i].draw(_canvas);
 			_worms[i].idle();
 		}
 		
-		_matrix->refresh();
+		_canvas->refresh();
 		
 	}
 
@@ -209,7 +140,6 @@ int main (int argc, char *argv[])
 {
 	Magick::InitializeMagick(*argv);
 	
-	srand(time(NULL));
 
 	MatrixAnimation animation;
 	animation.duration(60);

@@ -5,6 +5,12 @@
       location = "group:globals.h">
    </FileRef>
    <FileRef
+      location = "group:includes.h">
+   </FileRef>
+   <FileRef
+      location = "group:canvas.h">
+   </FileRef>
+   <FileRef
       location = "group:makefile">
    </FileRef>
    <FileRef
@@ -54,5 +60,8 @@
    </FileRef>
    <FileRef
       location = "group:../../../../../../Volumes/Macintosh HD/Users/Magnus/Dropbox/Beaglebone/twitter-display/software/run-rain.cpp">
+   </FileRef>
+   <FileRef
+      location = "group:animation.h">
    </FileRef>
 </Workspace>
