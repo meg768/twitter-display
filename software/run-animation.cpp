@@ -2,6 +2,9 @@
 
 #include <dirent.h>
 
+using namespace std;
+
+
 int main (int argc, char *argv[])
 {
 	Magick::InitializeMagick(*argv);
@@ -41,11 +44,14 @@ int main (int argc, char *argv[])
 		if (animation == 0) {
 			DIR *dir = opendir("./animations");
 			
+			vector <string> files;
+			
 			if (dir != NULL) {
 				struct dirent *entry;
 
 				while ((entry = readdir(dir)) != NULL) {
-					printf ("%s\n", entry->d_name);
+					if (entry->d_name[0] != '.')
+						files.push_back(entry->d_name);
 				}
 				
 				closedir(dir);
