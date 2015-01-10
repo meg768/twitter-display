@@ -14,11 +14,13 @@ public:
 			
 			speed(5.0);
 			
+			Animation::args(argc, argv);
+
 			int option = 0;
 			int iterations = -1;
 			int verbose = 0;
 
-			while ((option = getopt(argc, argv, "i:v")) != -1) {
+			while ((option = getopt(argc, argv, "i:vXXXXX")) != -1) {
 				switch (option) {
 					case 'i':
 						iterations = atoi(optarg);
@@ -31,7 +33,6 @@ public:
 			
 			string animation = optind < argc ? argv[optind] : "";
 
-			Animation::args(argc, argv);
 			
 			if (animation.length() == 0) {
 				string folder = "./animations";
