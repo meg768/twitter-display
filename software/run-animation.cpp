@@ -20,7 +20,7 @@ public:
 			int iterations = -1;
 			int verbose = 0;
 
-			while ((option = getopt(argc, argv, "i:vXXXXX")) != -1) {
+			while ((option = getopt(argc, argv, "i:v")) != -1) {
 				switch (option) {
 					case 'i':
 						iterations = atoi(optarg);
