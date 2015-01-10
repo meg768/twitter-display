@@ -19,7 +19,7 @@ public:
 		delete _canvas;
 	}
 	
-	void duration(int value) {
+	inline void duration(int value) {
 		_duration = value;
 	}
 	
