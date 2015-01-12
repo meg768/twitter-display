@@ -9,76 +9,15 @@
 	});	
 	
 
-var Queue = require('./runqueue.js');
-var queue = new Queue();
+var request = require('request');
 
-var i = 0;
+var url = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%3D%22AAPL%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=';
 
-queue.on('idle', function() {
-	i++;
-	console.log('IDLE, adding new text ', i);
-	this.add(addText, "Text " + i, "OLLE");
-});
-
-queue.on('busy', function() {
-});
-
-
-function addText(text, text2, finished) {
-	console.log("addText", text, text2);
-	setTimeout(finished, 1000);
-	
-}
-
-function addAnimation(animation, finished) {
-	console.log("starting animation", animation);
-	setTimeout(finished, 1000);
-	
-}
-
-/*punycode = require('punycode');
-console.log(punycode.ucs2.decode('Hej 😄 😄 😄'));
-console.log(punycode.ucs2.encode([ 128520, 101, 106, 128517, 32, 128516 ]));
-*/
-
-queue.add(addText, "Hej Magnus", "XXX");
-queue.add(addAnimation, "pacman version 1");
-queue.add(addAnimation, "pacman version 2");
-queue.add(addAnimation, "pacman version 3");
-queue.add(addText, "Hej Olog", "YYY");
-queue.add(addText, "Hej Egelberg", "ZZZ");
-
-
-/*
-
-function getIP(device) {
-	var os = require('os');
-	var ifaces = os.networkInterfaces();
-
-	var iface = ifaces[device];
-	
-	if (iface != undefined) {
-	
-		for (var i in ifaces) {
-			var item = ifaces[i];
-	
-			if (item.family == 'IPv4')
-				return item.address;
-		}
-	}
-
-	return '';
-}
-
-
-function waitForIP(device) {
-	var ip = getIP(device);
-	
-	if (ip == '') {
-		setTimeout(waitForIP, 1000);
-	}	
-}
-
-//waitForIP("wlan1");
-console.log("IP: ", getIP("wlan0"));
-*/
+request(url, function (error, response, body) {
+  if (!error && response.statusCode == 200) {
+  	var json = JSON.parse(body);
+  	console.log('A');
+    console.log(json.query.results) // Show the HTML for the Google homepage.
+  	console.log('A');
+  }
+})

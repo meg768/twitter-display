@@ -40,6 +40,10 @@ function main() {
 		}
 		
 		_this.push = function(item) {
+		
+			if (_queue.length > 50)
+				_queue = [];
+				
 			_queue.push(item);
 					
 			work();
