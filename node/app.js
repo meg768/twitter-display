@@ -222,7 +222,8 @@ function main() {
 
 	
 	function enableSocketIO() {
-		var serverURL  = 'http://akuru.herokuapp.com';
+	
+		var serverURL  = 'http://guarded-escarpment-8660.herokuapp.com';
 		var serverName = 'Heroku';
 		
 		var socket = require('socket.io-client')(serverURL);
