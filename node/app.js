@@ -223,7 +223,7 @@ function main() {
 	
 	function enableSocketIO() {
 	
-		var serverURL  = 'http://akuru.herokuapp.com';
+		var serverURL  = '10.0.1.63'; //'http://akuru.herokuapp.com';
 		var serverName = 'Heroku';
 		
 		var socket = require('socket.io-client')(serverURL);
