@@ -241,6 +241,8 @@ int main (int argc, char *argv[])
 		usleep(950);
 	}
 	
+	matrix.clear();
+	matrix.refresh();
 	
 	return 0;
 }
