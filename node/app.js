@@ -13,10 +13,22 @@ function main() {
 	
 	
 	function defaultAnimation() {
-		if (Math.random() < 0.5)
-			return {command: './run-rain', args: ['-d', '-1']}
-		else
-			return {command: './run-clock', args: ['-d', '-1']}
+		switch (Math.floor(Math.random() * 6)) {
+			case 0:
+				return {command: './run-rain', args: ['-d', '-1']}
+			case 1:
+				return {command: './run-clock', args: ['-d', '-1']}
+			case 2:
+				return {command: './run-perlin', args: ['-d', '60']}
+			case 3:
+				return {command: './run-twinkle', args: ['-d', '60']}
+			case 4:
+				return {command: './run-hue-block', args: ['-d', '60']}
+			case 5:
+				return {command: './run-circle', args: ['-d', '60']}
+			
+		}
+		return {command: './run-rain', args: ['-d', '-1']}
 		
 	}
 
