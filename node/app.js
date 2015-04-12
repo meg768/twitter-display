@@ -9,13 +9,16 @@ function main() {
 	// The animation to be used
 	var _animation = null;
 	var _queue = new Queue();
-	var _defaultAnimation = {};
+	var _defaultAnimation = defaultAnimation();
 	
 	
-	_defaultAnimation.command = './run-rain';
-	
-	_defaultAnimation.args = ['-d', '-1'];
-	
+	function defaultAnimation() {
+		if (Math.random() < 0.5)
+			return {command: './run-rain', args: ['-d', '-1']}
+		else
+			return {command: './run-clock', args: ['-d', '-1']}
+		
+	}
 
 	function stopAnimation() {
 		if (_animation != null) {
@@ -46,7 +49,7 @@ function main() {
 			var animation = null;
 			
 			if (cmd == undefined)
-				cmd = _defaultAnimation;
+				cmd = defaultAnimation();
 				
 			if (callback == undefined) {
 				callback = function() {
