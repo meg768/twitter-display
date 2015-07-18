@@ -13,7 +13,7 @@ function main() {
 	
 	
 	function defaultAnimation() {
-		switch (Math.floor(Math.random() * 6)) {
+		switch (Math.floor(Math.random() * 2)) {
 			case 0:
 				return {command: './run-rain', args: ['-d', '-1']}
 			case 1:
