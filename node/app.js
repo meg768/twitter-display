@@ -13,19 +13,19 @@ function main() {
 	
 	
 	function defaultAnimation() {
-		switch (Math.floor(Math.random() * 3)) {
+		switch (Math.floor(Math.random() * 6)) {
 			case 0:
 				return {command: './run-rain', args: ['-d', '-1']}
 			case 1:
 				return {command: './run-clock', args: ['-d', '-1']}
 			case 2:
-				return {command: './run-perlin', args: ['-d', '-1']}
+				return {command: './run-perlin', args: ['-d', '120']}
 			case 3:
-				return {command: './run-twinkle', args: ['-d', '60']}
+				return {command: './run-twinkle', args: ['-d', '120']}
 			case 4:
-				return {command: './run-hue-block', args: ['-d', '60']}
+				return {command: './run-hue-block', args: ['-d', '120']}
 			case 5:
-				return {command: './run-circle', args: ['-d', '60']}
+				return {command: './run-circle', args: ['-d', '120']}
 			
 		}
 		return {command: './run-rain', args: ['-d', '-1']}
