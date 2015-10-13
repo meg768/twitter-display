@@ -1,6 +1,4 @@
-#include "includes.h"
 #include "animation.h"
-
 
 
 class Worm {
@@ -93,7 +91,7 @@ private:
 class MatrixAnimation : public Animation {
 	
 public:
-	MatrixAnimation() : Animation() {
+	MatrixAnimation() : Animation(Matrix *matrix) {
 
 		int size = _canvas->width();
 		
@@ -115,21 +113,6 @@ public:
 		
 	}
 
-	virtual void args(int argc, char *argv[]) {
-		Animation::args(argc, argv);
-
-		int option;
-		
-		while ((option = getopt(argc, argv, "h:")) != -1) {
-			switch (option) {
-				case 'h':
-					hue(atoi(optarg));
-					break;
-			}
-		}
-		
-	}
-	
 	virtual void loop() {
 		_canvas->clear();
 		
@@ -143,7 +126,7 @@ public:
 	}
 
 protected:
-	vector <Worm> _worms;
+	std::vector <Worm> _worms;
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -155,11 +138,29 @@ int main (int argc, char *argv[])
 {
 	Magick::InitializeMagick(*argv);
 	
-
-	MatrixAnimation animation;
+	Matrix matrix;
+	MatrixAnimation animation(matrix);
+	
 	animation.duration(60);
-	animation.speed(1.0);
-	animation.run(argc, argv);
+	animation.delay(0.3);
+
+	int option;
+	
+	while ((option = getopt(argc, argv, "h:x:d:")) != -1) {
+		switch (option) {
+			case 'h':
+				animation.hue(atoi(optarg));
+				break;
+			case 'x':
+				animation.delay(atof(optarg));
+				break;
+			case 'd':
+				animation.duration(atoi(optarg));
+				break;
+		}
+	}
+	
+	animation.run();
 	
 	return 0;
 }
